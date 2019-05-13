@@ -7,6 +7,7 @@ package com.bw.movie.fmk.util;
  */
 public class Url {
 
+    //mobile.bwstudent.com
 
     public static String TOU="http://172.17.8.100/";
 
@@ -21,4 +22,10 @@ public class Url {
 
     //热门电影 http://172.17.8.100/movieApi/movie/v1/findHotMovieList
     public static String RMENDIANYING="movieApi/movie/v1/findHotMovieList?page=1&count=10";
+
+    //正在热映 http://172.17.8.100/movieApi/movie/v1/findReleaseMovieList?page=1&count=10
+    public static String ZHENGZAIRYING="movieApi/movie/v1/findReleaseMovieList?page=1&count=10";
+
+    //即将上映 http://172.17.8.100/movieApi/movie/v1/findComingSoonMovieList?page=1&count=10
+    public static String JIJANGSAHNGYING="movieApi/movie/v1/findComingSoonMovieList?page=1&count=10";
 }

@@ -32,4 +32,16 @@ public interface PInterface {
         void onDsply();
     }
 
+    //正在热映
+    public interface PInterfacegetRYing {
+        void getRYing(String url);
+        void onDsply();
+    }
+
+    //即将上映
+    public interface PInterfacegetShangYing {
+        void getShangYing(String url);
+        void onDsply();
+    }
+
 }

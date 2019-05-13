@@ -26,4 +26,14 @@ public interface VInterface {
     public interface VInterfaceRMen {
         public void showRMen(Object object);
     }
+
+    //正在热映
+    public interface VInterfaceRYing {
+        public void showRYing(Object object);
+    }
+
+    //即将上映
+    public interface VInterfacegetShangYing {
+        public void showShangYing(Object object);
+    }
 }

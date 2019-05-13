@@ -13,8 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="@dimen/dp_20"
-        android:layout_marginLeft="@dimen/dp_30"
+        android:layout_marginTop="@dimen/dp_30"
+        android:layout_marginLeft="@dimen/dp_50"
         >
 
         <RelativeLayout
@@ -194,7 +194,6 @@
             >
 
             <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/suo"
                 android:background="@mipmap/registeri"
                 android:layout_marginTop="@dimen/dp_4"
                 android:layout_marginLeft="10dp"
@@ -221,7 +220,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginLeft="@dimen/dp_100"
+            android:layout_marginLeft="@dimen/dp_150"
             >
             <TextView
                 android:id="@+id/yiyou"
@@ -243,8 +242,8 @@
                 android:layout_marginLeft="@dimen/sp_10"
                 android:background="@drawable/deng_shape_radius"
                 android:textColor="#fcf9f9"
-                android:layout_width="@dimen/dp_150"
-                android:layout_height="@dimen/dp_20" />
+                android:layout_width="@dimen/dp_250"
+                android:layout_height="@dimen/dp_40" />
 
         </LinearLayout>
 

@@ -6,6 +6,20 @@
     android:orientation="vertical"
     >
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+
+
     <recycler.coverflow.RecyclerCoverFlow
         android:id="@+id/lubo"
         android:background="@mipmap/lunbei"
@@ -50,6 +64,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_24"
             android:orientation="horizontal"
             >
 
@@ -62,5 +77,110 @@
 
     </LinearLayout>
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/dp_40"
+        >
+
+        <TextView
+            android:text="正在热映"
+            android:textSize="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:background="@mipmap/xiatiao"
+                android:layout_marginLeft="@dimen/dp_25"
+                android:layout_marginTop="@dimen/dp_6"
+                android:layout_width="@dimen/dp_35"
+                android:layout_height="@dimen/dp_10" />
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:background="@mipmap/you"
+                android:layout_marginLeft="@dimen/dp_250"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_24"
+            android:orientation="horizontal"
+            >
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rmen2_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/dp_40"
+            >
+
+            <TextView
+                android:text="即将上映"
+                android:textSize="@dimen/dp_20"
+                android:layout_marginLeft="@dimen/dp_24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:background="@mipmap/xiatiao"
+                    android:layout_marginLeft="@dimen/dp_25"
+                    android:layout_marginTop="@dimen/dp_6"
+                    android:layout_width="@dimen/dp_35"
+                    android:layout_height="@dimen/dp_10" />
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:background="@mipmap/you"
+                    android:layout_marginLeft="@dimen/dp_250"
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_24"
+                android:orientation="horizontal"
+                >
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rmen3_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

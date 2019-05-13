@@ -13,7 +13,7 @@ import java.util.HashMap;
  * @Date: 2019/5/9 16:29
  * @Description:
  */
-public class MyPenster<T> implements PInterface.PInterfaceDengLu,PInterface.PInterfaceZhuCe,PInterface.PInterfaceLunBo,PInterface.PInterfaceRMen {
+public class MyPenster<T> implements PInterface.PInterfaceDengLu,PInterface.PInterfaceZhuCe,PInterface.PInterfaceLunBo,PInterface.PInterfaceRMen,PInterface.PInterfacegetRYing,PInterface.PInterfacegetShangYing {
 
     private MyModel myModel;
     public T tt;
@@ -70,6 +70,30 @@ public class MyPenster<T> implements PInterface.PInterfaceDengLu,PInterface.PInt
             }
         });
         myModel.getRMenDianYing();
+    }
+
+    //正在热映
+    @Override
+    public void getRYing(String url) {
+        myModel.setMyModel(new MyModel.MyCallBack() {
+            @Override
+            public void succer(Object object) {
+                ((VInterface.VInterfaceRYing)tt).showRYing(object);
+            }
+        });
+        myModel.getZhengZaiRYing();
+    }
+
+    //即将上映
+    @Override
+    public void getShangYing(String url) {
+        myModel.setMyModel(new MyModel.MyCallBack() {
+            @Override
+            public void succer(Object object) {
+                ((VInterface.VInterfacegetShangYing)tt).showShangYing(object);
+            }
+        });
+        myModel.getJiJangShangYing();
     }
 
     @Override
