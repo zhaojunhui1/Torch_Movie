@@ -1,6 +1,7 @@
 package com.bw.movie.app;
 
 import android.app.Application;
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
 
@@ -17,11 +18,19 @@ import com.facebook.imagepipeline.core.ImagePipelineConfig;
  */
 public class App extends Application {
 
+    private static Context mContext;
     public static DaoSession daoSession;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        //头参的上下文
+        mContext = getApplicationContext();
+
+        /**
+         *  全局捕获异常初始化全局调用
+         * */
+        //CrashHandler.getInstance().init(this);
 
         Shu();
         Tu();
@@ -46,4 +55,10 @@ public class App extends Application {
         DaoMaster daoMaster = new DaoMaster(writableDatabase);
         daoSession = daoMaster.newSession();
     }
+
+    //调用上下文的方法
+    public static Context getApplication(){
+        return mContext;
+    }
+
 }
