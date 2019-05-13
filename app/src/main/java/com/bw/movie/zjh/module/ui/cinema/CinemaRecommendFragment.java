@@ -1,4 +1,4 @@
-package com.bw.movie.zjh.module.ui;
+package com.bw.movie.zjh.module.ui.cinema;
 
 import android.content.Intent;
 import android.os.Bundle;

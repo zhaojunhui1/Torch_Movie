@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".zjh.module.ui.CinemaDetailsActivity">
+    tools:context=".zjh.module.ui.cinema.CinemaDetailsActivity">
 
 </android.support.constraint.ConstraintLayout>

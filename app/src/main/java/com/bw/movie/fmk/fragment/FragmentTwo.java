@@ -15,10 +15,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bw.movie.R;
-import com.bw.movie.fmk.base.BasefFragment;
 import com.bw.movie.zjh.module.base.BaseFragment;
-import com.bw.movie.zjh.module.ui.CinemaNearbyFragment;
-import com.bw.movie.zjh.module.ui.CinemaRecommendFragment;
+import com.bw.movie.zjh.module.ui.cinema.CinemaNearbyFragment;
+import com.bw.movie.zjh.module.ui.cinema.CinemaRecommendFragment;
 import com.bw.movie.zjh.module.utils.mvp.presenter.IPresenterImpl;
 import com.bw.movie.zjh.module.utils.mvp.view.IView;
 

@@ -25,7 +25,7 @@
         <activity android:name=".fmk.activity.LogActivity" />
         <activity android:name=".fmk.activity.ZhuCeActivity" />
         <activity android:name=".fmk.fragment.FragmentActivity" />
-        <activity android:name=".zjh.module.ui.CinemaDetailsActivity"></activity>
+        <activity android:name=".zjh.module.ui.cinema.CinemaDetailsActivity"></activity>
     </application>
 
 </manifest>
