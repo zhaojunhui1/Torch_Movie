@@ -1,4 +1,4 @@
-package com.bw.movie.zjh.module.ui;
+package com.bw.movie.zjh.module.ui.cinema;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
