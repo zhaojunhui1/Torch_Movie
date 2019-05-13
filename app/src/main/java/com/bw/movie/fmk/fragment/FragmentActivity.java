@@ -1,15 +1,16 @@
 package com.bw.movie.fmk.fragment;
 
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.view.MotionEvent;
 import android.widget.FrameLayout;
 import android.widget.RadioGroup;
 
 import com.bw.movie.R;
 import com.bw.movie.fmk.base.BasefActivity;
+import com.bw.movie.zjh.module.base.BaseActivity;
+import com.bw.movie.zjh.module.utils.statusbar.StatusBarWindowTop;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class FragmentActivity extends BasefActivity {
+public class FragmentActivity extends BaseActivity {
 
     private Unbinder bind;
     @BindView(R.id.movie_framelayout)
@@ -34,12 +35,15 @@ public class FragmentActivity extends BasefActivity {
     private List<Fragment> fragments;
 
     @Override
-    protected int getLayoutResId() {
+    public int bindLayout() {
         return R.layout.activity_fragment;
     }
 
     @Override
     protected void initView() {
+        //透明状态栏
+        StatusBarWindowTop.setStatusBarFullTransparent(this);
+
         bind = ButterKnife.bind(this);
         fragments = new ArrayList<>();
         homeFragment = new FragmentOne();
@@ -106,4 +110,10 @@ public class FragmentActivity extends BasefActivity {
     }
 
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bind.unbind();
+    }
 }
