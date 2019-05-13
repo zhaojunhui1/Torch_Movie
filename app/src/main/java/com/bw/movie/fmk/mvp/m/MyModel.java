@@ -2,7 +2,9 @@ package com.bw.movie.fmk.mvp.m;
 
 import android.util.Log;
 
+import com.bw.movie.fmk.bean.BannerBean;
 import com.bw.movie.fmk.bean.LoginBean;
+import com.bw.movie.fmk.bean.RMenBean;
 import com.bw.movie.fmk.bean.ZhuBean;
 import com.bw.movie.fmk.util.Api;
 import com.bw.movie.fmk.util.RetroFitUtil;
@@ -77,7 +79,50 @@ public class MyModel {
                  });
      }
 
+     //轮播图
+     public void getBanner(){
+         RetroFitUtil inRetroFitUtil = RetroFitUtil.getInRetroFitUtil();
+         Api api = inRetroFitUtil.setRtrofit(Api.class);
+         api.getapi(Url.LUNBOU)
+                 .subscribeOn(Schedulers.io())
+                 .observeOn(AndroidSchedulers.mainThread())
+                 .subscribe(new Action1<ResponseBody>() {
+                     @Override
+                     public void call(ResponseBody responseBody) {
+                         try {
+                             String string = responseBody.string();
+                             Gson gson = new Gson();
+                             BannerBean bannerBean = gson.fromJson(string, BannerBean.class);
+                             Log.e("tag","轮播M=="+bannerBean);
+                             myCallBack.succer(bannerBean);
+                         } catch (Exception e) {
+                             e.printStackTrace();
+                         }
+                     }
+                 });
+     }
 
+    //热门电影
+    public void getRMenDianYing(){
+        RetroFitUtil inRetroFitUtil = RetroFitUtil.getInRetroFitUtil();
+        Api api = inRetroFitUtil.setRtrofit(Api.class);
+        api.getapi(Url.LUNBOU)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody responseBody) {
+                        try {
+                            String string = responseBody.string();
+                            Gson gson = new Gson();
+                            RMenBean rMenBean = gson.fromJson(string, RMenBean.class);
+                            myCallBack.succer(rMenBean);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
 
     public void setMyModel(MyCallBack myCallBack) {
             this.myCallBack = myCallBack;
