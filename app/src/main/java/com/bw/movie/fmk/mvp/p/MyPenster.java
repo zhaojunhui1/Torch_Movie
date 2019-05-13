@@ -1,5 +1,7 @@
 package com.bw.movie.fmk.mvp.p;
 
+import android.util.Log;
+
 import com.bw.movie.fmk.mvp.m.MyModel;
 import com.bw.movie.fmk.mvp.v.VInterface;
 import com.bw.movie.fmk.util.Url;
@@ -11,7 +13,7 @@ import java.util.HashMap;
  * @Date: 2019/5/9 16:29
  * @Description:
  */
-public class MyPenster<T> implements PInterface.PInterfaceDengLu,PInterface.PInterfaceZhuCe {
+public class MyPenster<T> implements PInterface.PInterfaceDengLu,PInterface.PInterfaceZhuCe,PInterface.PInterfaceLunBo,PInterface.PInterfaceRMen {
 
     private MyModel myModel;
     public T tt;
@@ -21,6 +23,7 @@ public class MyPenster<T> implements PInterface.PInterfaceDengLu,PInterface.PInt
         this.tt = tt;
     }
 
+    //登录
     @Override
     public void getDengLu(HashMap<String, String> map) {
         myModel.setMyModel(new MyModel.MyCallBack() {
@@ -32,6 +35,7 @@ public class MyPenster<T> implements PInterface.PInterfaceDengLu,PInterface.PInt
         myModel.getpostDeng(Url.DENGLU,map);
     }
 
+    //注册
     @Override
     public void getZhuCe(HashMap<String, String> map) {
         myModel.setMyModel(new MyModel.MyCallBack() {
@@ -41,6 +45,31 @@ public class MyPenster<T> implements PInterface.PInterfaceDengLu,PInterface.PInt
             }
         });
         myModel.getpostZhu(Url.ZHUCE,map);
+    }
+
+    //轮播
+    @Override
+    public void getLunBo(String url) {
+        myModel.setMyModel(new MyModel.MyCallBack() {
+            @Override
+            public void succer(Object object) {
+                ((VInterface.VInterfaceLunBo)tt).showLunBo(object);
+            }
+        });
+        myModel.getBanner();
+        Log.e("tab","轮播P=="+url);
+    }
+
+    //热门电影
+    @Override
+    public void getRMen (String url) {
+        myModel.setMyModel(new MyModel.MyCallBack() {
+            @Override
+            public void succer(Object object) {
+                ((VInterface.VInterfaceRMen)tt).showRMen(object);
+            }
+        });
+        myModel.getRMenDianYing();
     }
 
     @Override

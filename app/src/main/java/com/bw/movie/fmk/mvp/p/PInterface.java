@@ -20,5 +20,16 @@ public interface PInterface {
         void onDsply();
     }
 
+    //轮播
+    public interface PInterfaceLunBo {
+        void getLunBo(String url);
+        void onDsply();
+    }
+
+    //热门电影
+    public interface PInterfaceRMen {
+        void getRMen(String url);
+        void onDsply();
+    }
 
 }
