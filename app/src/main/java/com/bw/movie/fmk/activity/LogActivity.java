@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,7 +33,7 @@ public class LogActivity extends BasefActivity implements VInterface.VInterfaceD
 
     private EditText phone;
     private EditText pwd;
-    private SimpleDraweeView yanjing;
+    private ImageView yanjing;
     private CheckBox jizhu;
     private TextView kuai_zhu;
     private Button denglu;
@@ -131,15 +132,6 @@ public class LogActivity extends BasefActivity implements VInterface.VInterfaceD
     @Override
     public void showDengLu(Object object) {
 
-//        String object1 = (String)object;
-//        Log.e("tab","message=="+object1);
-        LoginBean loginBean = (LoginBean)object;
-        String message = loginBean.getMessage();
-        //Log.e("tab","message=="+message);
-        LoginBean.ResultBean result = loginBean.getResult();
-
-        String sessionId = result.getSessionId();
-        int userId = result.getUserId();
 
         //存入数据库中
         App.daoSession.getGreendaoBeanDao().deleteAll();
@@ -155,14 +147,6 @@ public class LogActivity extends BasefActivity implements VInterface.VInterfaceD
         if (message.equals("登陆成功")){
 
             Intent intent = new Intent(this,FragmentActivity.class);
-
-            intent.putExtra("nickName",loginBean.getResult().getUserInfo().getNickName());
-            intent.putExtra("headPic",loginBean.getResult().getUserInfo().getHeadPic());
-            intent.putExtra("phone",loginBean.getResult().getUserInfo().getPhone());
-            intent.putExtra("birthday",loginBean.getResult().getUserInfo().getBirthday());
-            intent.putExtra("sex",loginBean.getResult().getUserInfo().getSex());
-            intent.putExtra("lastLoginTime",loginBean.getResult().getUserInfo().getLastLoginTime());
-
 
             startActivity(intent);
             finish();
