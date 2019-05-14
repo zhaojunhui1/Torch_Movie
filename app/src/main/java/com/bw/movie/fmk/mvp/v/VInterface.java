@@ -1,5 +1,7 @@
 package com.bw.movie.fmk.mvp.v;
 
+import java.util.HashMap;
+
 /**
  * @Auther: 付明锟
  * @Date: 2019/5/9 17:11
@@ -40,5 +42,10 @@ public interface VInterface {
     //根据电影ID查询电影信息,详情主页
     public interface VInterfacegetXiangQingZhuYe {
         public void showXiangQingZhuYe(Object object);
+    }
+
+    //电影详情
+    public interface VInterfacegetDianYingXiangQing {
+        void getDianYingXiangQing(Object object);
     }
 }

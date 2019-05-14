@@ -32,7 +32,7 @@ public class Url {
     //电影ID查询电影信息，http://172.17.8.100/movieApi/movie/v1/findMoviesById?movieId=12
     public static String DIANYINGID="movieApi/movie/v1/findMoviesById";
 
-    //电影详情，http://172.17.8.100/movieApi/movie/v1/findMoviesDetail?movieId=12
-    public static String DIANYINGXAINGQING="movieApi/movie/v1/findMoviesDetail?movieId=12";
+    //电影预告，http://172.17.8.100/movieApi/movie/v1/findMoviesDetail?movieId=12
+    //public static String DIANYINGXAINGQING="movieApi/movie/v1/findMoviesDetail?movieId=12";
 
 }

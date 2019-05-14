@@ -76,7 +76,8 @@
             android:id="@+id/xiangqing_xiang"
             android:text="详情"
             android:textColor="#fcfafa"
-            android:textSize="@dimen/dp_25"
+            android:background="@drawable/xiangqing_shape_radius"
+            android:textSize="@dimen/dp_20"
             android:layout_marginLeft="@dimen/dp_24"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -84,9 +85,10 @@
         <TextView
             android:id="@+id/xiangqing_yugao"
             android:text="预告"
+            android:background="@drawable/xiangqing_shape_radius"
+            android:textSize="@dimen/dp_20"
             android:textColor="#fcfafa"
-            android:textSize="@dimen/dp_25"
-            android:layout_marginLeft="@dimen/dp_34"
+            android:layout_marginLeft="@dimen/dp_24"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -94,8 +96,9 @@
             android:id="@+id/xiangqing_juzhao"
             android:text="剧照"
             android:textColor="#fcfafa"
-            android:textSize="@dimen/dp_25"
-            android:layout_marginLeft="@dimen/dp_34"
+            android:background="@drawable/xiangqing_shape_radius"
+            android:textSize="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_24"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -103,8 +106,9 @@
             android:id="@+id/xiangqing_yingping"
             android:text="影评"
             android:textColor="#fcfafa"
-            android:textSize="@dimen/dp_25"
-            android:layout_marginLeft="@dimen/dp_34"
+            android:background="@drawable/xiangqing_shape_radius"
+            android:textSize="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_24"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -128,12 +132,13 @@
         <TextView
             android:id="@+id/xiangqing_gou"
             android:text="购票"
+            android:background="@drawable/xiangqing_shape_goupiao"
             android:textColor="#fcfafa"
             android:layout_marginLeft="@dimen/dp_166"
             android:layout_marginTop="@dimen/dp_12"
-            android:textSize="@dimen/dp_30"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:textSize="@dimen/dp_20"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_60" />
 
     </LinearLayout>
 
