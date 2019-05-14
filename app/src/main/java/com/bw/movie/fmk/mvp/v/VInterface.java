@@ -36,4 +36,9 @@ public interface VInterface {
     public interface VInterfacegetShangYing {
         public void showShangYing(Object object);
     }
+
+    //根据电影ID查询电影信息,详情主页
+    public interface VInterfacegetXiangQingZhuYe {
+        public void showXiangQingZhuYe(Object object);
+    }
 }

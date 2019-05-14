@@ -131,36 +131,37 @@ public class LogActivity extends BasefActivity implements VInterface.VInterfaceD
     @Override
     public void showDengLu(Object object) {
 
-        String object1 = (String)object;
-        Log.e("tab","message=="+object1);
-//        LoginBean loginBean = (LoginBean)object;
-//        String message = loginBean.getMessage();
-//        LoginBean.ResultBean result = loginBean.getResult();
-//
-//        String sessionId = result.getSessionId();
-//        int userId = result.getUserId();
+//        String object1 = (String)object;
+//        Log.e("tab","message=="+object1);
+        LoginBean loginBean = (LoginBean)object;
+        String message = loginBean.getMessage();
+        //Log.e("tab","message=="+message);
+        LoginBean.ResultBean result = loginBean.getResult();
+
+        String sessionId = result.getSessionId();
+        int userId = result.getUserId();
 
         //存入数据库中
-//        App.daoSession.getGreendaoBeanDao().deleteAll();
-//        GreendaoBean greendaoBean = new GreendaoBean();
-//        greendaoBean.setSessionId(sessionId);
-//        greendaoBean.setUserId(userId);
-//        App.daoSession.insert(greendaoBean);
+        App.daoSession.getGreendaoBeanDao().deleteAll();
+        GreendaoBean greendaoBean = new GreendaoBean();
+        greendaoBean.setSessionId(sessionId);
+        greendaoBean.setUserId(userId);
+        App.daoSession.insert(greendaoBean);
 
 
 
         //List<GreendaoBean> greendaoBeans = App.daoSession.loadAll();
         //Toast.makeText(this,object1+"",Toast.LENGTH_LONG).show();
-        if (object1.equals("登陆成功")){
+        if (message.equals("登陆成功")){
 
             Intent intent = new Intent(this,FragmentActivity.class);
 
-//            intent.putExtra("nickName",loginBean.getResult().getUserInfo().getNickName());
-//            intent.putExtra("headPic",loginBean.getResult().getUserInfo().getHeadPic());
-//            intent.putExtra("phone",loginBean.getResult().getUserInfo().getPhone());
-//            intent.putExtra("birthday",loginBean.getResult().getUserInfo().getBirthday());
-//            intent.putExtra("sex",loginBean.getResult().getUserInfo().getSex());
-//            intent.putExtra("lastLoginTime",loginBean.getResult().getUserInfo().getLastLoginTime());
+            intent.putExtra("nickName",loginBean.getResult().getUserInfo().getNickName());
+            intent.putExtra("headPic",loginBean.getResult().getUserInfo().getHeadPic());
+            intent.putExtra("phone",loginBean.getResult().getUserInfo().getPhone());
+            intent.putExtra("birthday",loginBean.getResult().getUserInfo().getBirthday());
+            intent.putExtra("sex",loginBean.getResult().getUserInfo().getSex());
+            intent.putExtra("lastLoginTime",loginBean.getResult().getUserInfo().getLastLoginTime());
 
 
             startActivity(intent);

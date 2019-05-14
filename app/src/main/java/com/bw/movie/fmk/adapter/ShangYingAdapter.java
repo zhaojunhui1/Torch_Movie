@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.bw.movie.R;
 import com.bw.movie.fmk.bean.RMenBean;
@@ -30,36 +31,47 @@ public class ShangYingAdapter extends RecyclerView.Adapter<ShangYingAdapter.Hold
         this.mContext = mContext;
     }
 
+    //接口
+    public interface OnItem{
+        void onClick(int position,String movieId);
+    }
+
+    private OnItem onItem;
+
+    //一个公共的方法
+    public void setOnItem(OnItem onItem) {
+        this.onItem = onItem;
+    }
+
     @NonNull
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.rmen_item, null);
-      //  view.setOnClickListener(this);
+
         return new Holder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Holder holder, int i) {
+    public void onBindViewHolder(@NonNull Holder holder, final int i) {
+
+        String name = data.get(i).getName();
+        holder.rmen_item_namae.setText(name);
+
         String imageUrl = data.get(i).getImageUrl();
         holder.rmen_item_id.setImageURI(Uri.parse(imageUrl));
+
+        //点击
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onItem!=null){
+                    onItem.onClick(i,data.get(i).getId()+"");
+                }
+            }
+        });
     }
 
-//    @Override
-//    public void onClick(View view) {
-//        if(onItemClick!=null){
-//            onItemClick.onItemClick(view,(int)view.getTag());
-//        }
-//    }
-//
-//    public interface OnItemClick{
-//        void onItemClick(View view,int position);
-//    }
-//    private OnItemClick onItemClick;
-//
-//    public void setOnItemClick(OnItemClick onItemClick) {
-//        this.onItemClick = onItemClick;
-//    }
-//
+
     @Override
     public int getItemCount() {
         return data.size();
@@ -68,10 +80,12 @@ public class ShangYingAdapter extends RecyclerView.Adapter<ShangYingAdapter.Hold
     public class Holder extends RecyclerView.ViewHolder {
 
         private SimpleDraweeView rmen_item_id;
+        private TextView rmen_item_namae;
 
         public Holder(@NonNull View itemView) {
             super(itemView);
             rmen_item_id = itemView.findViewById(R.id.rmen_item_id);
+            rmen_item_namae = itemView.findViewById(R.id.rmen_item_namae);
         }
     }
 }

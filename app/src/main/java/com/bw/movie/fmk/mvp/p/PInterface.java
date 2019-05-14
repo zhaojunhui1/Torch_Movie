@@ -44,4 +44,10 @@ public interface PInterface {
         void onDsply();
     }
 
+    //根据电影ID查询电影信息,详情主页
+    public interface PInterfacegetXiangQingZhuYe {
+        void getXiangQingZhuYe(String url,HashMap<String, String> map);
+        void onDsply();
+    }
+
 }

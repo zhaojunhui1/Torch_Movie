@@ -13,7 +13,7 @@ import java.util.HashMap;
  * @Date: 2019/5/9 16:29
  * @Description:
  */
-public class MyPenster<T> implements PInterface.PInterfaceDengLu,PInterface.PInterfaceZhuCe,PInterface.PInterfaceLunBo,PInterface.PInterfaceRMen,PInterface.PInterfacegetRYing,PInterface.PInterfacegetShangYing {
+public class MyPenster<T> implements PInterface.PInterfaceDengLu,PInterface.PInterfaceZhuCe,PInterface.PInterfaceLunBo,PInterface.PInterfacegetRYing,PInterface.PInterfacegetShangYing,PInterface.PInterfaceRMen,PInterface.PInterfacegetXiangQingZhuYe {
 
     private MyModel myModel;
     public T tt;
@@ -47,7 +47,7 @@ public class MyPenster<T> implements PInterface.PInterfaceDengLu,PInterface.PInt
         myModel.getpostZhu(Url.ZHUCE,map);
     }
 
-    //轮播
+    //轮播,热门电影
     @Override
     public void getLunBo(String url) {
         myModel.setMyModel(new MyModel.MyCallBack() {
@@ -96,11 +96,22 @@ public class MyPenster<T> implements PInterface.PInterfaceDengLu,PInterface.PInt
         myModel.getJiJangShangYing();
     }
 
+    //根据电影ID查询电影信息,详情主页
+    @Override
+    public void getXiangQingZhuYe(String url,HashMap<String, String> map) {
+        myModel.setMyModel(new MyModel.MyCallBack() {
+            @Override
+            public void succer(Object object) {
+                ((VInterface.VInterfacegetXiangQingZhuYe)tt).showXiangQingZhuYe(object);
+            }
+        });
+        myModel.getXiangQingZhuYe(Url.DIANYINGID,map);
+    }
+
     @Override
     public void onDsply() {
         if (tt!=null){
             tt=null;
         }
     }
-
 }
