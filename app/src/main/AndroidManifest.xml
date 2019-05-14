@@ -14,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".fmk.activity.MainActivity"></activity>
+        <activity android:name=".fmk.activity.MainActivity" />
         <activity android:name=".fmk.activity.YinDaoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,7 +25,12 @@
         <activity android:name=".fmk.activity.LogActivity" />
         <activity android:name=".fmk.activity.ZhuCeActivity" />
         <activity android:name=".fmk.fragment.FragmentActivity" />
-        <activity android:name=".zjh.module.ui.cinema.CinemaDetailsActivity"></activity>
+        <activity android:name=".zjh.module.ui.cinema.CinemaDetailsActivity" />
+        <activity android:name=".zjh.module.ui.cinema.my.MyRemindActivity" />
+        <activity android:name=".zjh.module.ui.cinema.my.MyPresonActivity" />
+        <activity android:name=".zjh.module.ui.cinema.my.MyLookActivity" />
+        <activity android:name=".zjh.module.ui.cinema.my.MyFoodedActivity" />
+        <activity android:name=".zjh.module.ui.cinema.my.MyBackMessageActivity"></activity>
     </application>
 
 </manifest>

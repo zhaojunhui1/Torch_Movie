@@ -8,4 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+    <!-- 记住密码复选框 -->
+    <style name="My_CheckBox" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">#ffffff</item>
+        <item name="colorControlActivated">#ffffff</item>
+    </style>
 </resources>

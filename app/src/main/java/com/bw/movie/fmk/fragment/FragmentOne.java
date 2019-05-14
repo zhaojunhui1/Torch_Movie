@@ -183,6 +183,9 @@ public class FragmentOne extends BasefFragment implements VInterface.VInterfaceL
         //正在热映
         pInterfaceRYing=null;
         pInterfaceRYing.onDsply();
+        //即将上映
+        pInterfacegetShangYing=null;
+        pInterfacegetShangYing.onDsply();
     }
 
 }
