@@ -1,4 +1,4 @@
-package com.bw.movie.zjh.module.beans.cinema;
+package com.bw.movie.zjh.module.beans;
 
 /**
  * author : zjh
