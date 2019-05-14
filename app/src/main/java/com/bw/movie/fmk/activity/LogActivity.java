@@ -102,29 +102,29 @@ public class LogActivity extends BasefActivity implements VInterface.VInterfaceD
         });
 
         //快速注册
-       kuai_zhu.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               Intent intent = new Intent(LogActivity.this, ZhuCeActivity.class);
-               startActivity(intent);
-               finish();
-           }
-       });
+        kuai_zhu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LogActivity.this, ZhuCeActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
-          //设置密码的显示和隐藏
-            yanjing.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        //设置密码的显示和隐藏
+        yanjing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-                    if (b){
-                        pwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                        b = false ;
-                    }else {
-                        pwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                        b = true ;
-                    }
+                if (b){
+                    pwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    b = false ;
+                }else {
+                    pwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    b = true ;
                 }
-            });
+            }
+        });
 
     }
 
@@ -154,6 +154,13 @@ public class LogActivity extends BasefActivity implements VInterface.VInterfaceD
         //Toast.makeText(this,object1+"",Toast.LENGTH_LONG).show();
         if (message.equals("登陆成功")){
 
+            //传入头参
+            SharedPreferences sharedPreferences = getSharedPreferences("token", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("userId", loginBean.getResult().getUserId() + "");
+            editor.putString("sessionId", loginBean.getResult().getSessionId());
+            editor.commit();
+
             Intent intent = new Intent(this,FragmentActivity.class);
 
             intent.putExtra("nickName",loginBean.getResult().getUserInfo().getNickName());
@@ -162,7 +169,6 @@ public class LogActivity extends BasefActivity implements VInterface.VInterfaceD
             intent.putExtra("birthday",loginBean.getResult().getUserInfo().getBirthday());
             intent.putExtra("sex",loginBean.getResult().getUserInfo().getSex());
             intent.putExtra("lastLoginTime",loginBean.getResult().getUserInfo().getLastLoginTime());
-
 
             startActivity(intent);
             finish();
