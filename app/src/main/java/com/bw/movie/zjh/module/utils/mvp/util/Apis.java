@@ -46,13 +46,4 @@ public class Apis {
     //  10.
     public static final String CALLWATCHFUL_POST = "";
 
-
-
-    /*
-    *   我的页面
-    *  */
-
-    // 8.用户签到
-    public static final String MY_USER_SIGNIN_GET = "movieApi/user/v1/verify/userSignIn";
-
 }

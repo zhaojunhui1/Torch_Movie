@@ -5,13 +5,6 @@ import android.os.Bundle;
 
 import com.bw.movie.R;
 
-/**
- * author : zjh
- * e-mail : zjh@163.com
- * date   : 2019/5/13 19:40
- * desc   :  电影详情页
- * version: 1.0
- */
 public class CinemaDetailsActivity extends AppCompatActivity {
 
     @Override

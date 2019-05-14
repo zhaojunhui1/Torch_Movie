@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +32,7 @@ public class LogActivity extends BasefActivity implements VInterface.VInterfaceD
 
     private EditText phone;
     private EditText pwd;
-    private ImageView yanjing;
+    private SimpleDraweeView yanjing;
     private CheckBox jizhu;
     private TextView kuai_zhu;
     private Button denglu;
