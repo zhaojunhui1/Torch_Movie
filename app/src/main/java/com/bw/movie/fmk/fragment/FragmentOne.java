@@ -1,10 +1,13 @@
 package com.bw.movie.fmk.fragment;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.bw.movie.R;
+import com.bw.movie.fmk.activity.XiangQingActivity;
 import com.bw.movie.fmk.adapter.BannerAdapter;
 import com.bw.movie.fmk.adapter.RMenDianYingAdapter;
 import com.bw.movie.fmk.adapter.RYingAdapter;
@@ -28,8 +31,9 @@ import recycler.coverflow.RecyclerCoverFlow;
  * @Date: 2019/5/12 18:42
  * @Description:
  */
-public class FragmentOne extends BasefFragment implements VInterface.VInterfaceLunBo,VInterface.VInterfaceRMen,VInterface.VInterfaceRYing,VInterface.VInterfacegetShangYing {
+public class FragmentOne extends BasefFragment implements VInterface.VInterfaceLunBo,VInterface.VInterfaceRYing,VInterface.VInterfacegetShangYing,VInterface.VInterfaceRMen {
 
+    //轮播
     public List<BannerBean.ResultBean> bannerBeans = new ArrayList<>();
     //热门电影
     public List<RMenBean.ResultBean> rmenBean = new ArrayList<>();
@@ -79,12 +83,12 @@ public class FragmentOne extends BasefFragment implements VInterface.VInterfaceL
         //让轮播图显示中间的图片
          //lunb.smoothScrollToPosition();
         //自定义接口回调，点击图片使它展示到中间
-//        bannerAdapter.setOnItemClick(new BannerAdapter.OnItemClick() {
-//            @Override
-//            public void onItemClick(View view, int position) {
-//                lunb.smoothScrollToPosition(position);
-//            }
-//        });
+        bannerAdapter.setOnItem(new BannerAdapter.OnItem() {
+            @Override
+            public void onClick(int position) {
+                lunb.smoothScrollToPosition(position);
+            }
+        });
 
 
         /*                   热门电影               */
@@ -100,6 +104,17 @@ public class FragmentOne extends BasefFragment implements VInterface.VInterfaceL
         rMenDianYingAdapter = new RMenDianYingAdapter(rmenBean,getActivity());
         rmen_id.setAdapter(rMenDianYingAdapter);
 
+        //条目点击
+        rMenDianYingAdapter.setOnItem(new RMenDianYingAdapter.OnItem() {
+            @Override
+            public void onClick(int position, String movieId) {
+                Intent intent = new Intent(getActivity(),XiangQingActivity.class);
+                intent.putExtra("id",movieId);
+
+                startActivity(intent);
+            }
+        });
+
 
         /*                   正在热映             */
 
@@ -114,6 +129,14 @@ public class FragmentOne extends BasefFragment implements VInterface.VInterfaceL
         ryingAdapter = new RYingAdapter(ryYingBean,getActivity());
         rmen2_id.setAdapter(ryingAdapter);
 
+        //条目点击
+        ryingAdapter.setOnItem(new RYingAdapter.OnItem() {
+            @Override
+            public void onClick(int position, String movieId) {
+                Toast.makeText(getActivity(),"热门电影",Toast.LENGTH_LONG).show();
+            }
+
+        });
 
         /*                   即将上映             */
 
@@ -127,6 +150,14 @@ public class FragmentOne extends BasefFragment implements VInterface.VInterfaceL
         //适配器
         shangYingAdapter = new ShangYingAdapter(shangyingBean,getActivity());
         rmen3_id.setAdapter(shangYingAdapter);
+
+        //条目点击
+        shangYingAdapter.setOnItem(new ShangYingAdapter.OnItem() {
+            @Override
+            public void onClick(int position, String movieId) {
+                Toast.makeText(getActivity(),"即将上映",Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 
@@ -138,6 +169,8 @@ public class FragmentOne extends BasefFragment implements VInterface.VInterfaceL
         List<BannerBean.ResultBean> result = bannerBean.getResult();
         bannerBeans.addAll(result);
         bannerAdapter.notifyDataSetChanged();
+
+        rMenDianYingAdapter.notifyDataSetChanged();
 
         Log.e("taggg","轮播V=="+bannerBean.getMessage());
     }
@@ -174,12 +207,12 @@ public class FragmentOne extends BasefFragment implements VInterface.VInterfaceL
     @Override
     public void onDestroy() {
         super.onDestroy();
-        //轮播
+        //轮播,热门电影
         pInterfaceLunBo=null;
         pInterfaceLunBo.onDsply();
         //热门电影
-        pInterfaceRMen=null;
-        pInterfaceRMen.onDsply();
+//        pInterfaceRMen=null;
+//        pInterfaceRMen.onDsply();
         //正在热映
         pInterfaceRYing=null;
         pInterfaceRYing.onDsply();

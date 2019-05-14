@@ -132,36 +132,21 @@ public class LogActivity extends BasefActivity implements VInterface.VInterfaceD
     @Override
     public void showDengLu(Object object) {
 
-        String object1 = (String)object;
-        Log.e("tab","message=="+object1);
-        LoginBean loginBean = (LoginBean)object;
-//        String message = loginBean.getMessage();
-//        LoginBean.ResultBean result = loginBean.getResult();
-//
-//        String sessionId = result.getSessionId();
-//        int userId = result.getUserId();
 
         //存入数据库中
-//        App.daoSession.getGreendaoBeanDao().deleteAll();
-//        GreendaoBean greendaoBean = new GreendaoBean();
-//        greendaoBean.setSessionId(sessionId);
-//        greendaoBean.setUserId(userId);
-//        App.daoSession.insert(greendaoBean);
+        App.daoSession.getGreendaoBeanDao().deleteAll();
+        GreendaoBean greendaoBean = new GreendaoBean();
+        greendaoBean.setSessionId(sessionId);
+        greendaoBean.setUserId(userId);
+        App.daoSession.insert(greendaoBean);
 
 
 
         //List<GreendaoBean> greendaoBeans = App.daoSession.loadAll();
         //Toast.makeText(this,object1+"",Toast.LENGTH_LONG).show();
-        if (object1.equals("登陆成功")){
+        if (message.equals("登陆成功")){
 
             Intent intent = new Intent(this,FragmentActivity.class);
-
-            //传入头参
-            SharedPreferences sharedPreferences = getSharedPreferences("token", MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("userId", loginBean.getResult().getUserId() + "");
-            editor.putString("sessionId", loginBean.getResult().getSessionId());
-            editor.commit();
 
             startActivity(intent);
             finish();

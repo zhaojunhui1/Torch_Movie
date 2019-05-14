@@ -56,18 +56,18 @@ public class RetroFitUtil {
         okHttpClient = new OkHttpClient.Builder()
                 .addNetworkInterceptor(interceptor)
                 .cache(new Cache(file,10*1024*1024))
-//                .addInterceptor(new Interceptor() {
-//                    @Override
-//                    public Response intercept(Chain chain) throws IOException {
-//                        Request request = chain.request()
-//                                .newBuilder()
-////                                .addHeader("userId",String.valueOf(userId))
-////                                .addHeader("sessionId",String.valueOf(sessionId))
-//                                .build();
-//                        Response proceed = chain.proceed(request);
-//                        return proceed;
-//                    }
-//                })
+                .addInterceptor(new Interceptor() {
+                    @Override
+                    public Response intercept(Chain chain) throws IOException {
+                        Request request = chain.request()
+                                .newBuilder()
+                                .addHeader("userId",String.valueOf(userId))
+                                .addHeader("sessionId",String.valueOf(sessionId))
+                                .build();
+                        Response proceed = chain.proceed(request);
+                        return proceed;
+                    }
+                })
                 .build();
     }
 

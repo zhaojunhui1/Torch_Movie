@@ -17,8 +17,8 @@ public class Url {
     //注册，http://172.17.8.100/movieApi/user/v1/registerUser
     public static String ZHUCE = "movieApi/user/v1/registerUser";
 
-    //轮播，http://172.17.8.100/movieApi/movie/v1/findHotMovieList
-    public static String LUNBOU="movieApi/movie/v1/findHotMovieList?page=1&count=10";
+    //轮播，//http://172.17.8.100/movieApi/movie/v1/findMovieListByCinemaId?cinemaId=5
+    public static String LUNBOU="movieApi/movie/v1/findMovieListByCinemaId?cinemaId=5";
 
     //热门电影 http://172.17.8.100/movieApi/movie/v1/findHotMovieList
     public static String RMENDIANYING="movieApi/movie/v1/findHotMovieList?page=1&count=10";
@@ -28,4 +28,11 @@ public class Url {
 
     //即将上映 http://172.17.8.100/movieApi/movie/v1/findComingSoonMovieList?page=1&count=10
     public static String JIJANGSAHNGYING="movieApi/movie/v1/findComingSoonMovieList?page=1&count=10";
+
+    //电影ID查询电影信息，http://172.17.8.100/movieApi/movie/v1/findMoviesById?movieId=12
+    public static String DIANYINGID="movieApi/movie/v1/findMoviesById";
+
+    //电影详情，http://172.17.8.100/movieApi/movie/v1/findMoviesDetail?movieId=12
+    public static String DIANYINGXAINGQING="movieApi/movie/v1/findMoviesDetail?movieId=12";
+
 }

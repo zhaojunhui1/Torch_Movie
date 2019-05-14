@@ -20,8 +20,12 @@ import rx.Observable;
 public interface Api {
 
 
-    @GET
+   @GET
     public Observable<ResponseBody> getapi(@Url String url);
+
+    @GET
+    public Observable<ResponseBody> getapi2(@Url String url,@QueryMap Map<String, String> parmas);
+
 
     @FormUrlEncoded
     @POST
