@@ -1,4 +1,4 @@
-package com.bw.movie.zjh.module.ui;
+package com.bw.movie.zjh.module.ui.cinema;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,7 +19,6 @@ import com.bw.movie.zjh.module.utils.config.Config;
 import com.bw.movie.zjh.module.utils.mvp.presenter.IPresenterImpl;
 import com.bw.movie.zjh.module.utils.mvp.util.Apis;
 import com.bw.movie.zjh.module.utils.mvp.view.IView;
-import com.bw.movie.zjh.module.utils.statusbar.StatusBarWindowTop;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
