@@ -1,16 +1,16 @@
-package com.bw.movie.zjh.module.beans;
+package com.bw.movie.zjh.module.beans.my;
 
 /**
  * author : zjh
  * e-mail : zjh@163.com
- * date   : 2019/5/13 11:12
+ * date   : 2019/5/13 20:20
  * desc   :
  * version: 1.0
  */
-public class UnLikeCinemaBean {
+public class MyUserSignInBean {
 
     /**
-     * message : 取消关注成功
+     * message : 签到成功
      * status : 0000
      */
 

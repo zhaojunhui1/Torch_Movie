@@ -2,12 +2,17 @@ package com.bw.movie.fmk.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+<<<<<<< HEAD
+=======
+import android.media.Image;
+>>>>>>> b82260faea18a11df9e33b732e44b8a35b09f742
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bw.movie.R;
@@ -27,7 +32,7 @@ public class LogActivity extends BasefActivity implements VInterface.VInterfaceD
 
     private EditText phone;
     private EditText pwd;
-    private SimpleDraweeView yanjing;
+    private ImageView yanjing;
     private CheckBox jizhu;
     private TextView kuai_zhu;
     private Button denglu;

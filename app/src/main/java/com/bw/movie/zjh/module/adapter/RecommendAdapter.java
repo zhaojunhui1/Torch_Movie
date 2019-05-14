@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bw.movie.R;
-import com.bw.movie.zjh.module.beans.RecommendTjBean;
+import com.bw.movie.zjh.module.beans.cinema.RecommendTjBean;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;

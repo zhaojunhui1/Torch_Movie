@@ -5,22 +5,30 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
 import com.bw.movie.R;
 import com.bw.movie.zjh.module.adapter.NearbyAdapter;
 import com.bw.movie.zjh.module.base.BaseFragment;
-import com.bw.movie.zjh.module.beans.CinemaMessage;
-import com.bw.movie.zjh.module.beans.LikeCinemaBean;
-import com.bw.movie.zjh.module.beans.NearbyFjBean;
-import com.bw.movie.zjh.module.beans.UnLikeCinemaBean;
+import com.bw.movie.zjh.module.beans.cinema.CinemaMessage;
+import com.bw.movie.zjh.module.beans.cinema.LikeCinemaBean;
+import com.bw.movie.zjh.module.beans.cinema.NearbyFjBean;
+import com.bw.movie.zjh.module.beans.cinema.UnLikeCinemaBean;
 import com.bw.movie.zjh.module.utils.config.Config;
 import com.bw.movie.zjh.module.utils.mvp.presenter.IPresenterImpl;
 import com.bw.movie.zjh.module.utils.mvp.util.Apis;
 import com.bw.movie.zjh.module.utils.mvp.view.IView;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.scwang.smartrefresh.header.WaveSwipeHeader;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
+import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -41,8 +49,11 @@ import butterknife.Unbinder;
 public class CinemaNearbyFragment extends BaseFragment implements IView {
     private Unbinder bind;
     private IPresenterImpl iPresenter;
-    @BindView(R.id.mXRecyclerView)
-    XRecyclerView mXRecyclerView;
+    @BindView(R.id.mRecyclerView)
+    RecyclerView mRecyclerView;
+    @BindView(R.id.refreshLayout)
+    SmartRefreshLayout refreshLayout;
+
     private int page = 0;
     private NearbyAdapter mAdapter;
     private Handler handler = new Handler();
@@ -64,10 +75,10 @@ public class CinemaNearbyFragment extends BaseFragment implements IView {
         page = 1;
         //适配器
         mAdapter = new NearbyAdapter(getActivity());
-        mXRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(mAdapter);
         isLikeCinema();
 
-        mXRecyclerView.setPullRefreshEnabled(true);
+      /*  mXRecyclerView.setPullRefreshEnabled(true);
         mXRecyclerView.setLoadingMoreEnabled(true);
         //样式
         mXRecyclerView. setRefreshProgressStyle(ProgressStyle.BallClipRotate);
@@ -103,7 +114,31 @@ public class CinemaNearbyFragment extends BaseFragment implements IView {
                 }, 2000);
             }
         });
+        joinApi(page);*/
+        //刷新方法
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                joinApi(page);
+                refreshlayout.finishRefresh(2000);
+            }
+        });
+        //加载更多
+        refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                page = 1;
+                joinApi(page);
+                refreshlayout.finishLoadmore(2000);
+            }
+        });
         joinApi(page);
+        //设置 Header 为 Material风格
+        //refreshLayout.setRefreshHeader(new MaterialHeader(getActivity()).setShowBezierWave(true));
+        //全屏水滴
+        refreshLayout.setRefreshHeader(new WaveSwipeHeader(getActivity()));
+        //设置 Footer 为 球脉冲
+        refreshLayout.setRefreshFooter(new BallPulseFooter(getActivity()).setSpinnerStyle(SpinnerStyle.Scale));
     }
 
 
@@ -118,7 +153,7 @@ public class CinemaNearbyFragment extends BaseFragment implements IView {
         //布局管理器
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(OrientationHelper.VERTICAL);
-        mXRecyclerView.setLayoutManager(linearLayoutManager);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
     }
 
     /*
