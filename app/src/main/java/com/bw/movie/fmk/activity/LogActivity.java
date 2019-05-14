@@ -2,22 +2,17 @@ package com.bw.movie.fmk.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bw.movie.R;
 import com.bw.movie.app.App;
 import com.bw.movie.fmk.base.BasefActivity;
-import com.bw.movie.fmk.bean.GreendaoBean;
 import com.bw.movie.fmk.bean.LoginBean;
 import com.bw.movie.fmk.fragment.FragmentActivity;
 import com.bw.movie.fmk.jiami.EncryptUtil;
@@ -140,14 +135,6 @@ public class LogActivity extends BasefActivity implements VInterface.VInterfaceD
 
         String sessionId = result.getSessionId();
         int userId = result.getUserId();
-
-        //存入数据库中
-        App.daoSession.getGreendaoBeanDao().deleteAll();
-        GreendaoBean greendaoBean = new GreendaoBean();
-        greendaoBean.setSessionId(sessionId);
-        greendaoBean.setUserId(userId);
-        App.daoSession.insert(greendaoBean);
-
 
 
         //List<GreendaoBean> greendaoBeans = App.daoSession.loadAll();

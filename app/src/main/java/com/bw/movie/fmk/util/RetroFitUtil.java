@@ -1,15 +1,15 @@
 package com.bw.movie.fmk.util;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Environment;
+import android.text.TextUtils;
 import android.util.Log;
 
-import com.bw.movie.Greendao.dao.GreendaoBeanDao;
 import com.bw.movie.app.App;
-import com.bw.movie.fmk.bean.GreendaoBean;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 import okhttp3.Cache;
 import okhttp3.Interceptor;
@@ -36,14 +36,7 @@ public class RetroFitUtil {
     private final OkHttpClient okHttpClient;
 
 
-    //添加到数据库中
-    public void Dao(){
-        GreendaoBeanDao greendaoBeanDao = App.daoSession.getGreendaoBeanDao();
-        List<GreendaoBean> greendaoBeans = greendaoBeanDao.loadAll();
-        sessionId = greendaoBeans.get(0).getSessionId();
-        userId = greendaoBeans.get(0).getUserId();
-        Log.e("tab",sessionId+"---"+userId);
-    }
+
 
     //拦截器
     private RetroFitUtil(){
@@ -59,11 +52,28 @@ public class RetroFitUtil {
                 .addInterceptor(new Interceptor() {
                     @Override
                     public Response intercept(Chain chain) throws IOException {
-                        Request request = chain.request()
-                                .newBuilder()
-                                .addHeader("userId",String.valueOf(userId))
-                                .addHeader("sessionId",String.valueOf(sessionId))
-                                .build();
+                        Request request = chain.request();
+                        //取出sp中存入的userid, sessionid
+                        SharedPreferences sharedPreferences = App.getApplication().getSharedPreferences("token", Context.MODE_PRIVATE);
+                        String userId = sharedPreferences.getString("userId", "");
+                        String sessionId = sharedPreferences.getString("sessionId", "");
+
+                        //重新构造请求
+                        Request.Builder requestBuild = request.newBuilder();
+                        //放入请求参数
+                        requestBuild.method(request.method(), request.body());
+                        //添加userid, sessionid
+                        if (!TextUtils.isEmpty(userId) && !TextUtils.isEmpty(sessionId)){
+                            requestBuild.addHeader("userId", userId);
+                            requestBuild.addHeader("sessionId", sessionId);
+                        }
+
+                        //重新构造请求
+//                                .newBuilder()
+//                                .addHeader("userId",String.valueOf(userId))
+//                                .addHeader("sessionId",String.valueOf(sessionId))
+//                                .build();
+                        //打包
                         Response proceed = chain.proceed(request);
                         return proceed;
                     }

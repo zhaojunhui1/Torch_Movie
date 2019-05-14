@@ -208,17 +208,17 @@ public class FragmentOne extends BasefFragment implements VInterface.VInterfaceL
     public void onDestroy() {
         super.onDestroy();
         //轮播,热门电影
-        pInterfaceLunBo=null;
         pInterfaceLunBo.onDsply();
+        pInterfaceLunBo=null;
         //热门电影
-//        pInterfaceRMen=null;
-//        pInterfaceRMen.onDsply();
+        pInterfaceRMen.onDsply();
+        pInterfaceRMen=null;
         //正在热映
-        pInterfaceRYing=null;
         pInterfaceRYing.onDsply();
+        pInterfaceRYing=null;
         //即将上映
-        pInterfacegetShangYing=null;
         pInterfacegetShangYing.onDsply();
+        pInterfacegetShangYing=null;
     }
 
 }

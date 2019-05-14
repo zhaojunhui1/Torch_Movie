@@ -5,8 +5,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
 
-import com.bw.movie.Greendao.dao.DaoMaster;
-import com.bw.movie.Greendao.dao.DaoSession;
+
 import com.facebook.cache.disk.DiskCacheConfig;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
@@ -19,8 +18,6 @@ import com.facebook.imagepipeline.core.ImagePipelineConfig;
 public class App extends Application {
 
     private static Context mContext;
-    public static DaoSession daoSession;
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -31,8 +28,6 @@ public class App extends Application {
          *  全局捕获异常初始化全局调用
          * */
         //CrashHandler.getInstance().init(this);
-
-        Shu();
         Tu();
     }
 
@@ -48,13 +43,6 @@ public class App extends Application {
         Fresco.initialize(this,imagePipelineConfig);
     }
 
-    private void Shu() {
-        //数据库
-        DaoMaster.DevOpenHelper devOpenHelper = new DaoMaster.DevOpenHelper(this,"fff");
-        SQLiteDatabase writableDatabase = devOpenHelper.getWritableDatabase();
-        DaoMaster daoMaster = new DaoMaster(writableDatabase);
-        daoSession = daoMaster.newSession();
-    }
 
     //调用上下文的方法
     public static Context getApplication(){
