@@ -27,7 +27,13 @@
         <activity android:name=".fmk.activity.ZhuCeActivity" />
         <activity android:name=".fmk.fragment.FragmentActivity" />
         <activity android:name=".fmk.activity.XiangQingActivity" />
-        <activity android:name=".zjh.module.ui.cinema.CinemaDetailsActivity"></activity>
+
+        <activity android:name=".zjh.module.ui.cinema.CinemaDetailsActivity" />
+        <activity android:name=".zjh.module.ui.cinema.my.MyRemindActivity" />
+        <activity android:name=".zjh.module.ui.cinema.my.MyPresonActivity" />
+        <activity android:name=".zjh.module.ui.cinema.my.MyLookActivity" />
+        <activity android:name=".zjh.module.ui.cinema.my.MyFoodedActivity" />
+        <activity android:name=".zjh.module.ui.cinema.my.MyBackMessageActivity"></activity>
 
     </application>
 

@@ -25,7 +25,7 @@ public class FragmentActivity extends BaseActivity {
     @BindView(R.id.movie_framelayout)
     FrameLayout movie_framelayout;
     @BindView(R.id.movie_viewpager)
-    ViewPager movie_viewpager;
+    CustomViewPager movie_viewpager;
     @BindView(R.id.movie_group)
     RadioGroup movie_group;
 
