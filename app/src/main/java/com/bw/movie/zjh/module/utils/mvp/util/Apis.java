@@ -12,6 +12,20 @@ public class Apis {
     public static final String BASE_URL = "http://172.17.8.100/";
 
 
+    // 13. 电影评论点赞
+    public static final String CALL_LIKE_POPS = "movieApi/movie/v1/verify/movieCommentGreat";
+    // 14.  根据影院ID查询该影院当前排期的电影列表
+    public static final String CINEMA_ARRANGE_WORK_GET = "movieApi/movie/v1/findMovieListByCinemaId";
+    // 15.  根据电影ID和影院ID查询电影排期列表
+    public static final String MOVIE_SCHEDULE_GET = "movieApi/movie/v1/findMovieScheduleList";
+    // 16.  根据电影ID查询当前排片该电影的影院列表
+    public static final String IN_MOVIEID_CHOOSE_CINEMA_GET = "movieApi/movie/v1/findCinemasListByMovieId";
+
+
+    // 19. 根据影院ID查询该影院下即将上映的电影列表
+    public static final String CINEMA_DOEN_MOVIE_GET = "movieApi/movie/v1/findSoonMovieByCinemaId";
+
+
     /*
      * 二. 影院
      *   1.查询推荐影院
@@ -29,8 +43,8 @@ public class Apis {
     public static final String RECOMMEND_GET = "movieApi/cinema/v1/findRecommendCinemas";
     //  2. 附近影院
     public static final String NEARBY_GET = "movieApi/cinema/v1/findNearbyCinemas";
-    //  3.
-    public static final String INFORMATION_GET = "";
+    //  3. 查询电影信息明细 / 电影详情
+    public static final String INFORMATION_GET = "movieApi/cinema/v1/findCinemaInfo";
     //  4.
     public static final String QUERY_LIKE_GET = "";
     //  5.  查询用户关注的影院信息
@@ -39,12 +53,12 @@ public class Apis {
     public static final String LOVECINEMA_GET = "movieApi/cinema/v1/verify/followCinema";
     //  7. 取消关注
     public static final String NOLOVECINEMA_GET = "movieApi/cinema/v1/verify/cancelFollowCinema";
-    //  8.
-    public static final String QUERYCOMMENT_GET = "";
+    //  8. 查询影院用户评论列表
+    public static final String QUERYCOMMENT_GET = "movieApi/cinema/v1/findAllCinemaComment";
     //  9.
     public static final String CALLCINEMA_POST = "";
-    //  10.
-    public static final String CALLWATCHFUL_POST = "";
+    //  10. 影院评论点赞
+    public static final String CALLWATCHFUL_POST = "movieApi/cinema/v1/verify/cinemaCommentGreat";
 
 
 

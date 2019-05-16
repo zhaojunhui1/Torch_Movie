@@ -176,6 +176,19 @@ public class RetrofitManager {
                 .subscribe(getObserver(listener));
     }
 
+    /*
+    *    表单
+    *  */
+    public void postLogin(String url, Map<String, String> map, HttpListener listener) {
+        if (map == null) {
+            map = new HashMap<>();
+        }
+        baseApis.postLogin(url, map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(getObserver(listener));
+    }
+
     private Observer getObserver(final HttpListener listener) {
         Observer observer = new Observer<ResponseBody>() {
             @Override
