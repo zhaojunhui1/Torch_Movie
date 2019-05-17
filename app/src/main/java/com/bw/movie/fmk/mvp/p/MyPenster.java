@@ -13,7 +13,7 @@ import java.util.HashMap;
  * @Date: 2019/5/9 16:29
  * @Description:
  */
-public class MyPenster<T> implements PInterface.PInterfaceDengLu,PInterface.PInterfaceZhuCe,PInterface.PInterfaceLunBo,PInterface.PInterfacegetRYing,PInterface.PInterfacegetShangYing,PInterface.PInterfaceRMen,PInterface.PInterfacegetXiangQingZhuYe {
+public class MyPenster<T> implements PInterface.PInterfaceDengLu,PInterface.PInterfaceZhuCe,PInterface.PInterfaceLunBo,PInterface.PInterfacegetRYing,PInterface.PInterfacegetShangYing,PInterface.PInterfaceRMen,PInterface.PInterfacegetXiangQingZhuYe{
 
     private MyModel myModel;
     public T tt;
@@ -107,6 +107,18 @@ public class MyPenster<T> implements PInterface.PInterfaceDengLu,PInterface.PInt
         });
         myModel.getXiangQingZhuYe(Url.DIANYINGID,map);
     }
+
+    //电影详情
+//    @Override
+//    public void getXiangDianYingXiangQing(String url) {
+//        myModel.setMyModel(new MyModel.MyCallBack() {
+//            @Override
+//            public void succer(Object object) {
+//                ((VInterface.VInterfacegetDianYingXiangQing)tt).getDianYingXiangQing(object);
+//            }
+//        });
+//        myModel.getDianYingXiangQing();
+//    }
 
     @Override
     public void onDsply() {

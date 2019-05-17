@@ -7,6 +7,7 @@ import com.bw.movie.fmk.bean.LoginBean;
 import com.bw.movie.fmk.bean.RMenBean;
 import com.bw.movie.fmk.bean.RYingBean;
 import com.bw.movie.fmk.bean.ShangYingBean;
+import com.bw.movie.fmk.bean.XiangQingBean;
 import com.bw.movie.fmk.bean.XiangQingZhuYeBean;
 import com.bw.movie.fmk.bean.ZhuBean;
 import com.bw.movie.fmk.util.Api;
@@ -192,6 +193,31 @@ public class MyModel {
                     }
                 });
     }
+
+    //电影详情
+//    public void getDianYingXiangQing(){
+//        RetroFitUtil inRetroFitUtil = RetroFitUtil.getInRetroFitUtil();
+//        Api api = inRetroFitUtil.setRtrofit(Api.class);
+//        api.getapi(Url.DIANYINGXAINGQING)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Action1<ResponseBody>() {
+//                    @Override
+//                    public void call(ResponseBody responseBody) {
+//                        try {
+//                            String string = responseBody.string();
+//                            Gson gson = new Gson();
+//                            XiangQingBean xiangQingBean = gson.fromJson(string, XiangQingBean.class);
+//                            myCallBack.succer(xiangQingBean);
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                });
+//    }
+
+
+
 
     public void setMyModel(MyCallBack myCallBack) {
             this.myCallBack = myCallBack;

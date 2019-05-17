@@ -2,7 +2,10 @@ package com.bw.movie.fmk.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+<<<<<<< HEAD
+=======
 import android.media.Image;
+>>>>>>> b82260faea18a11df9e33b732e44b8a35b09f742
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;

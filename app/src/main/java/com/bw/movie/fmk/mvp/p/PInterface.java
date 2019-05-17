@@ -50,4 +50,9 @@ public interface PInterface {
         void onDsply();
     }
 
+    //电影详情
+    public interface PInterfacegetDianYingXiangQing {
+        void getXiangDianYingXiangQing(String url);
+        void onDsply();
+    }
 }
