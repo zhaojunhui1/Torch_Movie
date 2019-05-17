@@ -34,7 +34,8 @@ public class App extends Application {
     private void Tu() {
         DiskCacheConfig diskCacheConfig = DiskCacheConfig.newBuilder(this)
                 .setBaseDirectoryName("kkk")
-                .setBaseDirectoryPath(Environment.getExternalStorageDirectory())
+                .setBaseDirectoryPath(Environment.getExternalStorageDirectory().getAbsoluteFile())
+                .setMaxCacheSize(10*1024)
                 .build();
         ImagePipelineConfig imagePipelineConfig = ImagePipelineConfig.newBuilder(this)
                 .setMainDiskCacheConfig(diskCacheConfig)

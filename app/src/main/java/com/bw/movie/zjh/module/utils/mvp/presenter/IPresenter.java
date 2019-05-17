@@ -34,5 +34,9 @@ public interface IPresenter {
     void bodyPresenterData(String url, Map<String, String> map, Map<String, RequestBody> mapBody, Class clazz);
 
 
+    /**
+     * body体  请求方式
+     */
+    void postLoginPresenterData(String url, Map<String, String> map, Class clazz);
 
 }

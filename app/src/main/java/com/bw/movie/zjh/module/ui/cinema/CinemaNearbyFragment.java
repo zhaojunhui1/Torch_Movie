@@ -56,7 +56,6 @@ public class CinemaNearbyFragment extends BaseFragment implements IView {
 
     private int page = 0;
     private NearbyAdapter mAdapter;
-    private Handler handler = new Handler();
 
     @Override
     protected int setView() {
@@ -78,43 +77,6 @@ public class CinemaNearbyFragment extends BaseFragment implements IView {
         mRecyclerView.setAdapter(mAdapter);
         isLikeCinema();
 
-      /*  mXRecyclerView.setPullRefreshEnabled(true);
-        mXRecyclerView.setLoadingMoreEnabled(true);
-        //样式
-        mXRecyclerView. setRefreshProgressStyle(ProgressStyle.BallClipRotate);
-        mXRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.SquareSpin);
-        mXRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
-            @Override
-            public void onRefresh() {
-                page = 1;
-                //下拉刷新
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        //2s刷新
-                        joinApi(page);
-                        mXRecyclerView.refreshComplete();
-                    }
-                }, 2000);
-            }
-            @Override
-            public void onLoadMore() {
-                //上拉加载
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        //2s刷新
-                        page ++;
-                        joinApi(page);
-                        if (page == page++){
-                            //Toast.makeText(getActivity(), "没有了~~·", Toast.LENGTH_SHORT).show();
-                        }
-                        mXRecyclerView.loadMoreComplete();
-                    }
-                }, 2000);
-            }
-        });
-        joinApi(page);*/
         //刷新方法
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
@@ -127,7 +89,7 @@ public class CinemaNearbyFragment extends BaseFragment implements IView {
         refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
-                page = 1;
+                page ++;
                 joinApi(page);
                 refreshlayout.finishLoadmore(2000);
             }

@@ -15,7 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".fmk.activity.MainActivity"></activity>
+        <activity android:name=".fmk.activity.MainActivity" />
         <activity android:name=".fmk.activity.YinDaoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,20 +23,28 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".fmk.activity.LogActivity" />
         <activity android:name=".fmk.activity.ZhuCeActivity" />
         <activity android:name=".fmk.fragment.FragmentActivity" />
         <activity android:name=".fmk.activity.XiangQingActivity" />
+<<<<<<< HEAD
         <activity android:name=".fmk.fragment.TabLayout.TabLayoutActivity" />
 
+=======
+      
+>>>>>>> dd0cea8aa943818b0d23c00cded1f8b58265c8e6
         <activity android:name=".zjh.module.ui.cinema.CinemaDetailsActivity" />
         <activity android:name=".zjh.module.ui.cinema.my.MyRemindActivity" />
         <activity android:name=".zjh.module.ui.cinema.my.MyPresonActivity" />
         <activity android:name=".zjh.module.ui.cinema.my.MyLookActivity" />
         <activity android:name=".zjh.module.ui.cinema.my.MyFoodedActivity" />
-        <activity android:name=".zjh.module.ui.cinema.my.MyBackMessageActivity"></activity>
 
+        <activity android:name=".zjh.module.ui.cinema.ChooseSeatBuyActivity">
+        <activity android:name=".zjh.module.ui.cinema.my.MyBackMessageActivity"></activity>
+<<<<<<< HEAD
+
+=======
+>>>>>>> dd0cea8aa943818b0d23c00cded1f8b58265c8e6
 
     </application>
 

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true">
+    
+    <RelativeLayout
+        android:layout_width="@dimen/dp_158"
+        android:layout_height="@dimen/dp_223"
+        >
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/hot_imageView"
+            android:layout_width="@dimen/dp_158"
+            android:layout_height="@dimen/dp_223"
+            app:roundedCornerRadius="@dimen/dp_8"
+            android:scaleType="centerCrop"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_36"
+            android:layout_alignParentBottom="true"
+            android:alpha="0.8"
+            android:background="@drawable/shape_coverflow">
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:textSize="@dimen/sp_16"
+                android:textColor="#ffffff"
+                android:text="名称"
+                />
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dp_10"
+                android:textSize="@dimen/dp_12"
+                android:textColor="#ffffff"
+                android:text="时间"
+                />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>

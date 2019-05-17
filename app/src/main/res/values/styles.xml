@@ -16,10 +16,16 @@
         <item name="colorControlActivated">#ffffff</item>
     </style>
 
+<<<<<<< HEAD
     <!--pop动画 -->
     <style name="pop_animation" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/pop_donghua</item>
         <item name="android:windowExitAnimation">@anim/pop_donghuatui</item>
+=======
+    <!--  TabLayout设置导航字体大小-->
+    <style name="TabLayoutTextStyle">
+        <item name="android:textSize">@dimen/sp_16</item>
+>>>>>>> dd0cea8aa943818b0d23c00cded1f8b58265c8e6
     </style>
 
 </resources>

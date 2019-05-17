@@ -8,6 +8,7 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -164,11 +165,14 @@ public class LogActivity extends BasefActivity implements VInterface.VInterfaceD
             intent.putExtra("lastLoginTime",loginBean.getResult().getUserInfo().getLastLoginTime());
 
             startActivity(intent);
+<<<<<<< HEAD
             //startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(LogActivity.this).toBundle());
             overridePendingTransition(R.anim.activity_dong,R.anim.activity_dong_tui);
 
 
             finish();
+=======
+>>>>>>> dd0cea8aa943818b0d23c00cded1f8b58265c8e6
         }
 
     }
