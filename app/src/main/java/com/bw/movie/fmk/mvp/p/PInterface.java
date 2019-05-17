@@ -50,9 +50,21 @@ public interface PInterface {
         void onDsply();
     }
 
-    //电影详情
-    public interface PInterfacegetDianYingXiangQing {
-        void getXiangDianYingXiangQing(String url);
+    //电影预告
+    public interface PInterfacegetDianYingYuGao {
+        void getDianYingYuGao(String url,HashMap<String, String> map);
+        void onDsply();
+    }
+
+    //电影关注
+    public interface PInterfacegetDianYingGuanZhu {
+        void getDianYingGuanZhu(String url,HashMap<String, String> map);
+        void onDsply();
+    }
+
+    //取消电影关注
+    public interface PInterfacegetQuXiaoDianYingGuanZhu {
+        void getQuXiaoDianYingGuanZhu(String url,HashMap<String, String> map);
         void onDsply();
     }
 }

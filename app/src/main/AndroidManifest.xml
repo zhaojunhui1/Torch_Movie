@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+
     <application
         android:name=".app.App"
         android:allowBackup="true"
@@ -27,9 +28,7 @@
         <activity android:name=".fmk.activity.ZhuCeActivity" />
         <activity android:name=".fmk.fragment.FragmentActivity" />
         <activity android:name=".fmk.activity.XiangQingActivity" />
-<<<<<<< HEAD
-        <activity android:name=".zjh.module.ui.cinema.CinemaDetailsActivity"></activity>
-=======
+        <activity android:name=".fmk.fragment.TabLayout.TabLayoutActivity" />
 
         <activity android:name=".zjh.module.ui.cinema.CinemaDetailsActivity" />
         <activity android:name=".zjh.module.ui.cinema.my.MyRemindActivity" />
@@ -37,7 +36,7 @@
         <activity android:name=".zjh.module.ui.cinema.my.MyLookActivity" />
         <activity android:name=".zjh.module.ui.cinema.my.MyFoodedActivity" />
         <activity android:name=".zjh.module.ui.cinema.my.MyBackMessageActivity"></activity>
->>>>>>> b82260faea18a11df9e33b732e44b8a35b09f742
+
 
     </application>
 

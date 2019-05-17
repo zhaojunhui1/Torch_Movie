@@ -44,8 +44,18 @@ public interface VInterface {
         public void showXiangQingZhuYe(Object object);
     }
 
-    //电影详情
-    public interface VInterfacegetDianYingXiangQing {
-        void getDianYingXiangQing(Object object);
+    //电影预告
+    public interface VInterfaceYuGao {
+        void getYuGao(Object object);
+    }
+
+    //电影关注
+    public interface VInterfacegetDianYingGuanZhu {
+        void getDianYingGuanZhu(Object object);
+    }
+
+    //取消电影关注
+    public interface VInterfacegetQuXiaoDianYingGuanZhu {
+        void getQuXiaoDianYingGuanZhu(Object object);
     }
 }

@@ -62,6 +62,7 @@
                         android:background="@mipmap/xiatiao" />
 
                     <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/emen_you"
                         android:layout_width="@dimen/dp_20"
                         android:layout_height="@dimen/dp_20"
                         android:layout_marginLeft="@dimen/dp_250"
@@ -111,6 +112,7 @@
                         android:background="@mipmap/xiatiao" />
 
                     <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/eying_you"
                         android:layout_width="@dimen/dp_20"
                         android:layout_height="@dimen/dp_20"
                         android:layout_marginLeft="@dimen/dp_250"
@@ -160,6 +162,7 @@
                         android:background="@mipmap/xiatiao" />
 
                     <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/jijiang_you"
                         android:layout_width="@dimen/dp_20"
                         android:layout_height="@dimen/dp_20"
                         android:layout_marginLeft="@dimen/dp_250"

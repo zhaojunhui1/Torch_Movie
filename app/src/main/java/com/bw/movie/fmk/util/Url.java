@@ -33,6 +33,15 @@ public class Url {
     public static String DIANYINGID="movieApi/movie/v1/findMoviesById";
 
     //电影预告，http://172.17.8.100/movieApi/movie/v1/findMoviesDetail?movieId=12
-    //public static String DIANYINGXAINGQING="movieApi/movie/v1/findMoviesDetail?movieId=12";
+    public static String DIANYINGYUGAO="movieApi/movie/v1/findMoviesDetail";
+
+    //关注电影，http://172.17.8.100/movieApi/movie/v1/verify/followMovie
+    public static String GUANZHUDIANYING="movieApi/movie/v1/verify/followMovie";
+
+    //取消关注，http://172.17.8.100/movieApi/movie/v1/verify/cancelFollowMovie
+    public static String QUXIAOGUANZHU="movieApi/movie/v1/verify/cancelFollowMovie";
+
+    //查看电影评论，http://172.17.8.100/movieApi/movie/v1/findAllMovieComment?movieId=1&page=1&count=5
+    public static String DIANYINGPINGLUN="movieApi/movie/v1/findAllMovieComment";
 
 }

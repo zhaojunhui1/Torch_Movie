@@ -1,11 +1,11 @@
 package com.bw.movie.fmk.activity;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
-<<<<<<< HEAD
-=======
 import android.media.Image;
->>>>>>> b82260faea18a11df9e33b732e44b8a35b09f742
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
@@ -128,6 +128,7 @@ public class LogActivity extends BasefActivity implements VInterface.VInterfaceD
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void showDengLu(Object object) {
 
@@ -163,6 +164,10 @@ public class LogActivity extends BasefActivity implements VInterface.VInterfaceD
             intent.putExtra("lastLoginTime",loginBean.getResult().getUserInfo().getLastLoginTime());
 
             startActivity(intent);
+            //startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(LogActivity.this).toBundle());
+            overridePendingTransition(R.anim.activity_dong,R.anim.activity_dong_tui);
+
+
             finish();
         }
 

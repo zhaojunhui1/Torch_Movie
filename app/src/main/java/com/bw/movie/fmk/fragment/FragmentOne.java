@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.bw.movie.R;
@@ -17,9 +18,12 @@ import com.bw.movie.fmk.bean.BannerBean;
 import com.bw.movie.fmk.bean.RMenBean;
 import com.bw.movie.fmk.bean.RYingBean;
 import com.bw.movie.fmk.bean.ShangYingBean;
+import com.bw.movie.fmk.fragment.TabLayout.TabLayoutActivity;
 import com.bw.movie.fmk.mvp.p.MyPenster;
 import com.bw.movie.fmk.mvp.p.PInterface;
 import com.bw.movie.fmk.mvp.v.VInterface;
+import com.bw.movie.zjh.module.ui.cinema.my.MyPresonActivity;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,26 +57,48 @@ public class FragmentOne extends BasefFragment implements VInterface.VInterfaceL
     private PInterface.PInterfacegetShangYing pInterfacegetShangYing;
     private ShangYingAdapter shangYingAdapter;
     private RecyclerView rmen3_id;
+    private SimpleDraweeView emen_you;
+    private SimpleDraweeView eying_you;
+    private SimpleDraweeView jijiang_you;
 
+    //布局
     @Override
     protected int initLayout() {
         return R.layout.fragment_one;
     }
 
+    //控件
     @Override
     protected void ininView() {
         lunb = fvd(R.id.lubo);
         rmen_id = fvd(R.id.rmen_id);
         rmen2_id = fvd(R.id.rmen2_id);
         rmen3_id = fvd(R.id.rmen3_id);
+        //热门电影
+        emen_you = fvd(R.id.emen_you);
+        //正在热映
+        eying_you = fvd(R.id.eying_you);
+        //即将上映
+        jijiang_you = fvd(R.id.jijiang_you);
+
+        //轮播图
         pInterfaceLunBo = new MyPenster(this);
+        //热门电影
         pInterfaceRMen = new MyPenster(this);
+        //正在热映
         pInterfaceRYing = new MyPenster(this);
+        //即将上映
         pInterfacegetShangYing = new MyPenster(this);
     }
 
+    //数据
     @Override
     protected void initData() {
+
+        //点击，跳转TabLayout
+        initTabLayout();
+
+        /****      轮播图         ****/
 
         pInterfaceLunBo.getLunBo(null);
 
@@ -110,7 +136,6 @@ public class FragmentOne extends BasefFragment implements VInterface.VInterfaceL
             public void onClick(int position, String movieId) {
                 Intent intent = new Intent(getActivity(),XiangQingActivity.class);
                 intent.putExtra("id",movieId);
-
                 startActivity(intent);
             }
         });
@@ -133,7 +158,9 @@ public class FragmentOne extends BasefFragment implements VInterface.VInterfaceL
         ryingAdapter.setOnItem(new RYingAdapter.OnItem() {
             @Override
             public void onClick(int position, String movieId) {
-                Toast.makeText(getActivity(),"热门电影",Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getActivity(),XiangQingActivity.class);
+                intent.putExtra("id",movieId);
+                startActivity(intent);
             }
 
         });
@@ -155,11 +182,40 @@ public class FragmentOne extends BasefFragment implements VInterface.VInterfaceL
         shangYingAdapter.setOnItem(new ShangYingAdapter.OnItem() {
             @Override
             public void onClick(int position, String movieId) {
-                Toast.makeText(getActivity(),"即将上映",Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getActivity(),XiangQingActivity.class);
+                intent.putExtra("id",movieId);
+                startActivity(intent);
             }
         });
     }
 
+    //点击，跳转TabLayout
+    private void initTabLayout() {
+        emen_you.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), TabLayoutActivity.class));
+            }
+        });
+
+        eying_you.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), TabLayoutActivity.class);
+                intent.putExtra("2",22);
+                startActivity(intent);
+            }
+        });
+
+        jijiang_you.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), TabLayoutActivity.class);
+                intent.putExtra("3",33);
+                startActivity(intent);
+            }
+        });
+    }
 
     //轮播
     @Override

@@ -31,8 +31,6 @@ public class RetroFitUtil {
     public static RetroFitUtil retroFitUtil;
     public Retrofit retrofit;
     public Api api;
-    public int userId;
-    public String sessionId;
     private final OkHttpClient okHttpClient;
 
 
