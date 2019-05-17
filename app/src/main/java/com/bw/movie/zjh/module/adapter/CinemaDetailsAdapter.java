@@ -66,7 +66,11 @@ public class CinemaDetailsAdapter extends RecyclerView.Adapter<RecyclerView.View
             @Override
             public void onClick(View v) {
                 if (mCinemaDetailsListener != null){
-                    mCinemaDetailsListener.onNextClick(mWorks.get(i).getId()+"");
+                    mCinemaDetailsListener.onNextClick(
+                            mWorks.get(i).getId()+"",
+                            mWorks.get(i).getBeginTime(),
+                            mWorks.get(i).getEndTime(),
+                            mWorks.get(i).getScreeningHall());
                 }
             }
         });
@@ -104,7 +108,7 @@ public class CinemaDetailsAdapter extends RecyclerView.Adapter<RecyclerView.View
     //自定义接口
     public interface CinemaDetailsListener{
         //去选座
-        void onNextClick(String scheduleId);
+        void onNextClick(String scheduleId, String begin, String end, String screenHall);
     }
 
 

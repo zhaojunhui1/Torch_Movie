@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/seat_linearlayout"
     tools:context=".zjh.module.ui.cinema.ChooseSeatBuyActivity">
 
     <RelativeLayout
@@ -90,7 +91,7 @@
                             android:textSize="@dimen/sp_13" />
                         <!--  电影大厅 -->
                         <TextView
-                            android:id="@+id/seat"
+                            android:id="@+id/hall"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/dp_30"

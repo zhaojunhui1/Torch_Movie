@@ -53,6 +53,7 @@ public class CinemaDetailsActivity extends BaseActivity implements IView {
     @BindView(R.id.like_address)
     TextView like_address;
 
+    private String moviename;
     private String cinemaId;
     private String logo;
     private String name;
@@ -74,7 +75,7 @@ public class CinemaDetailsActivity extends BaseActivity implements IView {
         like_image.setImageURI(logo);
         like_name.setText(name);
         like_address.setText(address);
-        Toast.makeText(this, "影院id:" + cinemaId, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "影院id:" + cinemaId, Toast.LENGTH_SHORT).show();
         iPresenter = new IPresenterImpl(this);
     }
 
@@ -90,8 +91,9 @@ public class CinemaDetailsActivity extends BaseActivity implements IView {
         //回调电影的MovieId
         mFlowAdapter.setMovieCoverFlowListener(new CinemaCoverFlowAdapter.MovieCoverFlowListener() {
             @Override
-            public void OnMovieClick(String movieid) {
-                Toast.makeText(CinemaDetailsActivity.this, movieid, Toast.LENGTH_SHORT).show();
+            public void OnMovieClick(String movieid, String movieName) {
+                //Toast.makeText(CinemaDetailsActivity.this, movieid, Toast.LENGTH_SHORT).show();
+                moviename = movieName;
                 joinData(movieid);
             }
         });
@@ -116,9 +118,16 @@ public class CinemaDetailsActivity extends BaseActivity implements IView {
         //回调排期id
         mAdapter.setCinemaDetailsListener(new CinemaDetailsAdapter.CinemaDetailsListener() {
             @Override
-            public void onNextClick(String scheduleId) {
+            public void onNextClick(String scheduleId, String begin, String end, String screenHall) {
                 Intent intent = new Intent(CinemaDetailsActivity.this, ChooseSeatBuyActivity.class);
+                intent.putExtra("name", name);
+                intent.putExtra("address", address);
+
+                intent.putExtra("moviename", moviename);
                 intent.putExtra("id", scheduleId);
+                intent.putExtra("begin", begin);
+                intent.putExtra("end", end);
+                intent.putExtra("hall", screenHall);
                 startActivity(intent);
             }
         });

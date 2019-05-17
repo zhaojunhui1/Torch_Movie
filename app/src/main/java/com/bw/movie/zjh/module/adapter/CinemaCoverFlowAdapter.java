@@ -62,7 +62,7 @@ public class CinemaCoverFlowAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             @Override
             public void onClick(View v) {
                 if (mMovieCoverFlowListener != null){
-                    mMovieCoverFlowListener.OnMovieClick(mData.get(i).getId()+"");
+                    mMovieCoverFlowListener.OnMovieClick(mData.get(i).getId()+"", mData.get(i).getName());
                 }
             }
         });
@@ -96,7 +96,7 @@ public class CinemaCoverFlowAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     }
     //自定义的接口回调
     public interface MovieCoverFlowListener{
-        void OnMovieClick(String movieId);
+        void OnMovieClick(String movieId, String movieName);
     }
 
 }

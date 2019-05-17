@@ -156,7 +156,7 @@ public class FragmentTwo extends BaseFragment implements IView {
         et_home_search.setText("搜索电影名称");
         tv_search.setText("搜索");
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) home_search_bg.getLayoutParams();
-        layoutParams.width = dip2px(getActivity(), 500);
+        layoutParams.width = dip2px(getActivity(), 330);
         home_search_bg.setLayoutParams(layoutParams);
         //开始动画
         beginDelayedTransition(home_search_bg);
@@ -171,7 +171,7 @@ public class FragmentTwo extends BaseFragment implements IView {
         tv_search.setText("");
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) home_search_bg.getLayoutParams();
         //layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-        layoutParams.width = dip2px(getActivity(), 100);
+        layoutParams.width = dip2px(getActivity(), 90);
         home_search_bg.setLayoutParams(layoutParams);
         //开始动画
         beginDelayedTransition(home_search_bg);

@@ -21,6 +21,9 @@ public class Apis {
     // 16.  根据电影ID查询当前排片该电影的影院列表
     public static final String IN_MOVIEID_CHOOSE_CINEMA_GET = "movieApi/movie/v1/findCinemasListByMovieId";
 
+    //17. 购票下单
+    public static final String BUY_MOVIE_TICKET = "movieApi/movie/v1/verify/buyMovieTicket";
+
 
     // 19. 根据影院ID查询该影院下即将上映的电影列表
     public static final String CINEMA_DOEN_MOVIE_GET = "movieApi/movie/v1/findSoonMovieByCinemaId";

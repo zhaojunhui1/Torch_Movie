@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.media.Image;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -160,7 +161,6 @@ public class LogActivity extends BasefActivity implements VInterface.VInterfaceD
             intent.putExtra("lastLoginTime",loginBean.getResult().getUserInfo().getLastLoginTime());
 
             startActivity(intent);
-            finish();
         }
 
     }

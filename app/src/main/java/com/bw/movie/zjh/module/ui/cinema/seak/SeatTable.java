@@ -886,7 +886,11 @@ public class SeatTable extends View {
 
     Handler handler = new Handler();
 
+    //选中座位的数量集合
     ArrayList<Integer> selects = new ArrayList<>();
+
+    // TODO  选中的数量
+
 
     public ArrayList<String> getSelectedSeat(){
         ArrayList<String> results=new ArrayList<>();
@@ -1094,6 +1098,7 @@ public class SeatTable extends View {
                             } else {
                                 if (selects.size() >= maxSelected) {
                                     Toast.makeText(getContext(), "最多只能选择" + maxSelected + "个", Toast.LENGTH_SHORT).show();
+                                    // TODO
                                     return super.onSingleTapConfirmed(e);
                                 } else {
                                     addChooseSeat(i, j);
