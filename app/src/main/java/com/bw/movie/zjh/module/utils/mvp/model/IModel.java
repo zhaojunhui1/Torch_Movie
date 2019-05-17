@@ -39,4 +39,10 @@ public interface IModel {
     void mBodyRequest(String url, Map<String, String> map, Map<String, RequestBody> mapBody, Class clazz, MyCallBack myCallBack);
 
 
+    /*
+     *   post 表单请求
+     * */
+    void postLoginModelRequest(String url, Map<String, String> map, Class clazz, MyCallBack myCallBack);
+
+
 }

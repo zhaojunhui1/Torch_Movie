@@ -163,5 +163,34 @@ public class IModelImpl implements IModel {
         });
     }
 
+    /*
+     *   post 表单请求
+     * */
+    @Override
+    public void postLoginModelRequest(String url, Map<String, String> map, final Class clazz, final MyCallBack myCallBack) {
+        RetrofitManager.getInstance().postLogin(url, map, new RetrofitManager.HttpListener() {
+            @Override
+            public void onSuccess(String data) {
+                try{
+                    Object o = new Gson().fromJson(data, clazz);
+                    if(myCallBack != null){
+                        myCallBack.OnSuccess(o);
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                    if(myCallBack != null){
+                        myCallBack.OnFails(e.getMessage());
+                    }
+                }
+            }
+
+            @Override
+            public void onFail(String error) {
+                if(myCallBack != null){
+                    myCallBack.OnFails(error);
+                }
+            }
+        });
+    }
 
 }

@@ -113,6 +113,23 @@ public class IPresenterImpl implements IPresenter {
         });
     }
 
+    /*
+     *   post 表单请求
+     * */
+    @Override
+    public void postLoginPresenterData(String url, Map<String, String> map, Class clazz) {
+        iModel.postLoginModelRequest(url, map, clazz, new MyCallBack() {
+            @Override
+            public void OnSuccess(Object data) {
+                iView.viewDataSuccess(data);
+            }
+
+            @Override
+            public void OnFails(String error) {
+                //iView.viewDataFails(error);
+            }
+        });
+    }
 
     /*
      *   关闭view层的强引用

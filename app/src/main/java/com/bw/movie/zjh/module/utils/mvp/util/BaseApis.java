@@ -5,6 +5,8 @@ import java.util.Map;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.http.DELETE;
+import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -45,4 +47,12 @@ public interface BaseApis {
     @Multipart
     Observable<ResponseBody> postFormBody(@Url String urlStr, @QueryMap Map<String, String> map, @PartMap Map<String, RequestBody> requestBodyMap);
 
+
+    /*
+     *   表单请求
+     *   用于登录、 注册 、点赞
+     * */
+    @POST
+    @FormUrlEncoded
+    Observable<ResponseBody> postLogin(@Url String url, @FieldMap Map<String, String> map);
 }

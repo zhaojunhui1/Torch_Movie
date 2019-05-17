@@ -16,4 +16,9 @@
         <item name="colorControlActivated">#ffffff</item>
     </style>
 
+    <!--  TabLayout设置导航字体大小-->
+    <style name="TabLayoutTextStyle">
+        <item name="android:textSize">@dimen/sp_16</item>
+    </style>
+
 </resources>
