@@ -5,7 +5,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".app.App"
@@ -23,29 +24,28 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--android:theme="@style/Theme.FloatActivity"-->
         <activity android:name=".fmk.activity.LogActivity" />
         <activity android:name=".fmk.activity.ZhuCeActivity" />
         <activity android:name=".fmk.fragment.FragmentActivity" />
         <activity android:name=".fmk.activity.XiangQingActivity" />
-<<<<<<< HEAD
         <activity android:name=".fmk.fragment.TabLayout.TabLayoutActivity" />
+        <activity android:name=".fmk.activity.GouPiaoActivity" />
+        <activity android:name=".fmk.activity.GouMaiActivity"/>
+        <!-- 广播 -->
+        <receiver android:name=".fmk.util.ConnectionChangeReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
 
-=======
-      
->>>>>>> dd0cea8aa943818b0d23c00cded1f8b58265c8e6
         <activity android:name=".zjh.module.ui.cinema.CinemaDetailsActivity" />
         <activity android:name=".zjh.module.ui.cinema.my.MyRemindActivity" />
         <activity android:name=".zjh.module.ui.cinema.my.MyPresonActivity" />
         <activity android:name=".zjh.module.ui.cinema.my.MyLookActivity" />
         <activity android:name=".zjh.module.ui.cinema.my.MyFoodedActivity" />
-
-        <activity android:name=".zjh.module.ui.cinema.ChooseSeatBuyActivity">
-        <activity android:name=".zjh.module.ui.cinema.my.MyBackMessageActivity"></activity>
-<<<<<<< HEAD
-
-=======
->>>>>>> dd0cea8aa943818b0d23c00cded1f8b58265c8e6
-
+        <activity android:name=".zjh.module.ui.cinema.ChooseSeatBuyActivity" />
+        <activity android:name=".zjh.module.ui.cinema.my.MyBackMessageActivity" />
     </application>
 
 </manifest>

@@ -1,6 +1,8 @@
 package com.bw.movie.fmk.activity;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Parcelable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -16,11 +18,17 @@ import android.widget.TextView;
 import com.bw.movie.R;
 import com.bw.movie.fmk.adapter.JuZhaoAdapter;
 import com.bw.movie.fmk.adapter.XiangQingAdapter;
+import com.bw.movie.fmk.adapter.YingPingAdapter;
 import com.bw.movie.fmk.adapter.YuGaoAdapter;
 import com.bw.movie.fmk.base.BasefActivity;
+import com.bw.movie.fmk.bean.DianYingPingLunBean;
 import com.bw.movie.fmk.bean.DianYingYuGaoBean;
+import com.bw.movie.fmk.bean.DianZanBean;
 import com.bw.movie.fmk.bean.GuanZhuBean;
+import com.bw.movie.fmk.bean.TianJiaPingLunBean;
 import com.bw.movie.fmk.bean.XiangQingZhuYeBean;
+import com.bw.movie.fmk.fragment.FragmentActivity;
+import com.bw.movie.fmk.fragment.FragmentOne;
 import com.bw.movie.fmk.mvp.p.MyPenster;
 import com.bw.movie.fmk.mvp.p.PInterface;
 import com.bw.movie.fmk.mvp.v.VInterface;
@@ -32,7 +40,8 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class XiangQingActivity extends BasefActivity implements VInterface.VInterfacegetXiangQingZhuYe,VInterface.VInterfaceYuGao,VInterface.VInterfacegetDianYingGuanZhu {
+public class XiangQingActivity extends BasefActivity implements VInterface.VInterfacegetXiangQingZhuYe,VInterface.VInterfaceYuGao,VInterface.VInterfacegetDianYingGuanZhu,VInterface.VInterfacegetDianYingPingLun
+ ,VInterface.VInterfacegetPingLunDianZan ,VInterface.VInterfacegetPTianJIaPingLun {
 
     private SimpleDraweeView xiangqing_guanzhu;
     private TextView xiangqing_xiang;
@@ -51,6 +60,12 @@ public class XiangQingActivity extends BasefActivity implements VInterface.VInte
     private List<DianYingYuGaoBean.ResultBean.ShortFilmListBean> dianyingYuGaoBean = new ArrayList<>();
     //电影剧照
     private List<String> dianyingJuZhaoBean = new ArrayList<>();
+    //电影评论
+    private List<DianYingPingLunBean.ResultBean> dianYingPingLunBean = new ArrayList<>();
+    //评论点赞
+    private List<String> dianZanBeans = new ArrayList<>();
+    //评论回复
+    private List<String> tianJiaPingLunBean = new ArrayList<>();
     private PInterface.PInterfacegetXiangQingZhuYe pInterfacegetXiangQingZhuYe;
     private TextView dianying_xiangqing;
     private PopupWindow popupWindow;
@@ -75,9 +90,17 @@ public class XiangQingActivity extends BasefActivity implements VInterface.VInte
     private ImageView juzhao_pop_xia;
     private ImageView xiangqing_pop_xia;
     private ImageView yugao_pop_xia;
-    private RecyclerView yingping_pop_rec;
+    private XRecyclerView yingping_pop_rec;
     private ImageView yingping_pop_xia;
     private PopupWindow popupWindow3;
+    private YingPingAdapter yingpinAdapter;
+    private PInterface.PInterfacegetDianYingPingLun pInterfacegetDianYingPingLun;
+    private HashMap<String, String> mapLun;
+    private String idxiang;
+    private String name;
+    private PInterface.PInterfacegetDianZan pInterfacegetDianZan;
+    private PInterface.PInterfacegetTianJIaPingLun pInterfacegetTianJIaPingLun;
+    private ImageView tianjia_pinglun;
 
     @Override
     protected int getLayoutResId() {
@@ -99,12 +122,17 @@ public class XiangQingActivity extends BasefActivity implements VInterface.VInte
         xiangqing_juzhao = fvd(R.id.xiangqing_juzhao);
         //影评
         xiangqing_yingping = fvd(R.id.xiangqing_yingping);
+        //返回
         xiangqing_fan = fvd(R.id.xiangqing_fan);
+        //购票
         xiangqing_gou = fvd(R.id.xiangqing_gou);
         xiangqing_name = fvd(R.id.xiangqing_name);
         xaingqing_image = fvd(R.id.xaingqing_image);
         pInterfacegetXiangQingZhuYe = new MyPenster(this);
         pInterfacegetDianYingYuGao = new MyPenster(this);
+        pInterfacegetDianYingPingLun = new MyPenster(this);
+        pInterfacegetDianZan = new MyPenster(this);
+        pInterfacegetTianJIaPingLun = new MyPenster(this);
 
          //电影关注
          initguanzhu();
@@ -133,17 +161,34 @@ public class XiangQingActivity extends BasefActivity implements VInterface.VInte
 
         pInterfacegetXiangQingZhuYe.getXiangQingZhuYe(null,map);
 
+        //点击跳转
+        xiangqing_fan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(XiangQingActivity.this,FragmentActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
+        //点击购票
+        xiangqing_gou.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                /******* 带值跳转到GouPiaoActivity *******/
+                String gouid = getIntent().getStringExtra("id");
 
-//        xiangqing_fan.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(XiangQingActivity.this,FragmentOne.class);
-//                startActivity(intent);
-//                finish();
-//            }
-//        });
+                HashMap<String,String> mapgou = new HashMap<>();
+                mapgou.put("movieId", gouid);
+
+                Intent intent = new Intent(XiangQingActivity.this,GouPiaoActivity.class);
+                intent.putExtra("gou", name);
+                intent.putExtra("id",gouid);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     //电影关注
@@ -172,7 +217,8 @@ public class XiangQingActivity extends BasefActivity implements VInterface.VInte
         XiangQingZhuYeBean.ResultBean result = xiangQingZhuYeBeans.getResult();
 
         //首页赋值
-        xiangqing_name.setText(result.getName());
+        name = result.getName();
+        xiangqing_name.setText(name);
         xaingqing_image.setImageURI(result.getImageUrl());
 
         //详情的赋值
@@ -212,6 +258,35 @@ public class XiangQingActivity extends BasefActivity implements VInterface.VInte
         dianyingJuZhaoBean.addAll(posterList);
 
         juZhaoAdapter.notifyDataSetChanged();
+    }
+
+    //电影评论
+    @Override
+    public void getDianYingPingLun(Object object) {
+        DianYingPingLunBean dianYingPingLunBean2 = (DianYingPingLunBean)object;
+        List<DianYingPingLunBean.ResultBean> result4 = dianYingPingLunBean2.getResult();
+        dianYingPingLunBean.addAll(result4);
+        Log.e("tab","dianYingPingLunBean=="+object);
+
+        yingpinAdapter.notifyDataSetChanged();
+    }
+
+    //电影评论点赞
+    @Override
+    public void getPingLunDianZan(Object object) {
+        DianZanBean dianZanBean2 = (DianZanBean)object;
+        String message = dianZanBean2.getMessage();
+        dianZanBeans.add(message);
+        yingpinAdapter.notifyDataSetChanged();
+    }
+
+    //添加电影评论
+    @Override
+    public void getTianJIaPingLun(Object object) {
+         TianJiaPingLunBean tianJiaPingLunBean2 = (TianJiaPingLunBean)object;
+         String message = tianJiaPingLunBean2.getMessage();
+         tianJiaPingLunBean.add(message);
+         yingpinAdapter.notifyDataSetChanged();
     }
 
     //pop,详情
@@ -259,10 +334,10 @@ public class XiangQingActivity extends BasefActivity implements VInterface.VInte
             @Override
                     public void onClick(View v) {
 
-                        String id = getIntent().getStringExtra("id");
+                        idxiang = getIntent().getStringExtra("id");
 
                         mapxiangqing = new HashMap<>();
-                        mapxiangqing.put("movieId",id);
+                        mapxiangqing.put("movieId", idxiang);
 
                         pInterfacegetXiangQingZhuYe.getXiangQingZhuYe(null, mapxiangqing);
                         //动画
@@ -297,9 +372,13 @@ public class XiangQingActivity extends BasefActivity implements VInterface.VInte
 
             @Override
             public void onLoadMore() {
-                page++;
-                pInterfacegetXiangQingZhuYe.getXiangQingZhuYe(null,mapxiangqing);
-                xiang_pop_xrec.loadMoreComplete();
+                //加载更多数据
+                for (int i = 0; i < 0; i++) {
+                    page++;
+                    pInterfacegetXiangQingZhuYe.getXiangQingZhuYe(null,mapxiangqing);
+                    xiang_pop_xrec.loadMoreComplete();
+                }
+               xiangQingAdapter.notifyDataSetChanged();
             }
         });
 
@@ -340,7 +419,6 @@ public class XiangQingActivity extends BasefActivity implements VInterface.VInte
         yugao_pop_recy.setLayoutManager(linear2);
 
         //适配器
-     //   yuGaoAdapter = new YuGaoAdapter(XiangQingActivity.this);
         yuGaoAdapter = new YuGaoAdapter(dianyingYuGaoBean,XiangQingActivity.this);
         yugao_pop_recy.setAdapter(yuGaoAdapter);
 
@@ -445,16 +523,31 @@ public class XiangQingActivity extends BasefActivity implements VInterface.VInte
 
         yingping_pop_rec = view.findViewById(R.id.yingping_pop_rec);
         yingping_pop_xia = view.findViewById(R.id.yingping_pop_xia);
+        tianjia_pinglun = view.findViewById(R.id.tianjia_pinglun);
+
+        //添加评论
+        tianjia_pinglun.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("tab","添加评论");
+                String id = getIntent().getStringExtra("id");
+                HashMap<String,String> mapTian = new HashMap<>();
+                mapTian.put("commentId",id);
+                mapTian.put("commentContent","555");
+                Log.e("tab","mapTian"+mapTian);
+                pInterfacegetTianJIaPingLun.getTianJIaPingLun(null,mapTian);
+            }
+        });
+
 
         //布局管理器
-        StaggeredGridLayoutManager stag = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        juzao_pop_rec.setLayoutManager(stag);
-
-        juzao_pop_rec.setLayoutManager(stag);
+        LinearLayoutManager linear4 = new LinearLayoutManager(this);
+        linear4.setOrientation(LinearLayoutManager.VERTICAL);
+        yingping_pop_rec.setLayoutManager(linear4);
 
         //适配器
-        juZhaoAdapter = new JuZhaoAdapter(dianyingJuZhaoBean,XiangQingActivity.this);
-        juzao_pop_rec.setAdapter(juZhaoAdapter);
+        yingpinAdapter = new YingPingAdapter(dianYingPingLunBean,XiangQingActivity.this);
+        yingping_pop_rec.setAdapter(yingpinAdapter);
 
         //第一个参数是popWindow中的View,第二个是宽度，第三个是高度，第四个是能否获取焦点
         popupWindow3 = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT,
@@ -475,22 +568,63 @@ public class XiangQingActivity extends BasefActivity implements VInterface.VInte
             }
         });
 
+        //点赞
+        yingpinAdapter.setOnItem(new YingPingAdapter.OnItem() {
+            @Override
+            public void onClick(int position, int commentId) {
+                Log.e("tab","点赞点击了");
+                String id = getIntent().getStringExtra("id");
+                HashMap<String,String> mapZan = new HashMap<>();
+                mapLun.put("commentId",id);
+
+                pInterfacegetDianZan.getDianZan(null,mapZan);
+            }
+        });
+
         //电影评价
         xiangqing_yingping.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 String id = getIntent().getStringExtra("id");
 
-                HashMap<String,String> map = new HashMap<>();
-                map.put("movieId",id);
-
-                pInterfacegetDianYingYuGao.getDianYingYuGao(null,map);
+                mapLun = new HashMap<>();
+                mapLun.put("movieId",id);
+                mapLun.put("page","1");
+                mapLun.put("count","5");
+                pInterfacegetDianYingPingLun.getDianYingPingLun(null, mapLun);
+                Log.e("tab","pInterfacegetDianYingPingLun=="+pInterfacegetDianYingPingLun);
                 //动画
                 popupWindow3.setAnimationStyle(R.style.pop_animation);
                 popupWindow3.showAtLocation(v,Gravity.BOTTOM,0,210);
             }
         });
 
+
+        //上拉，下拉
+        yingping_pop_rec.setPullRefreshEnabled(true);
+        yingping_pop_rec.setLoadingMoreEnabled(true);
+
+        yingping_pop_rec.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+                xiangQingZhuYeBean.clear();
+                page = 1;
+                pInterfacegetDianYingPingLun.getDianYingPingLun(null,mapLun);
+                yingping_pop_rec.refreshComplete();
+                yingpinAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onLoadMore() {
+                //模拟加载更多数据
+                    for (int i = 0; i < dianYingPingLunBean.size(); i++) {
+                        page++;
+                        pInterfacegetDianYingPingLun.getDianYingPingLun(null,mapLun);
+                    }
+                    yingpinAdapter.notifyDataSetChanged();
+            }
+        });
         popupWindow3.dismiss();
     }
 
@@ -503,6 +637,11 @@ public class XiangQingActivity extends BasefActivity implements VInterface.VInte
 
         pInterfacegetDianYingYuGao.onDsply();
         pInterfacegetDianYingYuGao=null;
-    }
 
+        pInterfacegetDianYingPingLun.onDsply();
+        pInterfacegetDianYingPingLun=null;
+
+        pInterfacegetTianJIaPingLun.onDsply();
+        pInterfacegetTianJIaPingLun=null;
+    }
 }

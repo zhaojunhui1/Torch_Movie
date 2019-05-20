@@ -1,5 +1,6 @@
 package com.bw.movie.fmk.fragment.TabLayout;
 
+import android.annotation.TargetApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
@@ -54,7 +55,7 @@ public class TabLayoutOne extends BasefFragment implements VInterface.VInterface
     @Override
     protected void initData() {
 
-        //布局管理利器
+        //布局管理器
         LinearLayoutManager linear2 = new LinearLayoutManager(getActivity());
         linear2.setOrientation(LinearLayoutManager.VERTICAL);
         tab_one_rec.setLayoutManager(linear2);
@@ -84,7 +85,6 @@ public class TabLayoutOne extends BasefFragment implements VInterface.VInterface
                 tabOneAdapter.notifyDataSetChanged();
             }
         });
-        tabOneAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -100,12 +100,9 @@ public class TabLayoutOne extends BasefFragment implements VInterface.VInterface
     public void getDianYingGuanZhu(Object object) {
         GuanZhuBean guanZhuBean2 = (GuanZhuBean)object;
         String message = guanZhuBean2.getMessage();
-        if (message.equals("关注成功")){
             guanZhuBean.add(message);
             Toast.makeText(getActivity(), guanZhuBean2.getMessage(), Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(getActivity(), "请先登录", Toast.LENGTH_SHORT).show();
-        }
+
     }
 
     //取消关注
@@ -113,12 +110,11 @@ public class TabLayoutOne extends BasefFragment implements VInterface.VInterface
     public void getQuXiaoDianYingGuanZhu(Object object) {
         QuXiaoGuanZhuBean quXiaoGuanZhuBean2 = (QuXiaoGuanZhuBean)object;
         String message = quXiaoGuanZhuBean2.getMessage();
-        if (message.equals("取消关注")){
+
+        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
             quxiaoguanZhuBean.add(message);
-            Toast.makeText(getActivity(), quXiaoGuanZhuBean2.getMessage(), Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(getActivity(), "请先登录", Toast.LENGTH_SHORT).show();
-        }
+            //Toast.makeText(getActivity(), quXiaoGuanZhuBean2.getMessage(), Toast.LENGTH_SHORT).show();
+
     }
 
     @Override

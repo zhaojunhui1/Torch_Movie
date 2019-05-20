@@ -13,9 +13,10 @@ import java.util.HashMap;
  * @Date: 2019/5/9 16:29
  * @Description:
  */
-public class MyPenster<T> implements PInterface.PInterfaceDengLu,PInterface.PInterfaceZhuCe,PInterface.PInterfaceLunBo,PInterface.PInterfacegetRYing,PInterface.PInterfacegetShangYing,PInterface.PInterfaceRMen,PInterface.PInterfacegetXiangQingZhuYe,PInterface.PInterfacegetDianYingYuGao
-
- ,PInterface.PInterfacegetDianYingGuanZhu,PInterface.PInterfacegetQuXiaoDianYingGuanZhu{
+public class MyPenster<T> implements PInterface.PInterfaceDengLu,PInterface.PInterfaceZhuCe,PInterface.PInterfaceLunBo,
+        PInterface.PInterfacegetRYing,PInterface.PInterfacegetShangYing,PInterface.PInterfaceRMen,PInterface.PInterfacegetXiangQingZhuYe,PInterface.PInterfacegetDianYingYuGao
+        ,PInterface.PInterfacegetDianYingGuanZhu,PInterface.PInterfacegetQuXiaoDianYingGuanZhu,PInterface.PInterfacegetDianYingPingLun
+        ,PInterface.PInterfacegetGouPiao,PInterface.PInterfacegetDianZan,PInterface.PInterfacegetTianJIaPingLun{
 
     private MyModel myModel;
     public T tt;
@@ -144,6 +145,54 @@ public class MyPenster<T> implements PInterface.PInterfaceDengLu,PInterface.PInt
             }
         });
         myModel.getQuXiaoDianYingGuanZhu(Url.QUXIAOGUANZHU,map);
+    }
+
+    //电影评论
+    @Override
+    public void getDianYingPingLun(String url, HashMap<String, String> map) {
+        myModel.setMyModel(new MyModel.MyCallBack() {
+            @Override
+            public void succer(Object object) {
+                ((VInterface.VInterfacegetDianYingPingLun)tt).getDianYingPingLun(object);
+            }
+        });
+        myModel.getChaKanDianYingPingLun(Url.DIANYINGPINGLUN,map);
+    }
+
+    //电影评论点赞
+    @Override
+    public void getDianZan(String url, HashMap<String, String> map) {
+        myModel.setMyModel(new MyModel.MyCallBack() {
+            @Override
+            public void succer(Object object) {
+                ((VInterface.VInterfacegetPingLunDianZan)tt).getPingLunDianZan(object);
+            }
+        });
+        myModel.getPingLunDianZan(Url.PINGLUNDIANZAN,map);
+    }
+
+    //电影评论回复
+    @Override
+    public void getTianJIaPingLun(String url, HashMap<String, String> map) {
+        myModel.setMyModel(new MyModel.MyCallBack() {
+            @Override
+            public void succer(Object object) {
+                ((VInterface.VInterfacegetPTianJIaPingLun)tt).getTianJIaPingLun(object);
+            }
+        });
+        myModel.getTianJIaPingLun(Url.YINGPIANPINGLUN,map);
+    }
+
+    //购票
+    @Override
+    public void getGouPiao(String url, HashMap<String, String> map) {
+        myModel.setMyModel(new MyModel.MyCallBack() {
+            @Override
+            public void succer(Object object) {
+                ((VInterface.VInterfaceYuGao)tt).getYuGao(object);
+            }
+        });
+        myModel.getGouPiao(Url.DIANYINGGOUPIAO,map);
     }
 
     @Override

@@ -2,6 +2,8 @@ package com.bw.movie.fmk.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
@@ -34,8 +36,6 @@ public class RetroFitUtil {
     private final OkHttpClient okHttpClient;
 
 
-
-
     //拦截器
     private RetroFitUtil(){
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(new httplog());
@@ -50,30 +50,14 @@ public class RetroFitUtil {
                 .addInterceptor(new Interceptor() {
                     @Override
                     public Response intercept(Chain chain) throws IOException {
-                        Request request = chain.request();
-                        //取出sp中存入的userid, sessionid
-                        SharedPreferences sharedPreferences = App.getApplication().getSharedPreferences("token", Context.MODE_PRIVATE);
+                        SharedPreferences sharedPreferences = App.getApplication().getSharedPreferences("fmkcan", Context.MODE_PRIVATE);
                         String userId = sharedPreferences.getString("userId", "");
                         String sessionId = sharedPreferences.getString("sessionId", "");
-
-                        //重新构造请求
-                        Request.Builder requestBuild = request.newBuilder();
-                        //放入请求参数
-                        requestBuild.method(request.method(), request.body());
-                        //添加userid, sessionid
-                        if (!TextUtils.isEmpty(userId) && !TextUtils.isEmpty(sessionId)){
-                            requestBuild.addHeader("userId", userId);
-                            requestBuild.addHeader("sessionId", sessionId);
-                        }
-
-                        //重新构造请求
-//                                .newBuilder()
-//                                .addHeader("userId",String.valueOf(userId))
-//                                .addHeader("sessionId",String.valueOf(sessionId))
-//                                .build();
-                        //打包
-                        Response proceed = chain.proceed(request);
-                        return proceed;
+                        Request request = chain.request().newBuilder()
+                                .addHeader("userId", userId)
+                                .addHeader("sessionId", sessionId)
+                                .build();
+                        return chain.proceed(request);
                     }
                 })
                 .build();
@@ -89,7 +73,7 @@ public class RetroFitUtil {
     }
 
     //构造方法私有化
-    private Retrofit getRetrofit(){
+    public Retrofit getRetrofit(){
         retrofit = new Retrofit.Builder()
                 .baseUrl(Url.TOU)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
@@ -107,6 +91,25 @@ public class RetroFitUtil {
         return retroFitUtil;
     }
 
+
+    //网络判断
+    public static boolean isNetworkConnected(Context context){
+
+        //判断参数是否为空
+        if (context!=null){
+            //获取连接管理器
+            ConnectivityManager connectivityManager = (ConnectivityManager)
+                    context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            //获取网络状态
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+            //判断网络是否可用
+            if (networkInfo!=null){
+                return networkInfo.isAvailable();
+            }
+        }
+        return false;
+    }
 
     public <T>T setRtrofit(Class<T> tClass){
         return getRetrofit().create(tClass);

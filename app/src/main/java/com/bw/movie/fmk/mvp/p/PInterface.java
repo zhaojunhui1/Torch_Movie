@@ -67,4 +67,34 @@ public interface PInterface {
         void getQuXiaoDianYingGuanZhu(String url,HashMap<String, String> map);
         void onDsply();
     }
+
+    //电影评论
+    public interface PInterfacegetDianYingPingLun {
+        void getDianYingPingLun(String url,HashMap<String, String> map);
+        void onDsply();
+    }
+
+    //电影评论点赞
+    public interface PInterfacegetDianZan {
+        void getDianZan (String url,HashMap<String, String> map);
+        void onDsply();
+    }
+
+    //添加评论
+    public interface PInterfacegetTianJIaPingLun {
+        void getTianJIaPingLun (String url,HashMap<String, String> map);
+        void onDsply();
+    }
+
+    //购票
+    public interface PInterfacegetGouPiao {
+        void getGouPiao(String url,HashMap<String, String> map);
+        void onDsply();
+    }
+
+    //根据电影ID和影院ID查询电影排期列表
+    public interface PInterfacegetDianYingPaiQi {
+        void getDianYingPaiQi(String url,HashMap<String, String> map);
+        void onDsply();
+    }
 }

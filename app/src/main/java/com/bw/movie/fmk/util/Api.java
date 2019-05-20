@@ -1,5 +1,7 @@
 package com.bw.movie.fmk.util;
 
+import android.content.Intent;
+
 import java.util.Map;
 
 import okhttp3.ResponseBody;
@@ -25,7 +27,6 @@ public interface Api {
 
     @GET
     public Observable<ResponseBody> getapi2(@Url String url,@QueryMap Map<String, String> parmas);
-
 
     @FormUrlEncoded
     @POST

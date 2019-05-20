@@ -7,7 +7,8 @@ package com.bw.movie.fmk.util;
  */
 public class Url {
 
-    //mobile.bwstudent.com
+    //http://mobile.bwstudent.com
+    //http://172.17.8.100/
 
     public static String TOU = "http://172.17.8.100/";
 
@@ -43,5 +44,23 @@ public class Url {
 
     //查看电影评论，http://172.17.8.100/movieApi/movie/v1/findAllMovieComment?movieId=1&page=1&count=5
     public static String DIANYINGPINGLUN="movieApi/movie/v1/findAllMovieComment";
+
+    //评论点赞，http://172.17.8.100/movieApi/movie/v1/verify/movieCommentGreat?commentId=1
+    public static String PINGLUNDIANZAN="movieApi/movie/v1/verify/movieCommentGreat";
+
+    //添加用户对影片的评论，http://172.17.8.100/movieApi/movie/v1/verify/movieComment
+    public static String YINGPIANPINGLUN="movieApi/movie/v1/verify/movieComment";
+
+    //购票，http://172.17.8.100/movieApi/movie/v1/findCinemasListByMovieId?movieId=1
+    public static String DIANYINGGOUPIAO="movieApi/movie/v1/findCinemasListByMovieId";
+
+    //根据电影ID和影院ID查询电影排期列表，http://172.17.8.100/movieApi/movie/v1/findMovieScheduleList?cinemasId=2&movieId=3
+    public static String PAIQILEIBIAO="movieApi/movie/v1/findMovieScheduleList";
+
+    //根据影院ID查询该影院下即将上映的电影列表,http://172.17.8.100/movieApi/movie/v1/findSoonMovieByCinemaId
+    public static String YINGYUANID="movieApi/movie/v1/findSoonMovieByCinemaId";
+
+    //根据电影ID和影院ID查询电影排期列表，http://172.17.8.100/movieApi/movie/v1/findMovieScheduleList
+    public static String DIANYINGID_YINGYUANID="movieApi/movie/v1/findMovieScheduleList";
 
 }

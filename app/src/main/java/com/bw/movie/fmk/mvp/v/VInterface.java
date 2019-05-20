@@ -58,4 +58,29 @@ public interface VInterface {
     public interface VInterfacegetQuXiaoDianYingGuanZhu {
         void getQuXiaoDianYingGuanZhu(Object object);
     }
+
+    //电影评论
+    public interface VInterfacegetDianYingPingLun {
+        void getDianYingPingLun(Object object);
+    }
+
+    //电影评论点赞
+    public interface VInterfacegetPingLunDianZan {
+        void getPingLunDianZan(Object object);
+    }
+
+    //电影评论回复
+    public interface VInterfacegetPTianJIaPingLun {
+        void getTianJIaPingLun(Object object);
+    }
+
+    //电影购票
+    public interface VInterfacegetGouPiao {
+        void getGouPiao(Object object);
+    }
+
+    //根据电影ID和影院ID查询电影排期列表
+    public interface VInterfacegetDianYingPaiQi {
+        void getDianYingPaiQi(Object object);
+    }
 }

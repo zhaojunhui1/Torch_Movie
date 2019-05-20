@@ -3,13 +3,18 @@ package com.bw.movie.fmk.mvp.m;
 import android.util.Log;
 
 import com.bw.movie.fmk.bean.BannerBean;
+import com.bw.movie.fmk.bean.DianYingPingLunBean;
+import com.bw.movie.fmk.bean.DianZanBean;
+import com.bw.movie.fmk.bean.GouPiaoBean;
 import com.bw.movie.fmk.bean.GuanZhuBean;
 import com.bw.movie.fmk.bean.LoginBean;
+import com.bw.movie.fmk.bean.PaiQiBeam;
 import com.bw.movie.fmk.bean.QuXiaoGuanZhuBean;
 import com.bw.movie.fmk.bean.RMenBean;
 import com.bw.movie.fmk.bean.RYingBean;
 import com.bw.movie.fmk.bean.ShangYingBean;
 import com.bw.movie.fmk.bean.DianYingYuGaoBean;
+import com.bw.movie.fmk.bean.TianJiaPingLunBean;
 import com.bw.movie.fmk.bean.XiangQingZhuYeBean;
 import com.bw.movie.fmk.bean.ZhuBean;
 import com.bw.movie.fmk.util.Api;
@@ -229,6 +234,7 @@ public class MyModel {
                     public void call(ResponseBody responseBody) {
                         try {
                             String string = responseBody.string();
+                            Log.e("tag", "call: "+string );
                             Gson gson = new Gson();
                             GuanZhuBean guanZhuBean = gson.fromJson(string, GuanZhuBean.class);
                             myCallBack.succer(guanZhuBean);
@@ -252,6 +258,7 @@ public class MyModel {
                     public void call(ResponseBody responseBody) {
                         try {
                             String string = responseBody.string();
+                            Log.e("tag", "call: "+string );
                             Gson gson = new Gson();
                             QuXiaoGuanZhuBean quXiaoGuanZhuBean = gson.fromJson(string, QuXiaoGuanZhuBean.class);
                             myCallBack.succer(quXiaoGuanZhuBean);
@@ -262,6 +269,120 @@ public class MyModel {
                 });
     }
 
+
+    //查看电影评论
+    public void getChaKanDianYingPingLun(String url, final Map<String,String> map){
+        RetroFitUtil inRetroFitUtil = RetroFitUtil.getInRetroFitUtil();
+        Api api = inRetroFitUtil.setRtrofit(Api.class);
+        api.getapi2(url,map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody responseBody) {
+                        try {
+                            String string = responseBody.string();
+                            Gson gson = new Gson();
+                            DianYingPingLunBean dianYingPingLunBean = gson.fromJson(string, DianYingPingLunBean.class);
+                            Log.e("tagggg", "call: "+dianYingPingLunBean.getMessage() );
+                            myCallBack.succer(dianYingPingLunBean);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
+    //电影评论点赞
+    public void getPingLunDianZan(String url, final Map<String,String> map){
+        RetroFitUtil inRetroFitUtil = RetroFitUtil.getInRetroFitUtil();
+        Api api = inRetroFitUtil.setRtrofit(Api.class);
+        api.getpost(url,map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody responseBody) {
+                        try {
+                            String string = responseBody.string();
+                            Gson gson = new Gson();
+                            DianZanBean dianZanBean = gson.fromJson(string, DianZanBean.class);
+                            Log.e("tagggg", "call: "+dianZanBean.getMessage() );
+                            myCallBack.succer(dianZanBean);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
+    //添加电影评论
+    public void getTianJIaPingLun(String url, final Map<String,String> map){
+        RetroFitUtil inRetroFitUtil = RetroFitUtil.getInRetroFitUtil();
+        Api api = inRetroFitUtil.setRtrofit(Api.class);
+        api.getpost(url,map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody responseBody) {
+                        try {
+                            String string = responseBody.string();
+                            Gson gson = new Gson();
+                            TianJiaPingLunBean tianJiaPingLunBean = gson.fromJson(string, TianJiaPingLunBean.class);
+                            myCallBack.succer(tianJiaPingLunBean);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
+    //购票
+    public void getGouPiao(String url, final Map<String,String> map){
+        RetroFitUtil inRetroFitUtil = RetroFitUtil.getInRetroFitUtil();
+        Api api = inRetroFitUtil.setRtrofit(Api.class);
+        api.getapi2(url,map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody responseBody) {
+                        try {
+                            String string = responseBody.string();
+                            Gson gson = new Gson();
+                            GouPiaoBean gouPiaoBean = gson.fromJson(string, GouPiaoBean.class);
+                            myCallBack.succer(gouPiaoBean);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
+
+    //根据电影ID和影院ID查询电影排期列表
+    public void getPaiQi(String url, final Map<String,String> map){
+        RetroFitUtil inRetroFitUtil = RetroFitUtil.getInRetroFitUtil();
+        Api api = inRetroFitUtil.setRtrofit(Api.class);
+        api.getapi2(url,map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody responseBody) {
+                        try {
+                            String string = responseBody.string();
+                            Gson gson = new Gson();
+                            PaiQiBeam paiQiBeam = gson.fromJson(string, PaiQiBeam.class);
+                            Log.e("tab","paiQiBeam"+paiQiBeam);
+                            myCallBack.succer(paiQiBeam);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
 
     public void setMyModel(MyCallBack myCallBack) {
             this.myCallBack = myCallBack;

@@ -1,16 +1,22 @@
 package com.bw.movie.fmk.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bw.movie.R;
+import com.bw.movie.fmk.bean.DianYingPingLunBean;
 import com.bw.movie.fmk.bean.DianYingYuGaoBean;
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.List;
 
@@ -22,46 +28,68 @@ import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
  * @Date: 2019/5/15 9:40
  * @Description:
  */
-public class YingPingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class YingPingAdapter extends XRecyclerView.Adapter<YingPingAdapter.Holder> {
 
-    private List<DianYingYuGaoBean.ResultBean.ShortFilmListBean> data;
+    private List<DianYingPingLunBean.ResultBean> data;
     private Context mContext;
 
-    public YingPingAdapter(List<DianYingYuGaoBean.ResultBean.ShortFilmListBean> data, Context mContext) {
+    public YingPingAdapter(List<DianYingPingLunBean.ResultBean> data, Context mContext) {
         this.data = data;
         this.mContext = mContext;
     }
 
-    //    public YuGaoAdapter(Context mContext) {
-//        this.mContext = mContext;
-//        //data=new ArrayList<>();
-//    }
-
-//       public void setaa(List<DianYingYuGaoBean.ResultBean.ShortFilmListBean> shortFilmList) {
-//        if (shortFilmList!=null){
-//            data.addAll(shortFilmList);
-//        }
-//        notifyDataSetChanged();
-//    }
 
     @NonNull
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.yugao_item, null);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.yingping_item, null);
 
         return new Holder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-        Holder holder = (Holder) viewHolder;
-        if (data.get(i).getVideoUrl() != null){
-            boolean setUp = holder.yugao_bo.setUp(data.get(i).getVideoUrl(), JCVideoPlayer.SCREEN_LAYOUT_LIST,"");
-            if (setUp) {
-                holder.yugao_bo.thumbImageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                Glide.with(mContext).load(data.get(i).getImageUrl()).into(holder.yugao_bo.thumbImageView);
+    public void onBindViewHolder(@NonNull Holder holder, final int i) {
+
+        String commentUserName = data.get(i).getCommentUserName();
+        holder.yingping_item_name.setText(commentUserName);
+
+        String commentContent = data.get(i).getCommentContent();
+        holder.yingping_item_ping.setText(commentContent);
+
+        int greatNum = data.get(i).getGreatNum();
+        holder.yingping_item_zan_shu.setText(greatNum+"");
+
+        long commentTime = data.get(i).getCommentTime();
+        holder.yingping_item_time.setText(commentTime+"");
+
+        int commentId = data.get(i).getCommentId();
+        holder.yingping_item_pinglun_shu.setText(commentId+"");
+
+        String commentHeadPic = data.get(i).getCommentHeadPic();
+        holder.yingping_item_image1.setImageURI(Uri.parse(commentHeadPic));
+
+        //点击
+        holder.yingping_item_zan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onItem!=null){
+                    onItem.onClick(i,data.get(i).getIsGreat());
+                }
             }
-        }
+        });
+    }
+
+
+    //接口
+    public interface OnItem{
+        void onClick(int position,int commentId);
+    }
+
+    private OnItem onItem;
+
+    //一个公共的方法
+    public void setOnItem(OnItem onItem) {
+        this.onItem = onItem;
     }
 
 
@@ -71,13 +99,22 @@ public class YingPingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
 
-    public class Holder extends RecyclerView.ViewHolder {
+    public class Holder extends XRecyclerView.ViewHolder {
 
-        private JCVideoPlayerStandard yugao_bo;
+        private TextView yingping_item_name,yingping_item_ping,yingping_item_time,yingping_item_zan_shu,yingping_item_pinglun_shu;
+        private SimpleDraweeView yingping_item_image1;
+        private ImageView yingping_item_zan;
 
         public Holder(@NonNull View itemView) {
             super(itemView);
-            yugao_bo = itemView.findViewById(R.id.yugao_bo);
+            yingping_item_image1 = itemView.findViewById(R.id.yingping_item_image1);
+            yingping_item_name = itemView.findViewById(R.id.yingping_item_name);
+            yingping_item_ping = itemView.findViewById(R.id.yingping_item_ping);
+            yingping_item_time = itemView.findViewById(R.id.yingping_item_time);
+            yingping_item_zan_shu = itemView.findViewById(R.id.yingping_item_zan_shu);
+            yingping_item_pinglun_shu = itemView.findViewById(R.id.yingping_item_pinglun_shu);
+            yingping_item_zan = itemView.findViewById(R.id.yingping_item_zan);
+
         }
     }
 }

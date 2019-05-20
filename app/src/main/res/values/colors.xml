@@ -4,7 +4,8 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorpop">#00f2eded</color>
     <color name="colorAccent">#D81B60</color>
-
+    <!--Activity透明窗口-->
+    <color name="transparent">#00fdfdfd</color>
 
     <color name="white">#ffffff</color>
 </resources>

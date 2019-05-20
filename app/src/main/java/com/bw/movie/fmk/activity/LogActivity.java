@@ -140,20 +140,25 @@ public class LogActivity extends BasefActivity implements VInterface.VInterfaceD
         //Log.e("tab","message=="+message);
         LoginBean.ResultBean result = loginBean.getResult();
 
-        String sessionId = result.getSessionId();
-        int userId = result.getUserId();
-
 
         //List<GreendaoBean> greendaoBeans = App.daoSession.loadAll();
         //Toast.makeText(this,object1+"",Toast.LENGTH_LONG).show();
         if (message.equals("登陆成功")){
 
             //传入头参
-            SharedPreferences sharedPreferences = getSharedPreferences("token", MODE_PRIVATE);
+            SharedPreferences sharedPreferences = getSharedPreferences("fmkcan", MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("userId", loginBean.getResult().getUserId() + "");
             editor.putString("sessionId", loginBean.getResult().getSessionId());
             editor.commit();
+
+            SharedPreferences sharedPreferences1 = getSharedPreferences("token", MODE_PRIVATE);
+            SharedPreferences.Editor editor1 = sharedPreferences1.edit();
+            editor1.putString("userId", loginBean.getResult().getUserId() + "");
+            editor1.putString("sessionId", loginBean.getResult().getSessionId());
+            editor1.commit();
+
+            Log.e("UserId", loginBean.getResult().getUserId() + "");
 
             Intent intent = new Intent(this,FragmentActivity.class);
 
@@ -165,14 +170,10 @@ public class LogActivity extends BasefActivity implements VInterface.VInterfaceD
             intent.putExtra("lastLoginTime",loginBean.getResult().getUserInfo().getLastLoginTime());
 
             startActivity(intent);
-<<<<<<< HEAD
             //startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(LogActivity.this).toBundle());
             overridePendingTransition(R.anim.activity_dong,R.anim.activity_dong_tui);
 
 
-            finish();
-=======
->>>>>>> dd0cea8aa943818b0d23c00cded1f8b58265c8e6
         }
 
     }
