@@ -2,8 +2,7 @@ package com.bw.movie.zjh.module.ui.cinema;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
@@ -24,9 +23,6 @@ import com.bw.movie.zjh.module.utils.config.Config;
 import com.bw.movie.zjh.module.utils.mvp.presenter.IPresenterImpl;
 import com.bw.movie.zjh.module.utils.mvp.util.Apis;
 import com.bw.movie.zjh.module.utils.mvp.view.IView;
-import com.jcodecraeer.xrecyclerview.ProgressStyle;
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
-import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.header.WaveSwipeHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -49,54 +45,43 @@ import butterknife.Unbinder;
 /**
  * author : zjh
  * e-mail : zjh@163.com
- * date   : 2019/5/13 9:38
- * desc   :  推荐影院
+ * date   : 2019/5/17 11:53
+ * desc   :
  * version: 1.0
  */
-public class CinemaRecommendFragment extends BaseFragment implements IView {
-    private Unbinder bind;
+public class CinemaSearchFragment extends BaseFragment implements IView {
     private IPresenterImpl iPresenter;
+    private Unbinder bind;
     @BindView(R.id.mRecyclerView)
     RecyclerView mRecyclerView;
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
 
     private int page = 0;
-    private RecommendAdapter mAdapter;
+    private SearchRecommendAdapter mAdapter;
     private String searchName;
-    private boolean flag;
-    private SearchRecommendAdapter searchAdapter;
 
     @Override
     protected int setView() {
-        return R.layout.fragment_cineme_recommend;
+        return R.layout.fragment_cinema_search;
     }
 
     @Override
     protected void init(View view) {
-        bind = ButterKnife.bind(this, view);
-        if (!EventBus.getDefault().isRegistered(this)) {
+        iPresenter = new IPresenterImpl(this);
+        if (!EventBus.getDefault().isRegistered(this)){
             EventBus.getDefault().register(this);
         }
-        iPresenter = new IPresenterImpl(this);
-
+        bind = ButterKnife.bind(this, view);
     }
 
     @Override
     protected void initData(Bundle savedInstanceState) {
         page = 1;
-        //附近影院适配器
-        mAdapter = new RecommendAdapter(getActivity());
+        //适配器
+        mAdapter = new SearchRecommendAdapter(getActivity());
         mRecyclerView.setAdapter(mAdapter);
         isLikeCinema();
-
-        //搜索影院适配器
-        if (flag){
-            searchAdapter = new SearchRecommendAdapter(getActivity());
-            mRecyclerView.setAdapter(searchAdapter);
-            searchLikeCinema();
-        }
-
 
         //刷新方法
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
@@ -110,14 +95,12 @@ public class CinemaRecommendFragment extends BaseFragment implements IView {
         refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
-                page++;
+                page ++;
                 joinApi(page);
                 refreshlayout.finishLoadmore(2000);
             }
         });
         joinApi(page);
-        //设置 Header 为 Material风格
-        //refreshLayout.setRefreshHeader(new MaterialHeader(getActivity()).setShowBezierWave(true));
         //全屏水滴
         refreshLayout.setRefreshHeader(new WaveSwipeHeader(getActivity()));
         //设置 Footer 为 球脉冲
@@ -125,34 +108,26 @@ public class CinemaRecommendFragment extends BaseFragment implements IView {
     }
 
     /*
-     *   p层
+     *   拼接
      * */
     private void joinApi(int page) {
-        if (flag) {
-            Map<String, String> map1 = new HashMap<>();
-            map1.put("page", page + "");
-            map1.put("count", Config.COUNT_NUMBER_HOME + "");
-            map1.put("cinemaName", searchName);
-            iPresenter.getPresenterData(Apis.QUERY_CINEMA_GET, map1, SearchRecommendBean.class);
-
-        }else {
-            Map<String, String> map = new HashMap<>();
-            map.put("page", page + "");
-            map.put("count", Config.COUNT_NUMBER_HOME + "");
-            iPresenter.getPresenterData(Apis.RECOMMEND_GET, map, RecommendTjBean.class);
-        }
-
+        Map<String, String> map = new HashMap<>();
+        map.put("page", page + "");
+        map.put("count", Config.COUNT_NUMBER_HOME + "");
+        map.put("cinemaName", searchName);
+        iPresenter.getPresenterData(Apis.QUERY_CINEMA_GET, map, SearchRecommendBean.class);
         //布局管理器
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(OrientationHelper.VERTICAL);
         mRecyclerView.setLayoutManager(linearLayoutManager);
+
     }
 
     /*
      *   点点关注
      * */
     private void isLikeCinema() {
-        mAdapter.setRecommendListener(new RecommendAdapter.RecommendListener() {
+        mAdapter.setSearchRecommendListener(new SearchRecommendAdapter.SearchRecommendListener() {
             // 关注
             @Override
             public void onLike(int id, boolean isLike) {
@@ -181,62 +156,28 @@ public class CinemaRecommendFragment extends BaseFragment implements IView {
     }
 
     /*
-     *   搜索关注
-     * */
-    private void searchLikeCinema() {
-        searchAdapter.setSearchRecommendListener(new SearchRecommendAdapter.SearchRecommendListener() {
-            // 关注
-            @Override
-            public void onLike(int id, boolean isLike) {
-                Map<String, String> map1 = new HashMap<>();
-                map1.put("cinemaId", id + "");
-                if (isLike) {
-                    iPresenter.getPresenterData(Apis.LOVECINEMA_GET, map1, LikeCinemaBean.class);
-                } else {
-                    iPresenter.getPresenterData(Apis.NOLOVECINEMA_GET, map1, UnLikeCinemaBean.class);
-                }
-                mAdapter.notifyDataSetChanged();
-            }
-
-            //点击条目进入详情
-            @Override
-            public void OnClick(String id, String logo, String name, String address) {
-                CinemaMessage cinemaMessage = new CinemaMessage();
-                cinemaMessage.setCinemaId(id);
-                cinemaMessage.setLogo(logo);
-                cinemaMessage.setName(name);
-                cinemaMessage.setAddress(address);
-                EventBus.getDefault().postSticky(cinemaMessage);
-                startActivity(new Intent(getActivity(), CinemaDetailsActivity.class));
-            }
-        });
-    }
-
-
-    /*
        搜索关键字
     * */
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    public void search(SearchBean searchBean) {
+    public void search(SearchBean searchBean){
         searchName = searchBean.getSearch();
-        flag = searchBean.isFlag();
-        //Toast.makeText(getActivity(), searchName, Toast.LENGTH_SHORT).show();
     }
 
+
     /*
-     *   回调方法
-     * */
+    *  回调接口
+    * */
     @Override
     public void viewDataSuccess(Object data) {
-        if (data instanceof RecommendTjBean) {
-            RecommendTjBean recommendTjBean = (RecommendTjBean) data;
+        if (data instanceof SearchRecommendBean) {
+            SearchRecommendBean searchRecommendBean = (SearchRecommendBean) data;
             if (page == 1) {
-                mAdapter.setDatas(recommendTjBean.getResult());
+                mAdapter.setDatas(searchRecommendBean.getResult());
             } else {
-                mAdapter.addDatas(recommendTjBean.getResult());
+                mAdapter.addDatas(searchRecommendBean.getResult());
             }
 
-        } else if (data instanceof LikeCinemaBean) {
+        }else if (data instanceof LikeCinemaBean) {
             LikeCinemaBean likeCinemaBean = (LikeCinemaBean) data;
             Toast.makeText(getActivity(), likeCinemaBean.getMessage(), Toast.LENGTH_SHORT).show();
             joinApi(page);
@@ -244,30 +185,18 @@ public class CinemaRecommendFragment extends BaseFragment implements IView {
             UnLikeCinemaBean unLikeCinemaBean = (UnLikeCinemaBean) data;
             Toast.makeText(getActivity(), unLikeCinemaBean.getMessage(), Toast.LENGTH_SHORT).show();
             joinApi(page);
-
-
-        }else if (data instanceof SearchRecommendBean) {
-            SearchRecommendBean searchRecommendBean = (SearchRecommendBean) data;
-            if (page == 1) {
-                searchAdapter.setDatas(searchRecommendBean.getResult());
-            } else {
-                searchAdapter.addDatas(searchRecommendBean.getResult());
-            }
-
         }
-
-
     }
 
-
     /*
-     *   内存优化
-     * */
+    *  内存处理
+    * */
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         iPresenter.onDetach();
-        bind.unbind();
         EventBus.getDefault().unregister(this);
+        bind.unbind();
     }
 }

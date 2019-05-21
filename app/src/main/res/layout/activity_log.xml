@@ -8,7 +8,6 @@
     android:orientation="vertical"
     android:paddingLeft="@dimen/dp_40"
     android:paddingRight="@dimen/dp_40"
-    android:theme="@style/myTransparent"
     tools:context=".fmk.activity.LogActivity">
 
     <RelativeLayout

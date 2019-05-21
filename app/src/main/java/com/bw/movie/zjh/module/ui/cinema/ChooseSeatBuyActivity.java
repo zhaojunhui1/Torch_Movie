@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBar;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.RelativeSizeSpan;
 import android.util.ArrayMap;
 import android.util.Log;
 import android.view.Gravity;
@@ -26,6 +29,7 @@ import com.bw.movie.fmk.jiami.EncryptUtil;
 import com.bw.movie.fmk.util.Api;
 import com.bw.movie.zjh.module.base.BaseActivity;
 import com.bw.movie.zjh.module.beans.cinema.BuyMovieTicketBean;
+import com.bw.movie.zjh.module.beans.cinema.PayTicketBean;
 import com.bw.movie.zjh.module.ui.cinema.seak.SeatTable;
 import com.bw.movie.zjh.module.utils.md5.MDUtils;
 import com.bw.movie.zjh.module.utils.mvp.presenter.IPresenterImpl;
@@ -36,6 +40,7 @@ import com.bw.movie.zjh.module.utils.statusbar.StatusBarWindowTop;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -71,6 +76,10 @@ public class ChooseSeatBuyActivity extends Activity implements IView {
     private String hallName;
     private String scheduleId;
     private int amount = 0;
+    private double price;
+    private double priceall = 0;
+    private int payType;
+    private String orderId;
 
     // 定义一个变量，来标识是否退出
    /* private static boolean isExit = false;
@@ -94,8 +103,8 @@ public class ChooseSeatBuyActivity extends Activity implements IView {
     }
 
     /*
-    *  初始化View
-    * */
+     *  初始化View
+     * */
     private void initView() {
         //透明状态栏
         StatusBarWindowTop.setStatusBarFullTransparent(this);
@@ -107,14 +116,14 @@ public class ChooseSeatBuyActivity extends Activity implements IView {
         cinema_name.setText(getIntent().getStringExtra("name"));
         cinema_address.setText(getIntent().getStringExtra("address"));
         movie_name.setText(getIntent().getStringExtra("moviename"));
-        datatime.setText(getIntent().getStringExtra("begin")+"-"+getIntent().getStringExtra("end"));
+        datatime.setText(getIntent().getStringExtra("begin") + "-" + getIntent().getStringExtra("end"));
+        price = getIntent().getDoubleExtra("price", 0.0);
         hallName = getIntent().getStringExtra("hall");
         this.hall.setText(hallName);
 
         initSeat();
-        //上下文
-        //Activity activity = new Activity();
-        //View decorView = activity.getWindow().getDecorView();
+        payChooseType();  //支付类型页
+        initChoose();   //选择微信/支付宝
     }
 
     /*
@@ -137,10 +146,10 @@ public class ChooseSeatBuyActivity extends Activity implements IView {
             case R.id.ok:
                 //购票下单 、展示付款的选择框
                 initBuyTicket();
-                payChooseType(v);
                 break;
             case R.id.no:
                 onCreate(null);  //取消选择并刷新
+
                 break;
             default:
                 break;
@@ -148,18 +157,17 @@ public class ChooseSeatBuyActivity extends Activity implements IView {
     }
 
 
-
     /*
-    *   购票下单
-    * */
+     *   购票下单
+     * */
     private void initBuyTicket() {
         SharedPreferences sharedPreferences = App.getApplication().getSharedPreferences("token", Context.MODE_PRIVATE);
         String userId = sharedPreferences.getString("userId", "");
-        String s = MDUtils.MD5(userId+scheduleId+amount+"movie");
+        String s = MDUtils.MD5(userId + scheduleId + amount + "movie");
 
         Map<String, String> map = new ArrayMap<>();
         map.put("scheduleId", scheduleId);
-        map.put("amount", amount+"");
+        map.put("amount", amount + "");
         map.put("sign", s);
         iPresenter.postLoginPresenterData(Apis.BUY_MOVIE_TICKET, map, BuyMovieTicketBean.class);
     }
@@ -168,7 +176,7 @@ public class ChooseSeatBuyActivity extends Activity implements IView {
      * 支付选择的popwindow
      * 微信，支付宝
      * */
-    private void payChooseType(View v) {
+    private void payChooseType() {
         View view = View.inflate(this, R.layout.pay_choose_type_view, null);
         radio_weixin = view.findViewById(R.id.radio_weixin);
         radio_zifubao = view.findViewById(R.id.radio_zifubao);
@@ -189,23 +197,41 @@ public class ChooseSeatBuyActivity extends Activity implements IView {
                 mPop.dismiss();
             }
         });
-        //弹出
-        mPop.showAtLocation(v, Gravity.BOTTOM, 0, 0);
     }
 
     /*
-     *  回调函数
+     *  选择支付类型
+     *  1. 微信
+     *  2. 支付宝
      * */
-    @Override
-    public void viewDataSuccess(Object data) {
-        if (data instanceof BuyMovieTicketBean){
-            BuyMovieTicketBean buyMovieTicketBean = (BuyMovieTicketBean) data;
-            Toast.makeText(this, buyMovieTicketBean.getMessage(), Toast.LENGTH_SHORT).show();
-            if (buyMovieTicketBean.getStatus().equals("0000")){
-                Toast.makeText(this, "选择支付方式", Toast.LENGTH_SHORT).show();
+    private void initChoose() {
+        //去支付买票
+        pay_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (radio_weixin.isChecked()) {
+                    payType = 1;
+                    type_priceAll.setText("微信支付"+priceall+"元");
+                }
+                if (radio_zifubao.isChecked()) {
+                    payType = 2;
+                    type_priceAll.setText("支付宝支付"+priceall+"元");
+                }
+                goBuyTicket(payType);
             }
-        }
+        });
 
+    }
+
+    /*
+    *  购票支付
+    *  ￥￥￥￥￥￥
+    * */
+    private void goBuyTicket(int payType) {
+        Map<String, String> map1 = new HashMap<>();
+        map1.put("payType", payType+"");
+        map1.put("orderId", orderId);
+        iPresenter.postLoginPresenterData(Apis.MOVIE_TICKET_PAY, map1, PayTicketBean.class);
     }
 
 
@@ -213,7 +239,7 @@ public class ChooseSeatBuyActivity extends Activity implements IView {
      *  电影院选座
      * */
     private void initSeat() {
-        seat_Table.setScreenName(hallName+"荧幕");//设置屏幕名称
+        seat_Table.setScreenName(hallName + "荧幕");//设置屏幕名称
         seat_Table.setMaxSelected(3);//设置最多选中
         // 监听座位
         seat_Table.setSeatChecker(new SeatTable.SeatChecker() {
@@ -238,7 +264,13 @@ public class ChooseSeatBuyActivity extends Activity implements IView {
             //  选中的 排  列
             @Override
             public void checked(int row, int column) {
-                amount ++;
+                //显示下单页
+
+                amount++;
+                priceall += price * amount;
+                //调用显示
+                SpannableString spannableString = changTVsize(priceall + "");
+                priceAll.setText(spannableString);
             }
 
             //  未选中的 排  列
@@ -256,6 +288,36 @@ public class ChooseSeatBuyActivity extends Activity implements IView {
         });
         /*   总排数，   总列数   */
         seat_Table.setData(7, 8);
+    }
+
+    //价格样式
+    public static SpannableString changTVsize(String value) {
+        SpannableString spannableString = new SpannableString(value);
+        if (value.contains(".")) {
+            spannableString.setSpan(new RelativeSizeSpan(0.6f), value.indexOf("."), value.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        return spannableString;
+    }
+
+    /*
+     *  回调函数
+     * */
+    @Override
+    public void viewDataSuccess(Object data) {
+        if (data instanceof BuyMovieTicketBean) {
+            BuyMovieTicketBean buyMovieTicketBean = (BuyMovieTicketBean) data;
+            Toast.makeText(this, buyMovieTicketBean.getMessage(), Toast.LENGTH_SHORT).show();
+            if (buyMovieTicketBean.getStatus().equals("0000")) {
+                Toast.makeText(this, "选择支付方式", Toast.LENGTH_SHORT).show();
+                orderId = buyMovieTicketBean.getOrderId();   //订单号
+                //弹出popwindow
+                mPop.showAtLocation(this.findViewById(R.id.seat_linearlayout), Gravity.BOTTOM, 0, 0);
+            }
+        }else if (data instanceof PayTicketBean){
+            PayTicketBean payTicketBean = (PayTicketBean) data;
+
+        }
+
     }
 
     /*

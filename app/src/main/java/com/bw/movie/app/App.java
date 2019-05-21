@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
 
 
+import com.bw.movie.zjh.module.utils.location.BDLocationUtils;
 import com.facebook.cache.disk.DiskCacheConfig;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
@@ -18,6 +19,7 @@ import com.facebook.imagepipeline.core.ImagePipelineConfig;
 public class App extends Application {
 
     private static Context mContext;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -29,6 +31,7 @@ public class App extends Application {
          * */
         //CrashHandler.getInstance().init(this);
         Tu();
+
     }
 
     private void Tu() {

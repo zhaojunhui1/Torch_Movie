@@ -37,6 +37,7 @@
                     android:layout_marginTop="@dimen/dp_24">
 
                     <TextView
+                        android:id="@+id/location_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -65,25 +66,27 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:src="@mipmap/com_icon_search_default" />
+
             <EditText
                 android:id="@+id/et_home_search"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/dp_34"
                 android:layout_centerVertical="true"
-                android:textSize="@dimen/sp_12"
+                android:layout_marginLeft="@dimen/dp_34"
+                android:background="@null"
                 android:textColor="#ffffff"
-                android:background="@null"/>
+                android:textColorHint="#ffffff"
+                android:textSize="@dimen/sp_12" />
+
             <TextView
                 android:id="@+id/tv_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:textSize="@dimen/sp_12"
                 android:layout_marginRight="@dimen/dp_24"
                 android:textColor="#ffffff"
-                />
+                android:textSize="@dimen/sp_12" />
         </RelativeLayout>
     </RelativeLayout>
 
@@ -102,12 +105,12 @@
             android:layout_height="@dimen/dp_25"
             android:layout_marginRight="@dimen/dp_17"
             android:layout_weight="1"
-            android:textColor="@drawable/cinema_choose_radio1"
             android:background="@drawable/cinema_choose_radio"
             android:button="@null"
             android:checked="true"
             android:gravity="center"
-            android:text="推荐影院" />
+            android:text="推荐影院"
+            android:textColor="@drawable/cinema_choose_radio1" />
 
         <RadioButton
             android:id="@+id/cinema_rb2"
@@ -115,18 +118,26 @@
             android:layout_height="@dimen/dp_25"
             android:layout_marginLeft="@dimen/dp_17"
             android:layout_weight="1"
-            android:textColor="@drawable/cinema_choose_radio1"
             android:background="@drawable/cinema_choose_radio"
             android:button="@null"
             android:gravity="center"
-            android:text="附近影院" />
+            android:text="附近影院"
+            android:textColor="@drawable/cinema_choose_radio1" />
     </RadioGroup>
+
     <!--  fragment  -->
-    <android.support.v4.view.ViewPager
-        android:id="@+id/cinema_pager"
+    <FrameLayout
+        android:id="@+id/home_replace_flyt"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/dp_10"/>
+        android:layout_marginTop="@dimen/dp_10">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/cinema_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp_10" />
+    </FrameLayout>
 
 
 </LinearLayout>

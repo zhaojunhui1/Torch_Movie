@@ -41,7 +41,7 @@
                     android:id="@+id/cinema_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_30"
+                    android:layout_marginTop="@dimen/dp_20"
                     android:text="CGV影城"
                     android:textColor="#ffffff"
                     android:textSize="@dimen/sp_14" />
@@ -261,7 +261,7 @@
                     android:textColor="#b11450"
                     android:textSize="@dimen/sp_36"
                     android:textStyle="bold"
-                    android:text="53.9"
+                    android:text="0.00"
                     />
             </RelativeLayout>
 

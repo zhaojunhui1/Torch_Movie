@@ -92,7 +92,6 @@ public class CinemaDetailsActivity extends BaseActivity implements IView {
         mFlowAdapter.setMovieCoverFlowListener(new CinemaCoverFlowAdapter.MovieCoverFlowListener() {
             @Override
             public void OnMovieClick(String movieid, String movieName) {
-                //Toast.makeText(CinemaDetailsActivity.this, movieid, Toast.LENGTH_SHORT).show();
                 moviename = movieName;
                 joinData(movieid);
             }
@@ -118,7 +117,7 @@ public class CinemaDetailsActivity extends BaseActivity implements IView {
         //回调排期id
         mAdapter.setCinemaDetailsListener(new CinemaDetailsAdapter.CinemaDetailsListener() {
             @Override
-            public void onNextClick(String scheduleId, String begin, String end, String screenHall) {
+            public void onNextClick(String scheduleId, String begin, String end, String screenHall, double price) {
                 Intent intent = new Intent(CinemaDetailsActivity.this, ChooseSeatBuyActivity.class);
                 intent.putExtra("name", name);
                 intent.putExtra("address", address);
@@ -128,8 +127,10 @@ public class CinemaDetailsActivity extends BaseActivity implements IView {
                 intent.putExtra("begin", begin);
                 intent.putExtra("end", end);
                 intent.putExtra("hall", screenHall);
+                intent.putExtra("price", price);
                 startActivity(intent);
             }
+
         });
 
     }

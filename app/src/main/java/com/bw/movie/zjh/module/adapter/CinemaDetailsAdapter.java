@@ -70,7 +70,8 @@ public class CinemaDetailsAdapter extends RecyclerView.Adapter<RecyclerView.View
                             mWorks.get(i).getId()+"",
                             mWorks.get(i).getBeginTime(),
                             mWorks.get(i).getEndTime(),
-                            mWorks.get(i).getScreeningHall());
+                            mWorks.get(i).getScreeningHall(),
+                            mWorks.get(i).getPrice());
                 }
             }
         });
@@ -108,10 +109,10 @@ public class CinemaDetailsAdapter extends RecyclerView.Adapter<RecyclerView.View
     //自定义接口
     public interface CinemaDetailsListener{
         //去选座
-        void onNextClick(String scheduleId, String begin, String end, String screenHall);
+        void onNextClick(String scheduleId, String begin, String end, String screenHall, double price);
     }
 
-
+    //价格样式
     public static SpannableString changTVsize(String value) {
         SpannableString spannableString = new SpannableString(value);
         if (value.contains(".")) {

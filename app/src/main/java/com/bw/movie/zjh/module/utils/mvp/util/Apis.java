@@ -8,9 +8,10 @@ package com.bw.movie.zjh.module.utils.mvp.util;
  * version: 1.0
  */
 public class Apis {
-    //  主机名
+    //   内网主机名
     public static final String BASE_URL = "http://172.17.8.100/";
-
+    //   外网主机
+    //public static final String BASE_URL = "http://mobile.bwstudent.com/";
 
     // 13. 电影评论点赞
     public static final String CALL_LIKE_POPS = "movieApi/movie/v1/verify/movieCommentGreat";
@@ -23,8 +24,8 @@ public class Apis {
 
     //17. 购票下单
     public static final String BUY_MOVIE_TICKET = "movieApi/movie/v1/verify/buyMovieTicket";
-
-
+    //18. 支付
+    public static final String MOVIE_TICKET_PAY = "movieApi/movie/v1/verify/pay";
     // 19. 根据影院ID查询该影院下即将上映的电影列表
     public static final String CINEMA_DOEN_MOVIE_GET = "movieApi/movie/v1/findSoonMovieByCinemaId";
 
@@ -48,8 +49,8 @@ public class Apis {
     public static final String NEARBY_GET = "movieApi/cinema/v1/findNearbyCinemas";
     //  3. 查询电影信息明细 / 电影详情
     public static final String INFORMATION_GET = "movieApi/cinema/v1/findCinemaInfo";
-    //  4.
-    public static final String QUERY_LIKE_GET = "";
+    //  4. 根据电影名称模糊查询电影院
+    public static final String QUERY_CINEMA_GET = "movieApi/cinema/v1/findAllCinemas";
     //  5.  查询用户关注的影院信息
     public static final String MY_LIKE_CINEMA_GET = "movieApi/cinema/v1/verify/findCinemaPageList";
     //  6. 关注影院

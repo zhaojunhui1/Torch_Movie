@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ import com.bw.movie.zjh.module.beans.cinema.CinemaMessage;
 import com.bw.movie.zjh.module.beans.cinema.LikeCinemaBean;
 import com.bw.movie.zjh.module.beans.cinema.NearbyFjBean;
 import com.bw.movie.zjh.module.beans.cinema.UnLikeCinemaBean;
+import com.bw.movie.zjh.module.ui.cinema.seak.Const;
 import com.bw.movie.zjh.module.utils.config.Config;
 import com.bw.movie.zjh.module.utils.mvp.presenter.IPresenterImpl;
 import com.bw.movie.zjh.module.utils.mvp.util.Apis;
@@ -89,7 +91,7 @@ public class CinemaNearbyFragment extends BaseFragment implements IView {
         refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
-                page ++;
+                page++;
                 joinApi(page);
                 refreshlayout.finishLoadmore(2000);
             }
@@ -109,10 +111,13 @@ public class CinemaNearbyFragment extends BaseFragment implements IView {
      * */
     private void joinApi(int page) {
         Map<String, String> map = new HashMap<>();
-        map.put("page", page+"");
-        map.put("count", Config.COUNT_NUMBER_HOME+"");
+        map.put("longitude", Const.LONGITUDE + "");
+        map.put("latitude", Const.LATITUDE + "");
+        map.put("page", page + "");
+        map.put("count", Config.COUNT_NUMBER_HOME + "");
         iPresenter.getPresenterData(Apis.NEARBY_GET, map, NearbyFjBean.class);
         //布局管理器
+        //Log.e("nnnnn", Const.LONGITUDE +"--"+Const.LATITUDE + "");
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(OrientationHelper.VERTICAL);
         mRecyclerView.setLayoutManager(linearLayoutManager);
@@ -121,15 +126,15 @@ public class CinemaNearbyFragment extends BaseFragment implements IView {
     /*
      *   点点关注
      * */
-    private void isLikeCinema(){
+    private void isLikeCinema() {
         mAdapter.setNearbyListener(new NearbyAdapter.NearbyListener() {
             @Override
             public void onLike(int id, boolean isLike) {
                 Map<String, String> map = new HashMap<>();
-                map.put("cinemaId", id+"");
-                if(isLike){
+                map.put("cinemaId", id + "");
+                if (isLike) {
                     iPresenter.getPresenterData(Apis.LOVECINEMA_GET, map, LikeCinemaBean.class);
-                }else{
+                } else {
                     iPresenter.getPresenterData(Apis.NOLOVECINEMA_GET, map, UnLikeCinemaBean.class);
                 }
                 mAdapter.notifyDataSetChanged();
@@ -151,25 +156,24 @@ public class CinemaNearbyFragment extends BaseFragment implements IView {
     }
 
 
-
     /*
      *   回调函数
      * */
     @Override
     public void viewDataSuccess(Object data) {
-        if (data instanceof NearbyFjBean){
+        if (data instanceof NearbyFjBean) {
             NearbyFjBean nearbyFjBean = (NearbyFjBean) data;
-            if (page == 1){
+            if (page == 1) {
                 mAdapter.setDatas(nearbyFjBean.getResult());
-            }else {
+            } else {
                 mAdapter.addDatas(nearbyFjBean.getResult());
             }
 
-        }else if (data instanceof LikeCinemaBean){
+        } else if (data instanceof LikeCinemaBean) {
             LikeCinemaBean likeCinemaBean = (LikeCinemaBean) data;
             Toast.makeText(getActivity(), likeCinemaBean.getMessage(), Toast.LENGTH_SHORT).show();
             joinApi(page);
-        }else if (data instanceof UnLikeCinemaBean){
+        } else if (data instanceof UnLikeCinemaBean) {
             UnLikeCinemaBean unLikeCinemaBean = (UnLikeCinemaBean) data;
             Toast.makeText(getActivity(), unLikeCinemaBean.getMessage(), Toast.LENGTH_SHORT).show();
             joinApi(page);

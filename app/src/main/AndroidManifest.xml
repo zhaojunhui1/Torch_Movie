@@ -3,10 +3,15 @@
     package="com.bw.movie">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
 
     <application
         android:name=".app.App"
@@ -16,6 +21,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <!-- 声明service组件 -->
+        <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote">
+        </service>
+        <!-- AK鉴权 -->
+        <!-- meta-data需要写在application中 -->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="FDVY52T5B1zagTD75KbdLm3yeE6E4iyC" />
+
+
         <activity android:name=".fmk.activity.MainActivity" />
         <activity android:name=".fmk.activity.YinDaoActivity">
             <intent-filter>
@@ -24,7 +39,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--android:theme="@style/Theme.FloatActivity"-->
         <activity android:name=".fmk.activity.LogActivity" />
         <activity android:name=".fmk.activity.ZhuCeActivity" />
         <activity android:name=".fmk.fragment.FragmentActivity" />
@@ -39,13 +53,17 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".zjh.module.ui.cinema.CinemaDetailsActivity" />
+        <activity android:name=".zjh.module.ui.cinema.CinemaDetailsActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity android:name=".zjh.module.ui.cinema.my.MyRemindActivity" />
-        <activity android:name=".zjh.module.ui.cinema.my.MyPresonActivity" />
+        <activity android:name=".zjh.module.ui.cinema.my.MyPresonActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Dialog"/>
         <activity android:name=".zjh.module.ui.cinema.my.MyLookActivity" />
         <activity android:name=".zjh.module.ui.cinema.my.MyFoodedActivity" />
-        <activity android:name=".zjh.module.ui.cinema.ChooseSeatBuyActivity" />
         <activity android:name=".zjh.module.ui.cinema.my.MyBackMessageActivity" />
+        <activity android:name=".zjh.module.ui.cinema.ChooseSeatBuyActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
