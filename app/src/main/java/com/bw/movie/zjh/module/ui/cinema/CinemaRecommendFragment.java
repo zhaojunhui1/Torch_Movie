@@ -3,11 +3,13 @@ package com.bw.movie.zjh.module.ui.cinema;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.bw.movie.R;
@@ -20,9 +22,11 @@ import com.bw.movie.zjh.module.beans.cinema.RecommendTjBean;
 import com.bw.movie.zjh.module.beans.cinema.SearchBean;
 import com.bw.movie.zjh.module.beans.cinema.SearchRecommendBean;
 import com.bw.movie.zjh.module.beans.cinema.UnLikeCinemaBean;
+import com.bw.movie.zjh.module.pay.CPDialog;
 import com.bw.movie.zjh.module.utils.config.Config;
 import com.bw.movie.zjh.module.utils.mvp.presenter.IPresenterImpl;
 import com.bw.movie.zjh.module.utils.mvp.util.Apis;
+import com.bw.movie.zjh.module.utils.mvp.util.NetStartUtil;
 import com.bw.movie.zjh.module.utils.mvp.view.IView;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
@@ -61,6 +65,8 @@ public class CinemaRecommendFragment extends BaseFragment implements IView {
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
 
+    @BindView(R.id.image_nowifi)
+    LinearLayout image_nowifi;
     private int page = 0;
     private RecommendAdapter mAdapter;
     private String searchName;
@@ -102,7 +108,37 @@ public class CinemaRecommendFragment extends BaseFragment implements IView {
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                joinApi(page);
+                //刷新时判断网络状态
+                int netType = NetStartUtil.getNetType(getActivity());
+                if (netType != -1) {
+                    joinApi(page);
+                    Toast.makeText(getActivity(), "网络正常", Toast.LENGTH_SHORT).show();
+                    //image_nowifi.setVisibility(View.GONE);
+                } else {
+                    Toast.makeText(getActivity(), "网络异常，请检查网络！", Toast.LENGTH_SHORT).show();
+                    //显示断网图片
+                    image_nowifi.setVisibility(View.VISIBLE);
+                    //无网处理操作
+                    CPDialog dialog = new CPDialog(getActivity());
+                    dialog.setTitle("提示");
+                    dialog.setMessage("请检查网络！");
+                    dialog.setCanceledOnTouchOutside(true);
+                    dialog.setPositiveButton("忽略", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+                    });
+                    dialog.setNegativeButton("设置", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            // 跳转到设置界面
+                            getActivity().startActivityForResult(new Intent(Settings.ACTION_WIRELESS_SETTINGS), 0);
+                        }
+                    }).show();
+
+                }
+
                 refreshlayout.finishRefresh(2000);
             }
         });

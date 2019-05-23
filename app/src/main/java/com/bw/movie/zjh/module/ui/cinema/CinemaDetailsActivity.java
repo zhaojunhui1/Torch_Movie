@@ -137,8 +137,10 @@ public class CinemaDetailsActivity extends BaseActivity implements IView {
 
     /*
      *   自定义事件
+     *   1.查看影院详情
+     *   2.导航
      * */
-    @OnClick({R.id.re})
+    @OnClick({R.id.re, R.id.go_address})
     public void mYOnClick(View v) {
         switch (v.getId()) {
             case R.id.re:   //点击查看影院详情
@@ -147,6 +149,9 @@ public class CinemaDetailsActivity extends BaseActivity implements IView {
                         .replace(R.id.details_framelayout, new CinemaDetailsFragment(), null)
                         .addToBackStack(null)
                         .commit();
+                break;
+            case R.id.go_address:
+                startActivity(new Intent(this, GPSAddressActivity.class));
                 break;
             default:
                 break;

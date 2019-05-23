@@ -15,7 +15,6 @@ import android.text.style.RelativeSizeSpan;
 import android.util.ArrayMap;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
@@ -23,11 +22,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alipay.sdk.app.PayTask;
 import com.bw.movie.R;
 import com.bw.movie.app.App;
-import com.bw.movie.fmk.jiami.EncryptUtil;
-import com.bw.movie.fmk.util.Api;
-import com.bw.movie.zjh.module.base.BaseActivity;
 import com.bw.movie.zjh.module.beans.cinema.BuyMovieTicketBean;
 import com.bw.movie.zjh.module.beans.cinema.PayTicketBean;
 import com.bw.movie.zjh.module.ui.cinema.seak.SeatTable;
@@ -36,18 +33,21 @@ import com.bw.movie.zjh.module.utils.mvp.presenter.IPresenterImpl;
 import com.bw.movie.zjh.module.utils.mvp.util.Apis;
 import com.bw.movie.zjh.module.utils.mvp.view.IView;
 import com.bw.movie.zjh.module.utils.statusbar.StatusBarWindowTop;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+
+import static com.bw.movie.zjh.module.utils.config.Config.APP_ID;
 
 public class ChooseSeatBuyActivity extends Activity implements IView {
 
@@ -81,16 +81,52 @@ public class ChooseSeatBuyActivity extends Activity implements IView {
     private int payType;
     private String orderId;
 
-    // 定义一个变量，来标识是否退出
-   /* private static boolean isExit = false;
-    @SuppressLint("HandlerLeak")
-    Handler mHandler = new Handler() {
+    private static final int SDK_PAY_FLAG = 1;
+    /*@SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler() {
+        @SuppressWarnings("unused")
         @Override
         public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            isExit = false;
+            switch (msg.what) {
+                case SDK_PAY_FLAG: {
+                    PayResult payResult = new PayResult((Map<String, String>) msg.obj);
+                    */
+    /**
+     * 对于支付结果，请商户依赖服务端的异步通知结果。同步通知结果，仅作为支付结束的通知。
+     *//*
+                    String resultInfo = payResult.getResult();// 同步返回需要验证的信息
+                    String resultStatus = payResult.getResultStatus();
+                    // 判断resultStatus 为9000则代表支付成功
+                    if (TextUtils.equals(resultStatus, "9000")) {
+                        // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
+                        Toast.makeText(ChooseSeatBuyActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
+                    } else {
+                        // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
+                        Toast.makeText(ChooseSeatBuyActivity.this, "支付失败", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+                }
+                default:
+                    break;
+            }
         }
+
     };*/
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case SDK_PAY_FLAG: {
+                    String result = (String) msg.obj;
+                    Toast.makeText(ChooseSeatBuyActivity.this, result, Toast.LENGTH_LONG).show();
+                }
+                default:
+                    break;
+            }
+        }
+
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,8 +134,6 @@ public class ChooseSeatBuyActivity extends Activity implements IView {
         setContentView(R.layout.activity_choose_seat_buy);
 
         initView();
-        //initData();
-
     }
 
     /*
@@ -116,21 +150,17 @@ public class ChooseSeatBuyActivity extends Activity implements IView {
         cinema_name.setText(getIntent().getStringExtra("name"));
         cinema_address.setText(getIntent().getStringExtra("address"));
         movie_name.setText(getIntent().getStringExtra("moviename"));
-        datatime.setText(getIntent().getStringExtra("begin") + "-" + getIntent().getStringExtra("end"));
+        //获取当前时间
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd");
+        Date date = new Date(System.currentTimeMillis());
+        String format = simpleDateFormat.format(date);
+        datatime.setText(format + " " + getIntent().getStringExtra("begin") + "-" + getIntent().getStringExtra("end"));
         price = getIntent().getDoubleExtra("price", 0.0);
         hallName = getIntent().getStringExtra("hall");
         this.hall.setText(hallName);
 
         initSeat();
         payChooseType();  //支付类型页
-        initChoose();   //选择微信/支付宝
-    }
-
-    /*
-     * 初始化数据
-     * */
-    private void initData() {
-
     }
 
     /*
@@ -205,17 +235,30 @@ public class ChooseSeatBuyActivity extends Activity implements IView {
      *  2. 支付宝
      * */
     private void initChoose() {
-        //去支付买票
+        //显示支付方式总价
+        type_priceAll.setText("微信支付" + priceall + "元");
+        radio_weixin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                type_priceAll.setText("微信支付" + priceall + "元");
+            }
+        });
+        radio_zifubao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                type_priceAll.setText("支付宝支付" + priceall + "元");
+            }
+        });
+
+        //点击提交  支付买票
         pay_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (radio_weixin.isChecked()) {
+                if (radio_weixin.isChecked()) {    // 微信
                     payType = 1;
-                    type_priceAll.setText("微信支付"+priceall+"元");
                 }
-                if (radio_zifubao.isChecked()) {
+                if (radio_zifubao.isChecked()) {    //支付宝
                     payType = 2;
-                    type_priceAll.setText("支付宝支付"+priceall+"元");
                 }
                 goBuyTicket(payType);
             }
@@ -224,13 +267,14 @@ public class ChooseSeatBuyActivity extends Activity implements IView {
     }
 
     /*
-    *  购票支付
-    *  ￥￥￥￥￥￥
-    * */
+     *  购票支付
+     *  ￥￥￥￥￥￥
+     * */
     private void goBuyTicket(int payType) {
         Map<String, String> map1 = new HashMap<>();
-        map1.put("payType", payType+"");
+        map1.put("payType", payType + "");
         map1.put("orderId", orderId);
+        Log.e("pay", "类型"+payType +"订单号"+orderId);
         iPresenter.postLoginPresenterData(Apis.MOVIE_TICKET_PAY, map1, PayTicketBean.class);
     }
 
@@ -265,9 +309,8 @@ public class ChooseSeatBuyActivity extends Activity implements IView {
             @Override
             public void checked(int row, int column) {
                 //显示下单页
-
                 amount++;
-                priceall += price * amount;
+                priceall = price * amount;
                 //调用显示
                 SpannableString spannableString = changTVsize(priceall + "");
                 priceAll.setText(spannableString);
@@ -276,7 +319,11 @@ public class ChooseSeatBuyActivity extends Activity implements IView {
             //  未选中的 排  列
             @Override
             public void unCheck(int row, int column) {
-
+                amount--;
+                priceall = price * amount;
+                //调用显示
+                SpannableString spannableString = changTVsize(priceall + "");
+                priceAll.setText(spannableString);
             }
 
             // 选中座位的文字颜色 (已默认白色)
@@ -312,38 +359,53 @@ public class ChooseSeatBuyActivity extends Activity implements IView {
                 orderId = buyMovieTicketBean.getOrderId();   //订单号
                 //弹出popwindow
                 mPop.showAtLocation(this.findViewById(R.id.seat_linearlayout), Gravity.BOTTOM, 0, 0);
+                initChoose();   //选择微信/支付宝
             }
-        }else if (data instanceof PayTicketBean){
-            PayTicketBean payTicketBean = (PayTicketBean) data;
+
+        } else if (data instanceof PayTicketBean) {
+            final PayTicketBean payTicketBean = (PayTicketBean) data;
+            Log.e("pay", "支付宝"+payTicketBean.getResult());
+            if (payTicketBean.getStatus().equals("0000")) {
+                //微信支付
+                try {
+                    IWXAPI api = WXAPIFactory.createWXAPI(ChooseSeatBuyActivity.this, APP_ID);
+                    //拿预支付结果信息给微信
+                    PayReq req = new PayReq();
+                    req.appId = payTicketBean.getAppId();  //你的微信appid
+                    req.partnerId = payTicketBean.getPartnerId();//商户号
+                    req.prepayId = payTicketBean.getPrepayId();//预支付交易会话ID
+                    req.nonceStr = payTicketBean.getNonceStr();//随机字符串
+                    req.timeStamp = payTicketBean.getTimeStamp();//时间戳
+                    req.packageValue = payTicketBean.getPackageValue();//扩展字段,这里固定填写Sign=WXPay
+                    req.sign = payTicketBean.getSign();  //签名
+                    // 在支付之前，如果应用没有注册到微信，应该先调用IWXMsg.registerApp将应用注册到微信
+                    api.registerApp(APP_ID);
+                    api.sendReq(req);   //
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.e("xxx", e.getMessage());
+                }
+
+                //支付宝支付
+                Runnable payRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        PayTask alipay = new PayTask(ChooseSeatBuyActivity.this);
+                        Map<String, String> result = alipay.payV2(payTicketBean.getResult(), true);
+                        Message msg = new Message();
+                        msg.what = SDK_PAY_FLAG;
+                        msg.obj = result;
+                        mHandler.sendMessage(msg);
+                    }
+                };
+                // 必须异步调用
+                Thread payThread = new Thread(payRunnable);
+                payThread.start();
+            }
 
         }
 
     }
-
-    /*
-     *   返回退出选座
-     * */
-  /*  @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            exit();
-            return false;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    private void exit() {
-        if (!isExit) {
-            isExit = true;
-            Toast.makeText(getApplicationContext(), "再按一次退出选座",
-                    Toast.LENGTH_SHORT).show();
-            // 利用handler延迟发送更改状态信息
-            mHandler.sendEmptyMessageDelayed(0, 2000);
-        } else {
-            finish();
-            System.exit(0);
-        }
-    }*/
 
     /*
      *  内存处理

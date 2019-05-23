@@ -2,16 +2,29 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bw.movie">
 
+    <!--网络权限-->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <!--用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!--用于访问GPS定位-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!--用于获取运营商信息，用于支持提供运营商信息相关的接口-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!--用于访问wifi网络信息，wifi信息会用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!--用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!--用于读取手机当前的状态-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!--用于写入缓存数据到扩展存储卡-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!--用于申请调用A-GPS模块-->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <!--用于申请获取蓝牙信息进行室内定位-->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
-    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
 
     <application
         android:name=".app.App"
@@ -21,14 +34,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <!-- 声明service组件 -->
-        <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote">
-        </service>
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
         <!-- AK鉴权 -->
         <!-- meta-data需要写在application中 -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="FDVY52T5B1zagTD75KbdLm3yeE6E4iyC" />
+
+        <!--  高德  -->
+        <!-- 基础地图 -->
+        <!--  <meta-data android:name="com.amap.api.v2.apikey" android:value="5c0d3260665d6cd8dcefa2b25aeb6070">
+          </meta-data>-->
 
 
         <activity android:name=".fmk.activity.MainActivity" />
@@ -45,25 +66,47 @@
         <activity android:name=".fmk.activity.XiangQingActivity" />
         <activity android:name=".fmk.fragment.TabLayout.TabLayoutActivity" />
         <activity android:name=".fmk.activity.GouPiaoActivity" />
-        <activity android:name=".fmk.activity.GouMaiActivity"/>
-        <!-- 广播 -->
+        <activity android:name=".fmk.activity.GouMaiActivity" />
+        <!--  广播  -->
         <receiver android:name=".fmk.util.ConnectionChangeReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
 
-        <activity android:name=".zjh.module.ui.cinema.CinemaDetailsActivity"
+        <activity
+            android:name=".zjh.module.ui.cinema.CinemaDetailsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity android:name=".zjh.module.ui.cinema.my.MyRemindActivity" />
-        <activity android:name=".zjh.module.ui.cinema.my.MyPresonActivity"
+        <activity
+            android:name=".zjh.module.ui.cinema.my.MyPresonActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Dialog"/>
+            android:theme="@style/Theme.AppCompat.Dialog" />
         <activity android:name=".zjh.module.ui.cinema.my.MyLookActivity" />
         <activity android:name=".zjh.module.ui.cinema.my.MyFoodedActivity" />
         <activity android:name=".zjh.module.ui.cinema.my.MyBackMessageActivity" />
-        <activity android:name=".zjh.module.ui.cinema.ChooseSeatBuyActivity"
-            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".zjh.module.ui.cinema.ChooseSeatBuyActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- 支付宝 -->
+
+
+        <!-- 微信支付回调函数 -->
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="wxb3852e6a6b7d9516" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".zjh.module.ui.cinema.GPSAddressActivity">
+
+        </activity>
     </application>
 
 </manifest>

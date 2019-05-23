@@ -13,6 +13,9 @@ public class Apis {
     //   外网主机
     //public static final String BASE_URL = "http://mobile.bwstudent.com/";
 
+    //6. 查询用户关注的影片列表
+    public static final String MY_LIKE_MOVIE_GET = "movieApi/movie/v1/verify/findMoviePageList";
+
     // 13. 电影评论点赞
     public static final String CALL_LIKE_POPS = "movieApi/movie/v1/verify/movieCommentGreat";
     // 14.  根据影院ID查询该影院当前排期的电影列表
@@ -72,5 +75,7 @@ public class Apis {
 
     // 8.用户签到
     public static final String MY_USER_SIGNIN_GET = "movieApi/user/v1/verify/userSignIn";
+    //9. 用户购票记录查询
+    public static final String MY_FOODED_GET = "movieApi/user/v1/verify/findUserBuyTicketRecordList";
 
 }
