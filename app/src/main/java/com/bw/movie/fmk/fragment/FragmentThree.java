@@ -2,6 +2,7 @@ package com.bw.movie.fmk.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.ArrayMap;
 import android.view.View;
 import android.widget.Toast;
 
@@ -84,7 +85,7 @@ public class FragmentThree extends BaseFragment implements IView, View.OnClickLi
                 startActivity(new Intent(getActivity(), MyBackMessageActivity.class));
                 break;
             case R.id.my_newapp:       // 最新版本
-
+                findNewVersion();
                 break;
             case R.id.my_unlogin:      //退出登录
                 Intent intent2 = new Intent(getActivity(), LogActivity.class);
@@ -94,6 +95,15 @@ public class FragmentThree extends BaseFragment implements IView, View.OnClickLi
             default:
                 break;
         }
+    }
+
+
+    /*
+    *  检查版本
+    * */
+    private void findNewVersion() {
+
+
     }
 
     /*

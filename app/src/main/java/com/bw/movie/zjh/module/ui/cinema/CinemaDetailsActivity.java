@@ -1,11 +1,16 @@
 package com.bw.movie.zjh.module.ui.cinema;
 
+import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,12 +33,14 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import recycler.coverflow.CoverFlowLayoutManger;
 import recycler.coverflow.RecyclerCoverFlow;
 
 public class CinemaDetailsActivity extends BaseActivity implements IView {
@@ -52,12 +59,15 @@ public class CinemaDetailsActivity extends BaseActivity implements IView {
     TextView like_name;
     @BindView(R.id.like_address)
     TextView like_address;
+    @BindView(R.id.home_progress)
+    RelativeLayout home_progress;
 
     private String moviename;
     private String cinemaId;
     private String logo;
     private String name;
     private String address;
+    private List<MovieCoverFlowBean.ResultBean> result;
 
     @Override
     public int bindLayout() {
@@ -81,7 +91,7 @@ public class CinemaDetailsActivity extends BaseActivity implements IView {
 
     @Override
     protected void initData() {
-        //电影
+        //电影旋转木马
         Map<String, String> map = new HashMap<>();
         map.put("cinemaId", cinemaId);
         iPresenter.getPresenterData(Apis.CINEMA_ARRANGE_WORK_GET, map, MovieCoverFlowBean.class);
@@ -94,6 +104,18 @@ public class CinemaDetailsActivity extends BaseActivity implements IView {
             public void OnMovieClick(String movieid, String movieName) {
                 moviename = movieName;
                 joinData(movieid);
+            }
+        });
+
+        //滑动导航
+        recyclerCoverFlow.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
+            @Override
+            public void onItemSelected(int position) {
+                WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+                int i = wm.getDefaultDisplay().getWidth() / result.size();
+                ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(home_progress,"translationX", i,i);
+                objectAnimator.setDuration(200);
+                objectAnimator.start();
             }
         });
     }
@@ -176,6 +198,7 @@ public class CinemaDetailsActivity extends BaseActivity implements IView {
     public void viewDataSuccess(Object data) {
         if (data instanceof MovieCoverFlowBean) {
             MovieCoverFlowBean coverFlowBean = (MovieCoverFlowBean) data;
+            result = coverFlowBean.getResult();
             //Toast.makeText(this, "电影"+coverFlowBean.getMessage(), Toast.LENGTH_SHORT).show();
             //旋转木马展示
             mFlowAdapter.setDatas(coverFlowBean.getResult());

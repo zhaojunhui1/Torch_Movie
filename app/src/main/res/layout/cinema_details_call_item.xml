@@ -70,7 +70,6 @@
                     android:id="@+id/call_praise"
                     android:layout_width="@dimen/sp_16"
                     android:layout_height="@dimen/sp_16"
-                    android:src="@mipmap/com_icon_praise_default"
                     />
                 <TextView
                     android:id="@+id/praise_number"

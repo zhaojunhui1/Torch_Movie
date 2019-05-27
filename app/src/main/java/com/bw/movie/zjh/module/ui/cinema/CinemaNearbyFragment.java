@@ -2,11 +2,9 @@ package com.bw.movie.zjh.module.ui.cinema;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -17,13 +15,11 @@ import com.bw.movie.zjh.module.beans.cinema.CinemaMessage;
 import com.bw.movie.zjh.module.beans.cinema.LikeCinemaBean;
 import com.bw.movie.zjh.module.beans.cinema.NearbyFjBean;
 import com.bw.movie.zjh.module.beans.cinema.UnLikeCinemaBean;
-import com.bw.movie.zjh.module.ui.cinema.seak.Const;
 import com.bw.movie.zjh.module.utils.config.Config;
+import com.bw.movie.zjh.module.utils.location.Const;
 import com.bw.movie.zjh.module.utils.mvp.presenter.IPresenterImpl;
 import com.bw.movie.zjh.module.utils.mvp.util.Apis;
 import com.bw.movie.zjh.module.utils.mvp.view.IView;
-import com.jcodecraeer.xrecyclerview.ProgressStyle;
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.scwang.smartrefresh.header.WaveSwipeHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;

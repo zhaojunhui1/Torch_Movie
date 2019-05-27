@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bw.movie.R;
 import com.bw.movie.zjh.module.beans.my.MyFoodedBean;
+import com.bw.movie.zjh.module.utils.dataUtil.DataTime;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -61,6 +62,10 @@ public class MyFoodedPayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         ViewHolder mHolder = (ViewHolder) viewHolder;
+        //下单时间
+        String chatTime = DataTime.getNewChatTime(mPay.get(i).getCreateTime()/*, "MM-dd HH:mm"*/);
+        mHolder.ordertime.setText(chatTime);
+
         mHolder.movie_name.setText(mPay.get(i).getMovieName());
         mHolder.orderid.setText("订单号: "+mPay.get(i).getOrderId());
         mHolder.cinema.setText("影院: "+mPay.get(i).getCinemaName());
@@ -83,6 +88,8 @@ public class MyFoodedPayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.ordertime)
+        TextView ordertime;
         @BindView(R.id.movie_name)
         TextView movie_name;
         @BindView(R.id.orderid)

@@ -54,7 +54,7 @@ public class MyFoodedFinishAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.my_fooded_pay_item, viewGroup, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.my_fooded_finish_item, viewGroup, false);
         return new ViewHolder(view);
     }
 
@@ -62,15 +62,17 @@ public class MyFoodedFinishAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         ViewHolder mHolder = (ViewHolder) viewHolder;
         mHolder.movie_name.setText(mFinish.get(i).getMovieName());
+        mHolder.starttime.setText(mFinish.get(i).getBeginTime() + "-" + mFinish.get(i).getEndTime());
         mHolder.orderid.setText("订单号: " + mFinish.get(i).getOrderId());
-        mHolder.cinema.setText("影院: " + mFinish.get(i).getCinemaName());
-        mHolder.house.setText("影厅: " + mFinish.get(i).getScreeningHall());
-        //时间
+        //下单时间
         long createTime = mFinish.get(i).getCreateTime();
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         formatter.setTimeZone(TimeZone.getTimeZone("GMT+00:00"));
         String dataTime = formatter.format(createTime);
-        mHolder.datatime.setText("时间: " + dataTime + " " + mFinish.get(i).getBeginTime() + "-" + mFinish.get(i).getEndTime());
+        mHolder.datatime.setText("下单时间: " + dataTime);
+
+        mHolder.cinema.setText("影院: " + mFinish.get(i).getCinemaName());
+        mHolder.house.setText("影厅: " + mFinish.get(i).getScreeningHall());
 
         mHolder.number.setText("数量: " + mFinish.get(i).getAmount() + "张");
         mHolder.price.setText("金额: " + mFinish.get(i).getPrice() * mFinish.get(i).getAmount() + "元");
@@ -85,6 +87,8 @@ public class MyFoodedFinishAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.movie_name)
         TextView movie_name;
+        @BindView(R.id.starttime)
+        TextView starttime;
         @BindView(R.id.orderid)
         TextView orderid;
         @BindView(R.id.cinema)
@@ -97,9 +101,6 @@ public class MyFoodedFinishAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         TextView number;
         @BindView(R.id.price)
         TextView price;
-
-        @BindView(R.id.pay)
-        RelativeLayout pay;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

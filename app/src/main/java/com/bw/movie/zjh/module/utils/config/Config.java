@@ -9,7 +9,7 @@ package com.bw.movie.zjh.module.utils.config;
  */
 public class Config {
     public static final int PAGE_NUMBER_HOME = 1;
-    public static final int COUNT_NUMBER_HOME = 5;
+    public static final int COUNT_NUMBER_HOME = 7;
     //微信支付
     public static final String APP_ID = "wxb3852e6a6b7d9516";
     // 嗨黔东南商户号

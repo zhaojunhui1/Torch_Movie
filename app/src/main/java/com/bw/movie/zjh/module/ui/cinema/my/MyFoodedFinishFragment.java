@@ -37,7 +37,7 @@ import butterknife.Unbinder;
  * desc   :
  * version: 1.0
  */
-public class MyFoodedFinishFragment  extends BaseFragment implements IView {
+public class MyFoodedFinishFragment extends BaseFragment implements IView {
 
     private Unbinder bind;
     private IPresenterImpl iPresenter;

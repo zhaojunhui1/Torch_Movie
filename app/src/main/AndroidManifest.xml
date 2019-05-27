@@ -4,6 +4,13 @@
 
     <!--网络权限-->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <uses-permission android:name="android.permission.WRITE_CALL_LOG" />
+    <uses-permission android:name="android.permission.USE_SIP" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+    <uses-permission android:name="android.permission.ADD_VOICEMAIL" />
+
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <!--用于进行网络定位-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -21,9 +28,17 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!--用于申请调用A-GPS模块-->
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+
     <!--用于申请获取蓝牙信息进行室内定位-->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!--手机状态权限-->
+    <uses-permission android:name="permission:android.permission.CALL_PHONE"/>
+    <uses-permission android:name=" permission:android.permission.PROCESS_OUTGOING_CALLS"/>
+    <uses-permission android:name="permission:com.android.voicemail.permission.ADD_VOICEMAIL"/>
 
 
     <application
@@ -34,23 +49,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <!-- 声明service组件 -->
-        <service
+       <!-- <service
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote" />
-        <!-- AK鉴权 -->
-        <!-- meta-data需要写在application中 -->
+        &lt;!&ndash; AK鉴权 &ndash;&gt;
+        &lt;!&ndash; meta-data需要写在application中 &ndash;&gt;
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="FDVY52T5B1zagTD75KbdLm3yeE6E4iyC" />
-
-        <!--  高德  -->
-        <!-- 基础地图 -->
-        <!--  <meta-data android:name="com.amap.api.v2.apikey" android:value="5c0d3260665d6cd8dcefa2b25aeb6070">
-          </meta-data>-->
-
+            android:value="FDVY52T5B1zagTD75KbdLm3yeE6E4iyC"/>-->
 
         <activity android:name=".fmk.activity.MainActivity" />
         <activity android:name=".fmk.activity.YinDaoActivity">
@@ -60,6 +67,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!--  高德  -->
+        <!-- 基础地图 -->
+        <service android:name="com.amap.api.location.APSService"></service>
+        <meta-data android:name="com.amap.api.v2.apikey"
+            android:value="fa689b1b2c843838534ec64bcb2432a8">
+        </meta-data>
+
+
         <activity android:name=".fmk.activity.LogActivity" />
         <activity android:name=".fmk.activity.ZhuCeActivity" />
         <activity android:name=".fmk.fragment.FragmentActivity" />
@@ -78,10 +94,7 @@
             android:name=".zjh.module.ui.cinema.CinemaDetailsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity android:name=".zjh.module.ui.cinema.my.MyRemindActivity" />
-        <activity
-            android:name=".zjh.module.ui.cinema.my.MyPresonActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Dialog" />
+        <activity android:name=".zjh.module.ui.cinema.my.MyPresonActivity" />
         <activity android:name=".zjh.module.ui.cinema.my.MyLookActivity" />
         <activity android:name=".zjh.module.ui.cinema.my.MyFoodedActivity" />
         <activity android:name=".zjh.module.ui.cinema.my.MyBackMessageActivity" />

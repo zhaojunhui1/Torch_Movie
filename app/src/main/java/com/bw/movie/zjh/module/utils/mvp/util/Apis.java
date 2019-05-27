@@ -9,9 +9,9 @@ package com.bw.movie.zjh.module.utils.mvp.util;
  */
 public class Apis {
     //   内网主机名
-    public static final String BASE_URL = "http://172.17.8.100/";
+    //public static final String BASE_URL = "http://172.17.8.100/";
     //   外网主机
-    //public static final String BASE_URL = "http://mobile.bwstudent.com/";
+    public static final String BASE_URL = "http://mobile.bwstudent.com/";
 
     //6. 查询用户关注的影片列表
     public static final String MY_LIKE_MOVIE_GET = "movieApi/movie/v1/verify/findMoviePageList";
@@ -77,5 +77,17 @@ public class Apis {
     public static final String MY_USER_SIGNIN_GET = "movieApi/user/v1/verify/userSignIn";
     //9. 用户购票记录查询
     public static final String MY_FOODED_GET = "movieApi/user/v1/verify/findUserBuyTicketRecordList";
+
+
+    //1. 意见反馈
+    public static final String MY_BACE_MESSAGE_POST = "movieApi/tool/v1/verify/recordFeedBack";
+    //2. 新版本
+    public static final String MY_NEW_APP_GET = "movieApi/tool/v1/findNewVersion";
+    // 3.系统消息
+    public static final String MY_REMIND_GET = "movieApi/tool/v1/verify/findAllSysMsgList";
+    // 4.读取状态修改
+    public static final String MY_READ_STATUS_GET = "movieApi/tool/v1/verify/changeSysMsgStatus";
+    // 5. 未读消息数量
+    public static final String MY_UNREAD_NUM_GET = "movieApi/tool/v1/verify/findUnreadMessageCount";
 
 }

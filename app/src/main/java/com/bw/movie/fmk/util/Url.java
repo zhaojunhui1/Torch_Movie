@@ -7,10 +7,10 @@ package com.bw.movie.fmk.util;
  */
 public class Url {
 
-    //http://mobile.bwstudent.com
-    //http://172.17.8.100/
+    //http://mobile.bwstudent.com/
+    //http://172.17.8.100/tt
 
-    public static String TOU = "http://172.17.8.100/";
+    public static String TOU = "http://mobile.bwstudent.com/";
 
     //登录，http://172.17.8.100/movieApi/user/v1/login
     public static String DENGLU = "movieApi/user/v1/login";

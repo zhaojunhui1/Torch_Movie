@@ -131,7 +131,6 @@ public class MyFoodedPayFragment extends BaseFragment implements IView {
     /*
      *  内存释放
      * */
-
     @Override
     public void onDestroy() {
         super.onDestroy();
