@@ -63,7 +63,7 @@ public class LogActivity extends BasefActivity implements VInterface.VInterfaceD
 
     @Override
     protected void initView() {
-        StatusBarWindowTop.setStatusBarFullTransparent(this);
+        StatusBarWindowTop.setStatusBarFullTransparent(LogActivity.this);
 
         phone = fvd(R.id.phone);
 

@@ -63,7 +63,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         mHolder.recommend_image.setImageURI(mDatas.get(i).getLogo());
         mHolder.recommend_name.setText(mDatas.get(i).getName());
         mHolder.recommend_address.setText(mDatas.get(i).getAddress());
-        mHolder.recommend_length.setText(mDatas.get(i).getDistance() + "km");
+        mHolder.recommend_length.setText(mDatas.get(i).getDistance()*0.001 + "km");
 
         //点击切换小红心
         if (mDatas.get(i).getFollowCinema() == 1) {

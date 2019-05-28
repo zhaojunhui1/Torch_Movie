@@ -99,7 +99,7 @@
         <!-- 基础地图 -->
         <service android:name="com.amap.api.location.APSService"></service>
         <meta-data android:name="com.amap.api.v2.apikey"
-            android:value="fa689b1b2c843838534ec64bcb2432a8">
+            android:value="7f96bb9cff519a63f33d114f0c1ea35f">
         </meta-data>
 
 

@@ -287,9 +287,10 @@ public class FragmentThree extends BaseFragment implements IView, View.OnClickLi
   /*  *  检查版本
     * */
     private void findNewVersion() {
-
+        Toast.makeText(getActivity(), "已经是最新版本了", Toast.LENGTH_SHORT).show();
 
     }
+
     /*
      *   用户签到
      *  */
