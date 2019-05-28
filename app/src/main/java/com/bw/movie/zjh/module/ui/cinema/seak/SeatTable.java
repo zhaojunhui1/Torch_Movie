@@ -257,12 +257,12 @@ public class SeatTable extends View {
     /**
      * 默认的座位图宽度,如果使用的自己的座位图片比这个尺寸大或者小,会缩放到这个大小
      */
-    private float defaultImgW = 28;
+    private float defaultImgW = 52;
 
     /**
      * 默认的座位图高度
      */
-    private float defaultImgH = 28;
+    private float defaultImgH = 52;
 
     /**
      * 座位图片的宽度
@@ -312,9 +312,9 @@ public class SeatTable extends View {
     float yScale1 = 1;
 
     private void init() {
-        spacing = (int) dip2Px(6);
-        verSpacing = (int) dip2Px(15);
-        defaultScreenWidth = (int) dip2Px(80);
+        spacing = (int) dip2Px(16);
+        verSpacing = (int) dip2Px(16);
+        defaultScreenWidth = (int) dip2Px(100);
 
         seatBitmap = BitmapFactory.decodeResource(getResources(), seatAvailableResID);
 

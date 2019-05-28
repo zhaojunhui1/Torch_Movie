@@ -170,6 +170,7 @@ public class ChooseSeatBuyActivity extends Activity implements IView {
         map.put("amount", amount + "");
         map.put("sign", s);
         iPresenter.postLoginPresenterData(Apis.BUY_MOVIE_TICKET, map, BuyMovieTicketBean.class);
+        Log.e("tab","mapzjh=="+map);
     }
 
     /*

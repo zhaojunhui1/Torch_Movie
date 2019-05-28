@@ -226,5 +226,14 @@
     </RelativeLayout>
 
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:textSize="@dimen/sp_14"
+        android:textColor="#666666"
+        android:text="不一样的视觉效果"
+        android:gravity="center"
+        />
 
 </LinearLayout>

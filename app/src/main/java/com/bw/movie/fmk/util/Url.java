@@ -7,10 +7,14 @@ package com.bw.movie.fmk.util;
  */
 public class Url {
 
-    //http://mobile.bwstudent.com/
-    //http://172.17.8.100/tt
 
-    public static String TOU = "http://mobile.bwstudent.com/";
+    //http://mobile.bwstudent.com
+    //http://172.17.8.100/
+
+    public static final String TOU = "http://mobile.bwstudent.com/";
+
+    //http://mobile.bwstudent.com/
+    //http://172.17.8.100/
 
     //登录，http://172.17.8.100/movieApi/user/v1/login
     public static String DENGLU = "movieApi/user/v1/login";
@@ -62,5 +66,27 @@ public class Url {
 
     //根据电影ID和影院ID查询电影排期列表，http://172.17.8.100/movieApi/movie/v1/findMovieScheduleList
     public static String DIANYINGID_YINGYUANID="movieApi/movie/v1/findMovieScheduleList";
+
+    //购票下单，http://172.17.8.100/movieApi/movie/v1/verify/buyMovieTicket
+    public static String GOUPIAO_XIADAN="movieApi/movie/v1/verify/buyMovieTicket";
+
+    //支付 http://172.17.8.100/movieApi/movie/v1/verify/pay
+    public static String WEIXIN_ZHIFU="movieApi/movie/v1/verify/pay";
+
+    //用户购票记录查询列表，http://172.17.8.100/movieApi/user/v1/verify/findUserBuyTicketRecordList
+    public static String GOUPIAO_JILU="movieApi/user/v1/verify/findUserBuyTicketRecordList";
+
+    //上传用户头像，http://172.17.8.100/movieApi/user/v1/verify/uploadHeadPic
+    public static String TOUXIANG="movieApi/user/v1/verify/uploadHeadPic";
+
+    //查询用户信息，http://172.17.8.100/movieApi/user/v1/verify/getUserInfoByUserId
+    public static String YONGHU_XINXI="movieApi/user/v1/verify/getUserInfoByUserId";
+
+    //重置密码，http://172.17.8.100/movieApi/user/v1/verify/modifyUserPwd
+    public static String XIUGAI_MIMA="movieApi/user/v1/verify/modifyUserPwd";
+
+    //微信登陆，http://172.17.8.100/movieApi/user/v1/weChatBindingLogin
+    public static String WEIXN_DENGLU="movieApi/user/v1/weChatBindingLogin";
+
 
 }

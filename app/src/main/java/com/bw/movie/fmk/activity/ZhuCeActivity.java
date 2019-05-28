@@ -1,8 +1,11 @@
 package com.bw.movie.fmk.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,14 +13,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bw.movie.R;
+import com.bw.movie.app.App;
 import com.bw.movie.fmk.base.BasefActivity;
+import com.bw.movie.fmk.bean.ZhuBean;
 import com.bw.movie.fmk.jiami.EncryptUtil;
 import com.bw.movie.fmk.mvp.p.MyPenster;
 import com.bw.movie.fmk.mvp.p.PInterface;
 import com.bw.movie.fmk.mvp.v.VInterface;
 import com.bw.movie.fmk.util.ZhengZeUtil;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class ZhuCeActivity extends BasefActivity implements VInterface.VInterfaceZhuCe {
 
@@ -30,6 +37,7 @@ public class ZhuCeActivity extends BasefActivity implements VInterface.VInterfac
     private Button zhuce;
     private PInterface.PInterfaceZhuCe pInterfaceZhuCe;
     private HashMap<String, String> map;
+    private List<String> zhuBean = new ArrayList<>();
     private TextView yiyou;
     private EditText zhupwdque;
     private String encrypt;
@@ -70,12 +78,25 @@ public class ZhuCeActivity extends BasefActivity implements VInterface.VInterfac
                 String mchusheng = chusheng.getText().toString();
                 //手机号
                 String mzhuphone = zhuphone.getText().toString();
+
+                 /*
+                   保存邮箱数据，传到我的页面,用户信息
+                */
+                //保存数据
+                SharedPreferences sp = getSharedPreferences("youxiang", Context.MODE_PRIVATE);
+                SharedPreferences.Editor edit = sp.edit();
+                edit.putString("name", youxiang.getText().toString().trim());
+                Log.e("tag","youxiang=="+youxiang);
+                edit.commit();
+
                 //邮箱
                 String myouxiang = youxiang.getText().toString();
                 //密码
                 String mzhupwd = zhupwd.getText().toString();
 
+                //加密
                 encrypt = EncryptUtil.encrypt(mzhupwd);
+
                 //确认密码
                 String mzhupwdque = zhupwdque.getText().toString();
 
@@ -167,10 +188,12 @@ public class ZhuCeActivity extends BasefActivity implements VInterface.VInterfac
         pInterfaceZhuCe.getZhuCe(map);
     }
 
-
     @Override
     public void showZhuCe(Object object) {
-        Toast.makeText(this, (String) object, Toast.LENGTH_LONG).show();
+        ZhuBean zhuBean2 = (ZhuBean)object;
+        String message = zhuBean2.getMessage();
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        zhuBean.add(message);
     }
 
     @Override

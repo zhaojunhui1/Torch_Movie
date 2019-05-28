@@ -1,6 +1,7 @@
 package com.bw.movie.fmk.activity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -36,6 +37,7 @@ public class MainActivity extends BasefActivity implements AMapLocationListener 
     private Timer timer;
     private int i;
 
+    @SuppressLint("HandlerLeak")
     Handler handler=new Handler(){
         @Override
         public void handleMessage(Message msg) {

@@ -1,5 +1,4 @@
 package com.bw.movie.fmk.activity;
-
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -97,7 +96,21 @@ public class GouMaiActivity extends BasefActivity implements VInterface.VInterfa
         map2.put("cinemasId","2");
         pInterfacegetDianYingPaiQi.getDianYingPaiQi(null,map2);
 
+
+        //返回
+        goumaiFan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent(GouMaiActivity.this,GouPiaoActivity.class);
+//                startActivity(intent);
+            }
+        });
+
     }
+
+
+
+
 
     @Override
     public void showXiangQingZhuYe(Object object) {

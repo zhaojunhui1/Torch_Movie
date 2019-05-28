@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="@dimen/dp_250"
+        android:layout_marginTop="@dimen/dp_400"
         android:gravity="center"
         />
 

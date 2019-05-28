@@ -83,4 +83,36 @@ public interface VInterface {
     public interface VInterfacegetDianYingPaiQi {
         void getDianYingPaiQi(Object object);
     }
+
+
+    //下单
+    public interface VInterfacegetXiaDan {
+        void getXiaDan(Object object);
+    }
+
+    //支付
+    public interface VInterfacegetZhiFu {
+        void getZhiFu(Object object);
+    }
+
+    //头像
+    public interface VInterfacegetTouXiang {
+        void getTouXiang(Object object);
+    }
+
+    //用户信息
+    public interface VInterfacegetYongHu {
+        void getYongHu(Object object);
+    }
+
+    //修改密码
+    public interface VInterfacegetXiuGai {
+        void getXiuGai(Object object);
+    }
+
+    //微信登陆
+    public interface VInterfacegetWeiXinDeng {
+        void getWeiXinDeng(Object object);
+    }
+
 }

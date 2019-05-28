@@ -35,7 +35,6 @@ public class RetroFitUtil {
     public Api api;
     private final OkHttpClient okHttpClient;
 
-
     //拦截器
     private RetroFitUtil(){
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(new httplog());
@@ -59,8 +58,7 @@ public class RetroFitUtil {
                                 .build();
                         return chain.proceed(request);
                     }
-                })
-                .build();
+                }).build();
     }
 
 

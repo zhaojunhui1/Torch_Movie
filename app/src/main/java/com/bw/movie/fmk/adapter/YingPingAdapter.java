@@ -73,6 +73,9 @@ public class YingPingAdapter extends XRecyclerView.Adapter<YingPingAdapter.Holde
             @Override
             public void onClick(View v) {
                 if (onItem!=null){
+                    onItem.onClick(i,data.get(i).getIsGreat()+1);
+                    //holder.yingping_item_zan_shu.setText(data.get(i).getIsGreat()+1);
+
                     onItem.onClick(i,data.get(i).getIsGreat());
                 }
             }
@@ -117,4 +120,6 @@ public class YingPingAdapter extends XRecyclerView.Adapter<YingPingAdapter.Holde
 
         }
     }
+
+
 }

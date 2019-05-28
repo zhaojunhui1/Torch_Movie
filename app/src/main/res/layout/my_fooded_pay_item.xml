@@ -7,8 +7,10 @@
 
 
     <RelativeLayout
-        android:layout_width="@dimen/dp_85"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/dp_30"
+        android:paddingLeft="@dimen/dp_12"
+        android:paddingRight="@dimen/dp_12"
         android:layout_gravity="center"
         android:background="@drawable/orderid_time_shape">
 

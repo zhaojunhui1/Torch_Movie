@@ -9,6 +9,9 @@ import android.view.View;
 import android.widget.RadioGroup;
 
 import com.bw.movie.R;
+
+import com.bw.movie.fmk.base.BasefActivity;
+
 import com.bw.movie.zjh.module.base.BaseActivity;
 
 import java.util.ArrayList;
@@ -17,6 +20,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
 
 /**
  * author : zjh
@@ -49,6 +53,7 @@ public class MyFoodedActivity  extends BaseActivity {
         finishFragment = new MyFoodedFinishFragment();
         fragments.add(payFragment);
         fragments.add(finishFragment);
+
     }
 
     @Override

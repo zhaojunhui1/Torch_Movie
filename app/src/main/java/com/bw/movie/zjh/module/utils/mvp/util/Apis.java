@@ -8,6 +8,7 @@ package com.bw.movie.zjh.module.utils.mvp.util;
  * version: 1.0
  */
 public class Apis {
+    //  主机名
     //   内网主机名
     //public static final String BASE_URL = "http://172.17.8.100/";
     //   外网主机

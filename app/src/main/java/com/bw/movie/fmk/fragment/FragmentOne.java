@@ -1,10 +1,16 @@
 package com.bw.movie.fmk.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.support.transition.AutoTransition;
+import android.support.transition.TransitionManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.bw.movie.R;
@@ -60,6 +66,10 @@ public class FragmentOne extends BasefFragment implements VInterface.VInterfaceL
     private SimpleDraweeView emen_you;
     private SimpleDraweeView eying_you;
     private SimpleDraweeView jijiang_you;
+    private RelativeLayout fragmone_dong;
+    private ImageView fragmone_sou;
+    private AutoTransition mSet;
+    private boolean isExpand = true;
 
     //布局
     @Override
@@ -89,7 +99,69 @@ public class FragmentOne extends BasefFragment implements VInterface.VInterfaceL
         pInterfaceRYing = new MyPenster(this);
         //即将上映
         pInterfacegetShangYing = new MyPenster(this);
+
+        /*
+          搜索，动画
+         */
+        fragmone_dong = fvd(R.id.fragmone_dong);
+        fragmone_sou = fvd(R.id.fragmone_sou);
+
+        //点击
+        fragmone_sou.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isExpand == true) {
+                    zhankai();
+                    isExpand = false;
+                } else {
+                    suofang();
+                    isExpand = true;
+                }
+            }
+        });
+
+        //展开
+        zhankai();
+
+        //缩放
+        suofang ();
     }
+
+    /*
+      展开
+      */
+    private void zhankai(){
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) fragmone_dong.getLayoutParams();
+        layoutParams.width = dip2px(getActivity(), 330);
+        fragmone_dong.setLayoutParams(layoutParams);
+        //开始动画
+        beginDelayedTransition(fragmone_dong);
+    }
+
+    /*
+     缩放
+     */
+    private void suofang() {
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) fragmone_dong.getLayoutParams();
+        layoutParams.width = dip2px(getActivity(), 330);
+        fragmone_dong.setLayoutParams(layoutParams);
+        //开始动画
+        beginDelayedTransition(fragmone_dong);
+    }
+
+    //开始动画
+    void beginDelayedTransition(ViewGroup view) {
+        mSet = new AutoTransition();
+        mSet.setDuration(300);
+        TransitionManager.beginDelayedTransition(view, mSet);
+    }
+
+    //px转换dp
+    public static int dip2px(Context context, float pxValue) {
+        float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (pxValue / scale + 0.5f);
+    }
+
 
     //数据
     @Override

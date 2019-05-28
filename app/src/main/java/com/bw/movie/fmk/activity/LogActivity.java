@@ -1,6 +1,7 @@
 package com.bw.movie.fmk.activity;
 
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.Image;
@@ -25,7 +26,12 @@ import com.bw.movie.fmk.jiami.EncryptUtil;
 import com.bw.movie.fmk.mvp.p.MyPenster;
 import com.bw.movie.fmk.mvp.p.PInterface;
 import com.bw.movie.fmk.mvp.v.VInterface;
+import com.bw.movie.fmk.wxapi.WXEntryActivity;
+import com.bw.movie.zjh.module.utils.statusbar.StatusBarWindowTop;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.util.HashMap;
 
@@ -41,6 +47,14 @@ public class LogActivity extends BasefActivity implements VInterface.VInterfaceD
     private HashMap<String, String> map;
     private boolean b = true;
     private SharedPreferences sp;
+    private TextView tiaoguo;
+    private ImageView weixin;
+
+    // APP_ID 替换为你的应用从官方网站申请到的合法appID
+    private static final String APP_ID = "wxb3852e6a6b7d9516";
+
+    // IWXAPI 是第三方app和微信通信的openApi接口
+    private IWXAPI api;
 
     @Override
     protected int getLayoutResId() {
@@ -49,13 +63,55 @@ public class LogActivity extends BasefActivity implements VInterface.VInterfaceD
 
     @Override
     protected void initView() {
+        StatusBarWindowTop.setStatusBarFullTransparent(this);
+
         phone = fvd(R.id.phone);
+
         pwd = fvd(R.id.pwd);
         yanjing = fvd(R.id.yanjing);
         jizhu = fvd(R.id.jizhu);
         kuai_zhu = fvd(R.id.kuai_zhu);
         denglu = fvd(R.id.denglu);
+        tiaoguo = fvd(R.id.tiaoguo);
+        weixin = fvd(R.id.weixin);
         pInterfaceDengLu = new MyPenster(this);
+
+        //微信
+        weixin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LogActivity.this,WXEntryActivity.class);
+                SendAuth.Req req = new SendAuth.Req();
+                req.scope = "snsapi_userinfo";
+                req.state = "wechat_sdk_demo_test";
+                api.sendReq(req);
+                startActivity(intent);
+            }
+        });
+
+        //微信登陆
+        regToWx();
+
+        inio();
+    }
+
+    //微信登陆
+    private void regToWx() {
+        // 通过WXAPIFactory工厂，获取IWXAPI的实例
+        api = WXAPIFactory.createWXAPI(this, APP_ID, true);
+        // 将应用的appId注册到微信
+        api.registerApp(APP_ID);
+    }
+
+    private void inio() {
+        tiaoguo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(LogActivity.this,FragmentActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     //数据
@@ -76,6 +132,17 @@ public class LogActivity extends BasefActivity implements VInterface.VInterfaceD
             jizhu.setChecked(false);
         }
 
+         /*
+           保存密码数据，传到修改页面
+         */
+        //保存数据
+//        SharedPreferences sp1 = getSharedPreferences("jiupwd", Context.MODE_PRIVATE);
+//        SharedPreferences.Editor edit = sp.edit();
+//        edit.putString("pwd2", pwd.getText().toString().trim());
+//        Log.e("tag","pwd=="+pwd);
+//        edit.commit();
+
+        //记住密码
         denglu.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -89,7 +156,7 @@ public class LogActivity extends BasefActivity implements VInterface.VInterfaceD
                 if (jizhu.isChecked()){
 
                     edit.putString("phone",phone1);
-                    edit.putString("pwd",pwd1);
+                    edit.putString("pwd", pwd1);
                     edit.putBoolean("flag",true);
                     edit.commit();
                 }else {

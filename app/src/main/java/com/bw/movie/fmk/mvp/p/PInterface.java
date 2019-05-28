@@ -2,6 +2,8 @@ package com.bw.movie.fmk.mvp.p;
 
 import java.util.HashMap;
 
+import okhttp3.MultipartBody;
+
 /**
  * @Auther: 付明锟
  * @Date: 2019/5/9 17:11
@@ -97,4 +99,42 @@ public interface PInterface {
         void getDianYingPaiQi(String url,HashMap<String, String> map);
         void onDsply();
     }
+
+
+    //购票下单
+    public interface PInterfacegetXiaDan {
+        void getXiaDan (String url,HashMap<String, String> map);
+        void onDsply();
+    }
+
+    //支付
+    public interface PInterfacegetZhiFu {
+        void getZhiFu (String url,HashMap<String, String> map);
+        void onDsply();
+    }
+
+    //头像
+    public interface PInterfacegetTouXiang {
+        void getTouXiang (String url, MultipartBody.Part file);
+        void onDsply();
+    }
+
+    //用户信息
+    public interface PInterfacegetYongHu {
+        void getYongHu (String url);
+        void onDsply();
+    }
+
+    //修改密码
+    public interface PInterfacegetXiuGai {
+        void getXiuGai(String url ,HashMap<String, String> map);
+        void onDsply();
+    }
+
+    //微信登陆
+    public interface PInterfacegetWeiXinDengLu {
+        void getWeiXinDengLu(String url ,HashMap<String, String> map);
+        void onDsply();
+    }
+
 }

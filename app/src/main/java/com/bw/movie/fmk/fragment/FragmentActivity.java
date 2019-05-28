@@ -109,8 +109,6 @@ public class FragmentActivity extends BaseActivity {
         });
     }
 
-
-
     @Override
     protected void onDestroy() {
         super.onDestroy();

@@ -1,6 +1,7 @@
 package com.bw.movie.fmk.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,6 +11,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bw.movie.R;
+import com.bw.movie.fmk.activity.GouMaiActivity;
+import com.bw.movie.fmk.activity.XiangQingActivity;
+import com.bw.movie.fmk.activity.YuanZuoActivity;
+
 import com.bw.movie.fmk.bean.GouPiaoBean;
 import com.bw.movie.fmk.bean.PaiQiBeam;
 
@@ -39,29 +44,77 @@ public class PaiQiAdapter extends RecyclerView.Adapter<PaiQiAdapter.Holder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Holder holder, int i) {
-        String screeningHall = data.get(i).getScreeningHall();
+    public void onBindViewHolder(@NonNull Holder holder, final int i) {
+        final String screeningHall = data.get(i).getScreeningHall();
         holder.pai_item_name.setText(screeningHall);
 
-        String beginTime = data.get(i).getBeginTime();
+        final String beginTime = data.get(i).getBeginTime();
         holder.pai_item_kai.setText(beginTime);
 
-        String endTime = data.get(i).getEndTime();
+        final String endTime = data.get(i).getEndTime();
         holder.pai_item_jie.setText(endTime);
 
-        double price = data.get(i).getPrice();
-        holder.pai_item_qian.setText(price+"");
+        final double price = data.get(i).getPrice();
+        holder.pai_item_qian.setText(price + "");
+
+        final String id = data.get(i).getId() + "";
+
+
+        //点击
+        /****** 给XuanZuoActiviy传值 *******/
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, YuanZuoActivity.class);
+                intent.putExtra("gou_name", screeningHall);
+                intent.putExtra("gou_beginTime", beginTime);
+                intent.putExtra("gou_endTime", endTime);
+                intent.putExtra("gou_price", price);
+                //排期Id
+                intent.putExtra("scheduleId", id);
+                mContext.startActivity(intent);
+            }
+        });
     }
+
+      /*  public void onBindViewHolder (@NonNull Holder holder,int i){
+
+            String screeningHall = data.get(i).getScreeningHall();
+            holder.pai_item_name.setText(screeningHall);
+
+            String beginTime = data.get(i).getBeginTime();
+            holder.pai_item_kai.setText(beginTime);
+
+            String endTime = data.get(i).getEndTime();
+            holder.pai_item_jie.setText(endTime);
+
+            double price = data.get(i).getPrice();
+            holder.pai_item_qian.setText(price + "");
+
+        }*/
+
+        //接口
+//    public interface OnItem{
+//        void onClick(int position,String movieId);
+//    }
+//
+//    private OnItem onItem;
+//
+//    //一个公共的方法
+//    public void setOnItem(OnItem onItem) {
+//        this.onItem = onItem;
+//    }
+
 
     @Override
     public int getItemCount() {
-        Log.e("tab","data"+data);
         return data.size();
     }
 
-    public class Holder extends RecyclerView.ViewHolder {
 
-        private final TextView pai_item_name,pai_item_kai,pai_item_jie,pai_item_qian;
+    class Holder extends RecyclerView.ViewHolder {
+
+        private final TextView pai_item_name, pai_item_kai, pai_item_jie, pai_item_qian;
 
         public Holder(@NonNull View itemView) {
             super(itemView);
@@ -71,4 +124,5 @@ public class PaiQiAdapter extends RecyclerView.Adapter<PaiQiAdapter.Holder> {
             pai_item_qian = itemView.findViewById(R.id.pai_item_qian);
         }
     }
+
 }

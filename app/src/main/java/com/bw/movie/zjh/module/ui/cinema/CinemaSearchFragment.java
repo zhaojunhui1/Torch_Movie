@@ -161,6 +161,7 @@ public class CinemaSearchFragment extends BaseFragment implements IView {
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void search(SearchBean searchBean){
         searchName = searchBean.getSearch();
+        Toast.makeText(getActivity(), searchName+"", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -191,7 +192,6 @@ public class CinemaSearchFragment extends BaseFragment implements IView {
     /*
     *  内存处理
     * */
-
     @Override
     public void onDestroy() {
         super.onDestroy();

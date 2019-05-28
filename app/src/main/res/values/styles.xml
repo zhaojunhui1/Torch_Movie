@@ -38,6 +38,16 @@
     <style name="Theme.FloatActivity" parent="Theme.AppCompat.Dialog.Alert">
         <!-- float_box为我们定义的窗口背景 ，这个不是必须的-->
         <item name="android:windowBackground">@drawable/float_box</item>
+
+    </style>
+
+    <style name="BottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/bottomSheetStyleWrapper</item>
+    </style>
+
+    <style name="bottomSheetStyleWrapper" parent="Widget.Design.BottomSheet.Modal">
+        <item name="behavior_peekHeight">100dp</item>
+
     </style>
 
 </resources>

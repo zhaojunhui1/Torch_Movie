@@ -23,6 +23,32 @@
                     android:layout_height="@dimen/dp_186"
                     android:background="@mipmap/lunbei"/>
 
+
+                <RelativeLayout
+                    android:id="@+id/fragmone_dong"
+                    android:layout_width="@dimen/dp_80"
+                    android:layout_height="@dimen/dp_24"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/dp_40"
+                    android:background="@drawable/shape_search_home">
+
+                    <ImageView
+                        android:id="@+id/fragmone_sou"
+                        android:src="@mipmap/com_icon_search_default"
+                        android:layout_width="@dimen/dp_30"
+                        android:layout_height="@dimen/dp_30"
+                        />
+
+                    <TextView
+                        android:hint="搜索"
+                        android:layout_marginLeft="@dimen/dp_24"
+                        android:layout_marginTop="@dimen/dp_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+
+
                 <!--   旋转木马相册    -->
                 <recycler.coverflow.RecyclerCoverFlow
                     android:id="@+id/lubo"

@@ -39,8 +39,8 @@ public class DataTime {
         } else if (hour >= 18) {
             am_pm = "晚上";
         }
-        timeFormat = "M月d日 " + am_pm + "HH:mm";
-        yearTimeFormat = "yyyy年M月d日 " + am_pm + "HH:mm";
+        timeFormat = "M/d " + am_pm + "HH:mm";
+        yearTimeFormat = "yyyy/M/d日 " + am_pm + "HH:mm";
         boolean yearTemp = todayCalendar.get(Calendar.YEAR) == otherCalendar.get(Calendar.YEAR);
         if (yearTemp) {
             int todayMonth = todayCalendar.get(Calendar.MONTH);
