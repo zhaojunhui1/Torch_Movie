@@ -15,6 +15,7 @@ import android.widget.RadioGroup;
 import com.bw.movie.R;
 import com.bw.movie.fmk.adapter.YinDaoAdapter;
 import com.bw.movie.fmk.base.BasefActivity;
+import com.bw.movie.zjh.module.utils.statusbar.StatusBarWindowTop;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -58,6 +59,7 @@ public class YinDaoActivity extends BasefActivity {
 
     @Override
     protected void initView() {
+        StatusBarWindowTop.setStatusBarFullTransparent(YinDaoActivity.this);
         pager = fvd(R.id.pager);
         radioGroup = fvd(R.id.radioGroup);
 

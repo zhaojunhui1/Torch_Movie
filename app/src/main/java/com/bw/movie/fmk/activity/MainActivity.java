@@ -8,21 +8,10 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
-import android.widget.Toast;
-
-import com.amap.api.location.AMapLocation;
-import com.amap.api.location.AMapLocationClient;
-import com.amap.api.location.AMapLocationClientOption;
-import com.amap.api.location.AMapLocationListener;
 import com.bw.movie.R;
 import com.bw.movie.fmk.base.BasefActivity;
-import com.bw.movie.zjh.module.utils.location.Const;
+import com.bw.movie.zjh.module.utils.statusbar.StatusBarWindowTop;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -74,7 +63,7 @@ public class MainActivity extends BasefActivity {
 
     @Override
     protected void initView() {
-
+        StatusBarWindowTop.setStatusBarFullTransparent(MainActivity.this);
     }
 
 

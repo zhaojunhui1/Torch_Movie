@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -60,8 +59,8 @@ public class MyFoodedPayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-        ViewHolder mHolder = (ViewHolder) viewHolder;
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
+        final ViewHolder mHolder = (ViewHolder) viewHolder;
         //下单时间
         String chatTime = DataTime.getNewChatTime(mPay.get(i).getCreateTime()/*, "MM-dd HH:mm"*/);
         mHolder.ordertime.setText(chatTime);
@@ -80,6 +79,16 @@ public class MyFoodedPayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         mHolder.number.setText("数量: "+mPay.get(i).getAmount()+"张");
         mHolder.price.setText("金额: "+mPay.get(i).getPrice()*mPay.get(i).getAmount()+"元");
 
+
+        //点击支付
+        mHolder.pay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mFoodedPayListener != null){
+                    mFoodedPayListener.OnClickPay(mPay.get(i).getOrderId(), mPay.get(i).getPrice()*mPay.get(i).getAmount());
+                }
+            }
+        });
     }
 
     @Override
@@ -113,5 +122,13 @@ public class MyFoodedPayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 
+
+    FoodedPayListener mFoodedPayListener;
+    public void setFoodedPayListener(FoodedPayListener foodedPayListener){
+        this.mFoodedPayListener = foodedPayListener;
+    }
+    public interface FoodedPayListener{
+        void OnClickPay(String orderId, double priceAll);
+    }
 
 }

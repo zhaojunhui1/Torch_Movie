@@ -314,7 +314,7 @@ public class FragmentTwo extends BaseFragment implements IView {
 
                 //解析定位结果，
                 String result = sb.toString();
-                Log.e("LLLLL", result+"");
+                //Log.e("LLLLL", result+"");
                 //TODO  定位地址
                 location_address.setText(location.getAddress());
                 Const.LONGITUDE = location.getLongitude();  //经度

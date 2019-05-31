@@ -16,15 +16,9 @@
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission
         android:name="android.permission.WRITE_APN_SETTINGS"
         tools:ignore="ProtectedPermissions" />
-
-    <!-- //获取设备网络状态，禁用后无法获取网络状态 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!-- //网络权限，当禁用后，无法进行检索等相关业务 -->
-    <uses-permission android:name="android.permission.INTERNET" />
 
     <!-- 微信配置 -->
     <meta-data
@@ -40,10 +34,6 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!--用于访问GPS定位-->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <!--用于获取运营商信息，用于支持提供运营商信息相关的接口-->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!--用于访问wifi网络信息，wifi信息会用于进行网络定位-->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <!--用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <!--用于读取手机当前的状态-->
@@ -56,7 +46,6 @@
     <!--用于申请获取蓝牙信息进行室内定位-->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <!--手机状态权限-->
@@ -114,11 +103,11 @@
         <activity android:name=".fmk.activity.YuanZuoActivity" />
         <activity android:name=".fmk.activity.WeiXinZhiFuActivity" />
         <activity android:name=".fmk.activity.XiuGaiMiMaActivity" />
-        <activity android:name=".fmk.activity.HomeActivity"></activity>
+        <activity android:name=".fmk.activity.HomeActivity"/>
         <activity android:name=".fmk.wxapi.WXEntryActivity"
             android:exported="true"
             android:launchMode="singleTop"
-            ></activity>
+            />
 
 
         <activity
@@ -155,7 +144,18 @@
             android:screenOrientation="portrait" />
 
         <!-- 支付宝 -->
-
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
+        <activity
+            android:name="com.alipay.sdk.app.H5AuthActivity"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
 
         <!-- 微信支付回调函数 -->
         <activity
@@ -169,10 +169,7 @@
                 <data android:scheme="wxb3852e6a6b7d9516" />
             </intent-filter>
         </activity>
-        <activity android:name=".zjh.module.ui.cinema.GPSAddressActivity">
-
-
-        </activity>
+        <activity android:name=".zjh.module.ui.cinema.gpsnav.GPSAddressActivity"/>
     </application>
 
 </manifest>
